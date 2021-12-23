@@ -1,0 +1,36 @@
+[
+    {
+        "idGroup": "agropecuaria",
+        "labelGroup": "translate",
+        "groupExpanded": false,
+        "layers": [
+            {
+                "idLayer": "agricultura",
+                "labelLayer": "translate",
+                "visible": false,
+                "selectedType": "agricultura_agrosatelite",
+                "types": [
+                    "agricultura_agrosatelite"
+                ]
+            },
+            {
+                "idLayer": "soilgrids",
+                "labelLayer": "translate",
+                "visible": false,
+                "selectedType": "soilgrids_argila",
+                "types": [
+                    "soilgrids_argila"
+                ]
+            },
+            {
+                "idLayer": "pa_br_et_500_2013201_lapig",
+                "labelLayer": "translate",
+                "visible": false,
+                "selectedType": "pa_br_et_500_2013201_lapig",
+                "types": [
+                    "pa_br_et_500_2013201_lapig"
+                ]
+            }
+        ]
+    }
+]

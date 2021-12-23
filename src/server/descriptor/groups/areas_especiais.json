@@ -1,0 +1,27 @@
+[
+    {
+        "idGroup": "areas_especiais",
+        "labelGroup": "translate",
+        "groupExpanded": false,
+        "layers": [
+            {
+                "idLayer": "terras_indigenas_layer",
+                "labelLayer": "translate",
+                "visible": false,
+                "selectedType": "limites_terras_indigenas",
+                "types": [
+                    "limites_terras_indigenas"
+                ]
+            },
+            {
+                "idLayer": "assentamentos_layer",
+                "labelLayer": "translate",
+                "visible": false,
+                "selectedType": "assentamentos",
+                "types": [
+                    "assentamentos"
+                ]
+            }
+        ]
+    }
+]

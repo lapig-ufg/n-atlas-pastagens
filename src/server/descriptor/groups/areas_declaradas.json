@@ -1,0 +1,27 @@
+[
+    {
+        "idGroup": "areas_declaradas",
+        "labelGroup": "translate",
+        "groupExpanded": false,
+        "layers": [
+            {
+                "idLayer": "propriedades_rurais",
+                "labelLayer": "translate",
+                "visible": false,
+                "selectedType": "geo_car_imovel",
+                "types": [
+                    "geo_car_imovel"
+                ]
+            },
+            {
+                "idLayer": "planejamento_hidrico",
+                "labelLayer": "translate",
+                "visible": false,
+                "selectedType": "unidades_planejamento_hidrico",
+                "types": [
+                    "unidades_planejamento_hidrico"
+                ]
+            }
+        ]
+    }
+]
