@@ -19,6 +19,10 @@ load('config.js', { 'verbose': false })
 app.database.client.init(function () {
     app.use(cookie);
 
+    app.get('/map', function(req, res) {
+        res.redirect('/');
+    });
+
     app.use(compression());
     app.use(express.static(app.config.clientDir));
     app.set('views', __dirname + '/templates');
