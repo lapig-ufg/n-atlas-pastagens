@@ -20,8 +20,8 @@ import { saveAs } from 'file-saver';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Coordinate, createStringXY } from "ol/coordinate";
 import { toLonLat } from "ol/proj";
-import {MapEvent, Overlay} from "ol";
-import {BingMaps, TileWMS, XYZ} from "ol/source";
+import { MapEvent, Overlay } from "ol";
+import { BingMaps, TileWMS, XYZ } from "ol/source";
 import { Fill, Stroke, Style } from "ol/style";
 import { Geometry, LinearRing, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from 'ol/geom';
 import { Feature } from "ol";
@@ -51,6 +51,9 @@ import { HttpService } from "../services/http.service";
 import { DecimalPipe } from "@angular/common";
 import * as moment from 'moment';
 import buffer from "@turf/buffer";
+import turfDistance from "@turf/distance";
+import * as turfHelper from "@turf/helpers";
+import turfCentroid from "@turf/centroid";
 import { environment } from "../../../environments/environment";
 import { GoogleAnalyticsService } from "../services/google-analytics.service";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -59,7 +62,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   selector: 'app-general-map',
   templateUrl: './general-map.component.html',
   styleUrls: ['./general-map.component.scss', './responsivity/general-map.component-mobile.scss', './responsivity/general-map.component-tablet.scss'],
-  providers: [ MessageService ]
+  providers: [MessageService]
 })
 
 export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
@@ -71,7 +74,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
   @Input() set descriptor(value: Descriptor) {
     if (value) {
       this._descriptor = value;
-      console.log(value)
       this.onChangeDescriptor();
     }
   }
@@ -190,7 +192,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     //IF para identificar quando o caso é mobile.
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
       this.legendExpanded = false;
-  }
+    }
 
     this.controlOptions = false;
     this.loadingMap = false;
@@ -622,7 +624,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
           typeLayer.download['loading'] = false;
         })
         layer.selectedTypeObject = layer.types.find(type => type.valueType === layer.selectedType);
-        console.log( 'General', layer)
         layer.selectedTypeObject!.visible = layer.visible;
         for (let types of layer.types) {
           this.layersTypes.push(types)
@@ -990,7 +991,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
       layerTMS.setOpacity(op);
     } else {
       layerTMS = this.OlLayers[layer.selectedType];
-      if(layerTMS){
+      if (layerTMS) {
         layerTMS.setOpacity(op);
       }
     }
@@ -1420,7 +1421,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     }
   }
 
-  onExtentBrazil(){
+  onExtentBrazil() {
     this.map.getView().fit([], { duration: 900 });
   }
 
@@ -1597,28 +1598,28 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
   onSave() {
 
     //IF para identificar quando o caso é mobile.
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-    let drawData = { geometry: this.getGeoJsonFromFeature(), app_origin: 'app-base' }
-    this.areaService.saveDrawedGeometry(drawData)
-      .subscribe(data => {
-        this.onSearchDrawnGeometryMobile.emit(data.token);
-        this.printRegionsIdentification(data.token);
-        this.onCancel();
-        this.messageService.add({ life:30000000, severity:'success', summary: this.localizationService.translate('area.save_message_success.title', {token: data.token}), detail: this.localizationService.translate('area.save_message_success.msg')})
-      }, error => {
-        this.messageService.add({ severity:'error', summary: this.localizationService.translate('area.save_message_error.title'), detail: this.localizationService.translate('area.save_message_error.msg')});
-      })
-     }else{
-    let drawData = { geometry: this.getGeoJsonFromFeature(), app_origin: 'app-base' }
-    this.areaService.saveDrawedGeometry(drawData)
-      .subscribe(data => {
-        this.onSearchDrawnGeometry.emit(data.token);
-        this.printRegionsIdentification(data.token);
-        this.onCancel();
-        this.messageService.add({ life: 30000000, severity: 'success', summary: this.localizationService.translate('area.save_message_success.title', { token: data.token }), detail: this.localizationService.translate('area.save_message_success.msg') })
-      }, error => {
-        this.messageService.add({ severity: 'error', summary: this.localizationService.translate('area.save_message_error.title'), detail: this.localizationService.translate('area.save_message_error.msg') });
-      })
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+      let drawData = { geometry: this.getGeoJsonFromFeature(), app_origin: 'app-base' }
+      this.areaService.saveDrawedGeometry(drawData)
+        .subscribe(data => {
+          this.onSearchDrawnGeometryMobile.emit(data.token);
+          this.printRegionsIdentification(data.token);
+          this.onCancel();
+          this.messageService.add({ life: 30000000, severity: 'success', summary: this.localizationService.translate('area.save_message_success.title', { token: data.token }), detail: this.localizationService.translate('area.save_message_success.msg') })
+        }, error => {
+          this.messageService.add({ severity: 'error', summary: this.localizationService.translate('area.save_message_error.title'), detail: this.localizationService.translate('area.save_message_error.msg') });
+        })
+    } else {
+      let drawData = { geometry: this.getGeoJsonFromFeature(), app_origin: 'app-base' }
+      this.areaService.saveDrawedGeometry(drawData)
+        .subscribe(data => {
+          this.onSearchDrawnGeometry.emit(data.token);
+          this.printRegionsIdentification(data.token);
+          this.onCancel();
+          this.messageService.add({ life: 30000000, severity: 'success', summary: this.localizationService.translate('area.save_message_success.title', { token: data.token }), detail: this.localizationService.translate('area.save_message_success.msg') })
+        }, error => {
+          this.messageService.add({ severity: 'error', summary: this.localizationService.translate('area.save_message_error.title'), detail: this.localizationService.translate('area.save_message_error.msg') });
+        })
     }
   }
 
@@ -1797,6 +1798,25 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     })
   }
 
+  getFeatureToDisplay(pointClick, features) {
+
+    features.forEach(feat => {
+      if (feat.geometry.type == "Point") {
+        feat['distance'] = turfDistance(turfHelper.point(pointClick), turfHelper.point(feat.geometry.coordinates))
+      }
+      else {
+        feat['distance'] = turfDistance(turfHelper.point(pointClick), turfCentroid(turfHelper.polygon(feat.geometry.coordinates)))
+      }
+
+    })
+
+    features.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
+
+
+
+    return features[0];
+  }
+
   onDisplayFeatureInfo(evt): void {
     if (!this.drawing) {
       const self = this;
@@ -1853,6 +1873,12 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
               }
             } else {
               if (featureCollection && featureCollection.features.length > 0) {
+
+                console.log("bf: ", featureCollection.features)
+
+                featureCollection.features = this.getFeatureToDisplay(this.popupRegion.coordinate, featureCollection.features)
+
+                console.log("AFTER: ", featureCollection.features)
                 featureCollection['expanded'] = true;
                 this.featureCollections.push(featureCollection);
               }

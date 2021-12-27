@@ -10,7 +10,7 @@ import {
   SimpleChanges, ChangeDetectorRef
 } from '@angular/core';
 
-import {LocalizationService} from "../../@core/internationalization/localization.service";
+import { LocalizationService } from "../../@core/internationalization/localization.service";
 import {
   Legend,
   Menu,
@@ -20,13 +20,13 @@ import {
   DescriptorMetadata,
   Metadata
 } from "../../@core/interfaces";
-import {MessageService} from "primeng/api";
-import {MenuItem} from 'primeng/api';
-import {Fill, Stroke, Style} from "ol/style";
+import { MessageService } from "primeng/api";
+import { MenuItem } from 'primeng/api';
+import { Fill, Stroke, Style } from "ol/style";
 import Text from "ol/style/Text";
 import Graticule from 'ol-ext/control/Graticule';
 import Compass from 'ol-ext/control/Compass';
-import {GoogleAnalyticsService} from "../services/google-analytics.service";
+import { GoogleAnalyticsService } from "../services/google-analytics.service";
 
 @Component({
   selector: 'app-left-side-bar',
@@ -96,7 +96,7 @@ export class LeftSideBarComponent implements AfterViewInit {
     protected cdRef: ChangeDetectorRef,
     protected googleAnalyticsService: GoogleAnalyticsService,
   ) {
-    this.metadata = { header: {title: '', description: ''}, data:[]};
+    this.metadata = { header: { title: '', description: '' }, data: [] };
     this.displayMetadata = false;
     this.showFilter = false;
     this.open = true;
@@ -219,13 +219,13 @@ export class LeftSideBarComponent implements AfterViewInit {
             text: new Text({
               font: 'bold 10px Montserrat',
               offsetY: 20,
-              fill: new Fill({color: 'rgb(0,0,0)'}),
-              stroke: new Stroke({color: 'rgb(255,255,255)', width: 1})
+              fill: new Fill({ color: 'rgb(0,0,0)' }),
+              stroke: new Stroke({ color: 'rgb(255,255,255)', width: 1 })
             })
           }),
           projection: 'EPSG:4326',
-          formatCoord:function(c){
-            return c.toFixed(1)+"°"
+          formatCoord: function (c) {
+            return c.toFixed(1) + "°"
           }
         }),
         checked: false
@@ -261,27 +261,27 @@ export class LeftSideBarComponent implements AfterViewInit {
     this.onChangeLimits.emit({ layer: { layer: limit }, updateSource: false });
   }
 
-  onChangeOption(option){
-    if(option.checked){
+  onChangeOption(option) {
+    if (option.checked) {
       this.map.addControl(option.control);
-    }else{
+    } else {
       this.map.removeControl(option.control)
     }
-    if(option.key === 'compass' && !option.checked){
+    if (option.key === 'compass' && !option.checked) {
       option.showLines = false;
     }
   }
 
-  createCompass(showLines: number): Compass{
+  createCompass(showLines: number): Compass {
     return new Compass({
       className: "top",
       rotateWithView: true,
-      style: new Stroke ({ color: this.readStyleProperty('primary'), width: showLines })
+      style: new Stroke({ color: this.readStyleProperty('primary'), width: showLines })
     });
   }
 
-  onChangeCompass(option){
-    if(option.checked && option.showLines){
+  onChangeCompass(option) {
+    if (option.checked && option.showLines) {
       this.map.removeControl(option.control);
       option.control = this.createCompass(1);
       this.map.addControl(option.control);
@@ -298,9 +298,8 @@ export class LeftSideBarComponent implements AfterViewInit {
         this.descriptor = changes.descriptor.currentValue;
         this.descriptor.groups.forEach(group => {
           group.layers.forEach(layer => {
-            console.log(layer)
             layer.types.forEach(typeLayer => {
-             typeLayer.download['loading'] = false;
+              typeLayer.download['loading'] = false;
             })
           });
         });
@@ -406,7 +405,7 @@ export class LeftSideBarComponent implements AfterViewInit {
     return layer.type.hasOwnProperty('metadata') && layer.type.visible;
   }
 
-  getType(types: DescriptorType[], selectedType: string){
+  getType(types: DescriptorType[], selectedType: string) {
     return types.find(type => {
       type.download['loading'] = false;
       return type.valueType === selectedType
@@ -418,10 +417,10 @@ export class LeftSideBarComponent implements AfterViewInit {
       header: { title: '', description: '' },
       data: []
     };
-    metadata.forEach((item, index ) => {
+    metadata.forEach((item, index) => {
       if (index > 0) {
         dt.data.push(item)
-      }else{
+      } else {
         dt.header = item;
       }
     });
@@ -434,7 +433,7 @@ export class LeftSideBarComponent implements AfterViewInit {
 
   showMetadata(layer: DescriptorLayer) {
     console.log('showMetadata', layer)
-    this.metadata = { header: {title: '', description: ''}, data:[]};
+    this.metadata = { header: { title: '', description: '' }, data: [] };
     const layerType = layer.types.find(type => {
       return type.valueType === layer.selectedType;
     });
@@ -442,7 +441,7 @@ export class LeftSideBarComponent implements AfterViewInit {
       this.metadata = this.formatMetadata(layerType!.metadata);
       this.displayMetadata = true;
     } else {
-      this.metadata = { header: {title: '', description: ''}, data:[]};
+      this.metadata = { header: { title: '', description: '' }, data: [] };
       this.displayMetadata = false;
     }
   }
@@ -492,12 +491,12 @@ export class LeftSideBarComponent implements AfterViewInit {
     });
   }
 
-  setLayerVisible(typeLayerValue: string){
+  setLayerVisible(typeLayerValue: string) {
     const self = this;
     this.descriptor.groups.forEach(group => {
       group.layers.forEach(layer => {
         layer.types.forEach(typeLayer => {
-          if(typeLayer.valueType === typeLayerValue){
+          if (typeLayer.valueType === typeLayerValue) {
             group.groupExpanded = true;
             layer.visible = true;
             layer.selectedType = typeLayerValue;
@@ -508,7 +507,7 @@ export class LeftSideBarComponent implements AfterViewInit {
     })
   }
 
-  setTokenGeometryToSearch(token: number){
+  setTokenGeometryToSearch(token: number) {
     this.token = token;
     this.handleMenu({
       index: 2,

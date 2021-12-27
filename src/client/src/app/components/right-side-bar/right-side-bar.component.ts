@@ -260,7 +260,6 @@ export class RightSideBarComponent implements OnInit {
         value: 'Brasil'
       };
     }
-    console.log(region);
     this.updateResumo();
     this.updateArea1Charts();
     this.updateArea2Charts();
