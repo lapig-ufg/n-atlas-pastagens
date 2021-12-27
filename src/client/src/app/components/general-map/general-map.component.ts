@@ -1817,7 +1817,17 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
       });
 
       this.popupRegion.coordinate = transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
-      const bbox = transformExtent(geojsonExtent({ type: 'Point', coordinates: evt.coordinate }), 'EPSG:3857', 'EPSG:4326');
+      // const bbox = transformExtent(geojsonExtent({ type: 'Point', coordinates: evt.coordinate }), 'EPSG:3857', 'EPSG:4326');
+      const bufferedPoint = buffer({ type: 'Point', coordinates: this.popupRegion.coordinate }, 50, {
+        units: 'kilometers'
+      });
+      const bufferSource = new VectorSource({
+        features: (new GeoJSON()).readFeatures(bufferedPoint, {
+          dataProjection: 'EPSG:4326',
+          featureProjection: 'EPSG:3857'
+        })
+      });
+      const bbox = transformExtent(bufferSource.getExtent(), 'EPSG:3857', 'EPSG:4326');
       const pixel: Pixel = this.map.getEventPixel(evt.originalEvent);
       let promises: any[] = [];
       promises.push(this.getFeatures('municipios_info', bbox));
