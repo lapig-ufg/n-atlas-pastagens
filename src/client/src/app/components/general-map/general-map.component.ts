@@ -1818,7 +1818,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
 
       this.popupRegion.coordinate = transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
       // const bbox = transformExtent(geojsonExtent({ type: 'Point', coordinates: evt.coordinate }), 'EPSG:3857', 'EPSG:4326');
-      const bufferedPoint = buffer({ type: 'Point', coordinates: this.popupRegion.coordinate }, 50, {
+      const bufferedPoint = buffer({ type: 'Point', coordinates: this.popupRegion.coordinate }, 20, {
         units: 'kilometers'
       });
       const bufferSource = new VectorSource({
