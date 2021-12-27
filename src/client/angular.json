@@ -25,7 +25,12 @@
           "options": {
             "allowedCommonJsDependencies": [
               "ol/",
-              "ol/format/"
+              "/ol/format/MVT.js",
+              "geotiff/src/source/blockedsource.js",
+              "geotiff/src/geotiffimage.js",
+              "geotiff",
+              "@mapbox/geojson-extent",
+              "pdfmake/build/pdfmake"
             ],
             "outputPath": "dist/client",
             "index": "src/index.html",
@@ -64,6 +69,14 @@
                   "maximumError": "6mb"
                 }
               ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              },
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
