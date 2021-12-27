@@ -1,4 +1,5 @@
 import {Component, ElementRef, ViewChild,ChangeDetectorRef, AfterViewInit} from '@angular/core';
+
 declare var $;
 
 @Component({
@@ -27,7 +28,6 @@ export class IndexComponent implements  AfterViewInit {
 
     if (currentTheme) {
       document.documentElement.setAttribute('data-theme', currentTheme);
-
       if (currentTheme === 'dark') {
        this.checked = true;
       }
@@ -76,66 +76,5 @@ export class IndexComponent implements  AfterViewInit {
         }
       }
     })
-  }
-
-  startVideo() {
-    this.reframed = false;
-    this.player = new window['YT'].Player('video', {
-      videoId: this.video,
-      Host: 'https://www.youtube.com',
-      width: window.innerWidth,
-      height: window.innerHeight,
-      playerVars: {
-        vq: 'hd1080',
-        html5: 1,
-        autohide: 1,
-        autoplay: 1,
-        modestbranding: 1,
-        controls: 0,
-        loop: 1,
-        disablekb: 1,
-        rel: 0,
-        showinfo: 0,
-        fs: 0,
-        playsinline: 1,
-        Origin:'https://atlas-homolog.lapig.iesa.ufg.br/'
-      },
-      events: {
-        'onStateChange': this.onPlayerStateChange.bind(this),
-        'onError': this.onPlayerError.bind(this),
-        'onReady': this.onPlayerReady.bind(this),
-      }
-    });
-
-  }
-
-  /*It will be called when the Video Player is ready */
-  onPlayerReady(event) {
-    event.target.playVideo();
-  }
-
-  /* API will call this function when Player State changes like PLAYING, PAUSED, ENDED */
-  onPlayerStateChange(event) {
-    switch (event.data) {
-      case window['YT'].PlayerState.ENDED:
-        event.target.playVideo();
-        break;
-    }
-  }
-
-  cleanTime() {
-    return Math.round(this.player.getCurrentTime())
-  }
-
-  onPlayerError(event) {
-    switch (event.data) {
-      case 2:
-        console.log('' + this.video)
-        break;
-      case 100:
-        break;
-      case 101 || 150:
-        break;
-    }
   }
 }

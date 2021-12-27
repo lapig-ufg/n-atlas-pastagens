@@ -2,8 +2,10 @@
 
 // When the user clicks on the button, scroll to the top of the document
 function topFunction() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
+  // document.body.scrollTop = 0;
+  document.body.scrollTo({top: 0, behavior: 'smooth'});
+  // document.documentElement.scrollTop = 0;
+  document.documentElement.scrollTo({top: 0, behavior: 'smooth'});
 }
 
 <!-- owl carousel -->
@@ -89,6 +91,7 @@ $(window).on("scroll", function () {
 $(".navbar-toggler").on("click", function () {
   $("header").toggleClass("active");
 });
+
 $(document).on("ready", function () {
   if ($(window).width() > 991) {
     $("header").removeClass("active");

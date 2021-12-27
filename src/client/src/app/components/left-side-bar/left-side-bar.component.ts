@@ -241,7 +241,7 @@ export class LeftSideBarComponent implements AfterViewInit {
     ];
 
     this.lang = this.localizationService.currentLang();
-    this.innerHeigth = window.innerHeight - 150;
+    this.innerHeigth = window.innerHeight - 205;
     this.cdRef.detectChanges();
   }
 
@@ -310,7 +310,7 @@ export class LeftSideBarComponent implements AfterViewInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.innerHeigth = window.innerHeight - 150;
+    this.innerHeigth = window.innerHeight - 205;
   }
 
   toggleMenu() {
@@ -335,10 +335,12 @@ export class LeftSideBarComponent implements AfterViewInit {
     const img = this.renderer.createElement('img');
     this.renderer.addClass(div, 'header');
     this.renderer.addClass(img, 'logo');
-    // this.renderer.setProperty(img, 'src', '../../../assets/logos/base_logo.png')
     this.renderer.setProperty(img, 'src', '../../../assets/logos/atlas_logo_01.png')
-    this.renderer.setProperty(img, 'alt', 'Logo')
+    this.renderer.setProperty(img, 'alt', 'Logo');
     this.renderer.appendChild(div, img);
+    this.renderer.listen(div, 'click', (event) => {
+      window.location.href = '/'
+    })
     this.renderer.insertBefore(this.el.nativeElement.querySelector(".p-sidebar-header"), div, this.el.nativeElement.querySelector(".p-sidebar-close"))
   }
 
@@ -355,7 +357,7 @@ export class LeftSideBarComponent implements AfterViewInit {
     });
 
     this.currentMenu = menu;
-   
+
     this.layersTitle = this.localizationService.translate('menu.' + menu.key);
 
     if (menu.key == 'statistics') {
@@ -374,7 +376,7 @@ export class LeftSideBarComponent implements AfterViewInit {
         this.onNavBarToggle.emit(this.layersSideBarMobile);
         console.log("left-mobile ok");
 
-      } 
+      }
       // this.onMenuSelected.emit({show: this.layersSideBarMobile, key: menu.key});
 
     } else {
@@ -515,7 +517,7 @@ export class LeftSideBarComponent implements AfterViewInit {
       show: true
     })
   }
-  
+
   setLimits(limits: any[]) {
     limits.forEach(limit => {
       limit['checked'] = limit.getVisible();

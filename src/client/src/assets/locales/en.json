@@ -3,6 +3,7 @@
     "swipe": "Swipe",
     "search": "Filters of Map",
     "clear": "Clear Geometries",
+    "reset_zoom": "Reset Zoom",
     "draw": "Draw Area",
     "measure": "Measure Distance",
     "measureArea": "Measure Area",
@@ -466,7 +467,7 @@
       },
       "abstract": {
         "title": "Atlas das pastagens",
-        "text": "A plataforma disponibiliza, atualmente, seis bases de dados: (1) mapeamento das áreas ocupadas por pastagens no Brasil; (2) mapeamento da qualidade dessas áreas, estimativas do estoque de carbono nas pastagens do bioma Cerrado; (3) informações do rebanho bovino brasileiro analisadas a partir dos dados da pesquisa pecuária municipal (IBGE); (4) séries temporais de classificação de uso e cobertura da terra por inspeção visual de dados dos satélites Landsat; (5) avaliação da condição das pastagens em campanhas de campo realizadas por equipes do laboratório."
+        "text": "A plataforma disponibiliza, atualmente, seis bases de dados: (1) mapeamento das áreas ocupadas por pastagens no Brasil; (2) mapeamento da qualidade dessas áreas; (3) mapeamento dos estoques de carbono das pastagens no bioma Cerrado; (4) informações do rebanho bovino brasileiro analisadas a partir dos dados da pesquisa pecuária municipal (IBGE); (5) séries temporais de classificação de uso e cobertura da terra por inspeção visual de dados dos satélites Landsat; (6) avaliação da condição das pastagens em campanhas de campo realizadas por equipes do laboratório."
       },
       "emphasis": {
         "title": "Dados em destaque",

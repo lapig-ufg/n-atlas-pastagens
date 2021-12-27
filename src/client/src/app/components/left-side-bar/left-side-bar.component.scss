@@ -402,6 +402,7 @@ background: lighten($primary, 75%) !important;
 
   .header {
     transition: all 0.5s ease;
+    cursor: pointer;
 
     .logo {
       //max-width: 70%;
@@ -424,7 +425,7 @@ background: lighten($primary, 75%) !important;
   margin-left: 6px;
   margin-bottom: 10px;
   margin-top: 10px;
-  
+
   border-radius: 5px;
   box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
   overflow: hidden;
@@ -432,19 +433,19 @@ background: lighten($primary, 75%) !important;
   transform-style: preserve-3d;
   transition: .6s ease all;
   }
-  
+
   .abstract,
   .details {
   $bg: rgba(white, 1);
   width: 100%;
   position: relative;
   background: $bg;
-  
+
   .group-card:hover & {
   background: darken($bg, 2%);
   }
   }
-  
+
   .abstract {
   z-index: 10;
   transition: .6s ease all;
@@ -455,12 +456,12 @@ background: lighten($primary, 75%) !important;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
-  
+
   .group-label {
   font-size: 13px;
   margin-left: 2px;
   }
-  
+
   i {
   color: black !important;
   line-height: unset !important;
@@ -468,31 +469,31 @@ background: lighten($primary, 75%) !important;
   font-size: 18px !important;
   min-width: unset !important;
   }
-  
+
   span {
   display: flex;
   align-items: center;
   }
   }
-  
+
   .details {
   max-height: 0;
   padding: 0;
-  
+
   overflow: hidden;
   visibility: hidden;
-  
+
   transform: rotateX(-180deg);
   transform-origin: top center;
   backface-visibility: hidden;
   transition: .6s ease all;
   }
-  
+
   .group-card-active {
   transition: .6s ease all;
   //border: 1px solid $primary;
   transform: scale(1.0);
-  
+
   .details {
   max-height: none;
   overflow: visible;
@@ -500,28 +501,28 @@ background: lighten($primary, 75%) !important;
   transform: rotateX(0deg);
   }
   }
-  
+
   .details-inner {
   padding: 8px;
   }
-  
+
   .layer-card {
   box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
   border-radius: 5px;
   margin-bottom: 10px;
   margin-top: 10px;
-  
-  
+
+
   h5,
   div {
   font-size: 12px !important;
   font-family: 'Montserrat', sans-serif !important;
   }
-  
+
   .p-float-label {
   margin: 5px;
   }
-  
+
   .layer-card-header {
   transition: .6s ease all;
   padding: 8px;
@@ -531,12 +532,12 @@ background: lighten($primary, 75%) !important;
   background: lighten($primary, 60%);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  
+
   h5 {
     margin-left: 6px;
     width: 100%;
   }
-  
+
   i {
     color: $primary;
     line-height: 18px !important;
@@ -545,28 +546,28 @@ background: lighten($primary, 75%) !important;
     min-width: unset !important;
     transition: all 0.8s ease;
     border-radius: 50px;
-  
+
     &:hover {
       cursor: pointer;
       color: white;
     }
   }
-  
+
   span {
     display: flex;
     align-items: center;
   }
-  
+
   }
-  
+
   .layer-card-body {
   display: flex;
-  
+
   .layer-card-thumbnail {
     width: 20%;
     display: flex;
     align-items: center;
-  
+
     img {
       width: 100%;
       margin: 5px;
@@ -574,7 +575,7 @@ background: lighten($primary, 75%) !important;
       border-radius: 8px;
     }
   }
-  
+
   .layer-card-content {
     margin-top: 20px;
     width: 100%;
@@ -585,13 +586,13 @@ background: lighten($primary, 75%) !important;
   }
   }
   }
-  
+
   .layer-transparency {
   width: 17rem;
   margin: 5px;
   color: black;
   text-align: center;
-  
+
   .range {
   -webkit-appearance: none;
   transition: all 0.8s ease;
@@ -601,7 +602,7 @@ background: lighten($primary, 75%) !important;
   border-radius: 10px;
   padding: 0;
   outline: none;
-  
+
   &::-webkit-slider-thumb {
     border-bottom: 1px solid black;
     -webkit-appearance: none;
@@ -616,22 +617,22 @@ background: lighten($primary, 75%) !important;
   }
   }
   }
-  
+
   :host ::ng-deep .p-dropdown {
   width: 17rem;
   margin: 5px;
-  
+
   .p-inputtext {
   font-size: 1rem;
   padding: 0.4rem 0.4rem;
   font-family: "Montserrat", sans-serif;
   }
   }
-  
+
   :host ::ng-deep .p-button-text {
   color: $primary;
   }
-  
+
   .layer-exports {
   display: flex;
   margin-right: 8px;
@@ -639,11 +640,11 @@ background: lighten($primary, 75%) !important;
   padding: 7px;
   justify-content: space-evenly;
   }
-  
+
   .loader-container{
   height: 6em;
   }
-  
+
   .loader,
   .loader:before,
   .loader:after {
@@ -653,7 +654,7 @@ background: lighten($primary, 75%) !important;
   width: 1em;
   height: 4em;
   }
-  
+
   .loader {
   font-size: 10px !important;
   color: $primary;
@@ -666,38 +667,38 @@ background: lighten($primary, 75%) !important;
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
   }
-  
+
   .loader:before,
   .loader:after {
   position: absolute;
   top: 0;
   content: '';
   }
-  
+
   .loader:before {
   left: -1.5em;
   -webkit-animation-delay: -0.32s;
   animation-delay: -0.32s;
   }
-  
+
   .loader:after {
   left: 1.5em;
   }
-  
+
   .compass{
   margin: 8px;
   }
-  
-  
+
+
   @keyframes load1 {
-  
+
   0%,
   80%,
   100% {
   box-shadow: 0 0;
   height: 3em;
   }
-  
+
   40% {
   box-shadow: 0 -2em;
   height: 4em;
