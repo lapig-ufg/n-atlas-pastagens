@@ -245,16 +245,16 @@
           "assentamentos_layer": {
             "labelLayer": "Settlements"
           }
-        },
-        "areas_declaradas": {
-          "labelGroup": "Declared Areas",
-          "layers": {
-            "propriedades_rurais": {
-              "labelLayer": "Rural Environmental Register (CAR)"
-            },
-            "planejamento_hidrico": {
-              "labelLayer": "Water Planning"
-            }
+        }
+      },
+      "areas_declaradas": {
+        "labelGroup": "Declared Areas",
+        "layers": {
+          "propriedades_rurais": {
+            "labelLayer": "Rural Environmental Register (CAR)"
+          },
+          "planejamento_hidrico": {
+            "labelLayer": "Water Planning"
           }
         }
       },

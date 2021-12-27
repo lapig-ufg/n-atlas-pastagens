@@ -11,18 +11,22 @@ module.exports = class Group {
     layers;
 
     constructor(language, params, layertypes) {
-        this.languageOb = lang().getLang(language);
-        this.idGroup = params.idGroup ? params.idGroup : null
 
-        this.labelGroup = params.labelGroup == "translate" ? this.languageOb.descriptor_labels.groups[this.idGroup].labelGroup : params.labelGroup;
+        try {
+            this.languageOb = lang().getLang(language);
+            this.idGroup = params.idGroup ? params.idGroup : null
 
-        this.groupExpanded = params.hasOwnProperty('groupExpanded') ? params.groupExpanded : false;
+            this.labelGroup = params.labelGroup == "translate" ? this.languageOb.descriptor_labels.groups[this.idGroup].labelGroup : params.labelGroup;
 
-        if (params.hasOwnProperty('layers')) {
-            this.layers = this.getLayersArray(language, params.layers, layertypes);
+            this.groupExpanded = params.hasOwnProperty('groupExpanded') ? params.groupExpanded : false;
+
+            if (params.hasOwnProperty('layers')) {
+                this.layers = this.getLayersArray(language, params.layers, layertypes);
+            }
+
+        } catch (error) {
+            console.error("ERRO no IDGROUP: ", this.idGroup)
         }
-
-
     }
 
     getLayersArray(language, layers, layertypes) {
