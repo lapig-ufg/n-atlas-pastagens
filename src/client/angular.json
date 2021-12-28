@@ -50,7 +50,8 @@
               "src/assets/hotsite/js/jquery-3.3.1.min.js",
               "src/assets/hotsite/js/owl.carousel.js",
               "src/assets/hotsite/js/jquery.magnific-popup.min.js",
-              "src/assets/hotsite/js/scripts.js"
+              "src/assets/hotsite/js/scripts.js",
+              "src/assets/hotsite/js/bootstrap.min.js"
             ],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"

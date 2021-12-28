@@ -12219,7 +12219,7 @@ $primary_hotiste: #ffc845;
 
     .navbar-expand-lg .navbar-nav .nav-link {
       display: block;
-      color: var(--heading-color);
+      color: white;
     }
 
     .navbar-toggler-icon {
@@ -14983,8 +14983,15 @@ $primary_hotiste: #ffc845;
     }
 
   }
+
   .team-block-single{
     cursor:move;
+  }
+  .toggle-menu{
+    i{
+      font-size: 30px;
+      color: white;
+    }
   }
 
   .card{

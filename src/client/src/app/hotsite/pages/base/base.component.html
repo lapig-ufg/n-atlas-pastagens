@@ -8,14 +8,14 @@
         <img src="../../../../assets/hotsite/images/logos/logo_branco.png" alt="Atlas das Pastagens"
              title="Atlas das Pastagens Brasileiras"/>
       </a>
-      <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
-              data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+
+      <button class="navbar-toggler collapsed bg-gradient toggle-menu" type="button" data-toggle="collapse"
+              data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false"
               aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
-        <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+        <i class='bx bx-menu'></i>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav ml-lg-auto">
           <li *ngFor="let itemMenu of menu" [class]="itemMenu.selected ? 'nav-item active' : 'nav-item'" >
             <a class="nav-link" href="{{itemMenu.href}}">{{itemMenu.title}} <span *ngIf="itemMenu.selected" class="sr-only">(current)</span></a>
