@@ -42,31 +42,5 @@
                 ]
             }
         ]
-    },
-    {
-        "idGroup": "validacao_general",
-        "labelGroup": "translate",
-        "groupExpanded": false,
-        "layers": [
-            {
-                "idLayer": "pontos_campo",
-                "labelLayer": "translate",
-                "visible": false,
-                "selectedType": "pontos_campo_sem_parada",
-                "types": [
-                    "pontos_campo_sem_parada"
-                ]
-            },
-            {
-                "idLayer": "validacao_inspecao_visual",
-                "labelLayer": "translate",
-                "visible": false,
-                "selectedType": "pontos_tvi_validacao",
-                "types": [
-                    "pontos_tvi_validacao",
-                    "pontos_tvi_treinamento"
-                ]
-            }
-        ]
     }
 ]

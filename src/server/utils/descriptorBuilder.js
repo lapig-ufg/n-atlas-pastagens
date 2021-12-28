@@ -85,9 +85,11 @@ module.exports = function (app) {
 
         return [
             'pasture',
-            'agropecuaria',
             'areas_especiais',
             'areas_declaradas',
+            'agropecuaria',
+            'campo',
+            'inspecao_visual',
             'imagens'
         ]
     }

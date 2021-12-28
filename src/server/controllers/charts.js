@@ -256,8 +256,9 @@ module.exports = function (app) {
         const { lang, typeRegion, valueRegion, textRegion, year } = request.query;
         const language = lang;
 
-        if (!year) {
-            year = 2020
+        let varYear = year
+        if (!varYear) {
+            varYear = 2020
         }
 
         Internal.languageOb = UtilsLang().getLang(language).right_sidebar;
@@ -280,7 +281,7 @@ module.exports = function (app) {
                     // replacements['percentArea'] = (replacements['anthropicArea'] / replacements['areaMun']) * 100.0;
 
                     replacements['areaPasture'] = Internal.numberFormat(Number(queriesResult[query[0].idOfQuery].reduce((n, { value }) => n + parseFloat(value), 0)))
-                    replacements['yearTranslate'] = parseInt(year)
+                    replacements['yearTranslate'] = parseInt(varYear)
 
                     const text = Internal.replacementStrings(Internal.languageOb["area2_card"]["pastureQualityPerYear"].text, replacements)
                     return text
