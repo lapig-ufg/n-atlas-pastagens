@@ -222,9 +222,6 @@
           },
           "pecuaria_censitaria": {
             "labelLayer": "Census Livestock - IBGE"
-          },
-          "pa_br_et_500_2013201_lapig": {
-            "labelLayer": "Rain"
           }
         }
       },

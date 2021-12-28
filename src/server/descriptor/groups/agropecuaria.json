@@ -5,30 +5,12 @@
         "groupExpanded": false,
         "layers": [
             {
-                "idLayer": "agricultura",
-                "labelLayer": "translate",
-                "visible": false,
-                "selectedType": "agricultura_agrosatelite",
-                "types": [
-                    "agricultura_agrosatelite"
-                ]
-            },
-            {
                 "idLayer": "pecuaria_censitaria",
                 "labelLayer": "translate",
                 "visible": false,
                 "selectedType": "lotacao_bovina_regions",
                 "types": [
                     "lotacao_bovina_regions"
-                ]
-            },
-            {
-                "idLayer": "pa_br_et_500_2013201_lapig",
-                "labelLayer": "translate",
-                "visible": false,
-                "selectedType": "pa_br_et_500_2013201_lapig",
-                "types": [
-                    "pa_br_et_500_2013201_lapig"
                 ]
             }
         ]
