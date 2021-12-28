@@ -220,11 +220,11 @@
           "agricultura": {
             "labelLayer": "Agriculture"
           },
-          "soilgrids": {
-            "labelLayer": "Mapa de Argila no Solo - SoilGrids"
+          "pecuaria_censitaria": {
+            "labelLayer": "Census Livestock - IBGE"
           },
           "pa_br_et_500_2013201_lapig": {
-            "labelLayer": "Chuva"
+            "labelLayer": "Rain"
           }
         }
       },
@@ -262,18 +262,18 @@
         "labelGroup": "Pasture Maps ",
         "layers": {
           "pasture": {
-            "labelLayer": "Regular"
+            "labelLayer": "Pasture"
           },
-          "pecuaria_censitaria": {
-            "labelLayer": "Census Livestock - IBGE"
+          "pasture_quality": {
+            "labelLayer": "Pasture Quality"
           }
         }
       },
       "pasture_carbon_general": {
-        "labelGroup": "carbon stock",
+        "labelGroup": "Carbon Maps",
         "layers": {
           "biomassa": {
-            "labelLayer": "Biomass"
+            "labelLayer": "Carbon Stocks (MgC.ha)"
           }
         }
       },

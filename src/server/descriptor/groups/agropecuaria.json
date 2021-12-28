@@ -14,12 +14,12 @@
                 ]
             },
             {
-                "idLayer": "soilgrids",
+                "idLayer": "pecuaria_censitaria",
                 "labelLayer": "translate",
                 "visible": false,
-                "selectedType": "soilgrids_argila",
+                "selectedType": "lotacao_bovina_regions",
                 "types": [
-                    "soilgrids_argila"
+                    "lotacao_bovina_regions"
                 ]
             },
             {

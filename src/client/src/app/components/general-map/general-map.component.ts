@@ -1462,7 +1462,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     else if (this.selectRegion.type == 'state')
       this.msFilterRegion = "uf = '" + this.selectRegion.value + "'"
     else if (this.selectRegion.type == 'biome')
-      this.msFilterRegion = "biome = '" + this.selectRegion.value + "'"
+      this.msFilterRegion = "bioma = '" + this.selectRegion.value + "'"
     else if (this.selectRegion.type == 'fronteira') {
       // this.msFilterRegion = "biome = '" + this.selectRegion.value + "'"
     } else

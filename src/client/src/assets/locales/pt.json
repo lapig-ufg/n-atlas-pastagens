@@ -221,8 +221,8 @@
           "agricultura": {
             "labelLayer": "Agricultura"
           },
-          "soilgrids": {
-            "labelLayer": "Argila no Solo - SoilGrids"
+          "pecuaria_censitaria": {
+            "labelLayer": "Pecuária Censitária - IBGE"
           },
           "pa_br_et_500_2013201_lapig": {
             "labelLayer": "Chuva"
@@ -263,18 +263,18 @@
         "labelGroup": "Mapas de Pastagens ",
         "layers": {
           "pasture": {
-            "labelLayer": "Pastagem Regular"
+            "labelLayer": "Pastagem"
           },
-          "pecuaria_censitaria": {
-            "labelLayer": "Pecuária Censitária - IBGE"
+          "pasture_quality": {
+            "labelLayer": "Qualidade de Pastagem"
           }
         }
       },
       "pasture_carbon_general": {
-        "labelGroup": "Estoque de Carbono",
+        "labelGroup": "Mapas de Carbono",
         "layers": {
           "biomassa": {
-            "labelLayer": "Biomassas"
+            "labelLayer": "Estoques de Carbono (MgC.ha)"
           }
         }
       },
