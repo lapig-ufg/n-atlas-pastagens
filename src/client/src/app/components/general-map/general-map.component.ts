@@ -1887,6 +1887,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
 
           if (this.featureCollections.length > 0) {
             this.featureCollections.forEach(featureJson => {
+              console.log(featureJson);
               const vectorSource = new VectorSource({
                 features: (new GeoJSON()).readFeatures(featureJson, {
                   dataProjection: 'EPSG:4326',
