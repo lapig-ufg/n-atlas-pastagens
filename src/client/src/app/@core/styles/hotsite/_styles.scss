@@ -14987,4 +14987,15 @@ $primary_hotiste: #ffc845;
     cursor:move;
   }
 
+  .card{
+    .card-title {
+      text-align: center;
+      font-weight: bold;
+      padding-bottom: 6px;
+    }
+    a {
+      font-weight: normal;
+    }
+  }
+
 }

@@ -231,7 +231,7 @@
               </div>
               <div class="details">
                 <div class="details-inner">
-                  <div class="details-row" *ngFor="let attribute of featureCollection.layerType.displayMapCardAttributes">
+                  <div class="details-row" *ngFor="let attribute of featureCollection.layerType.wfsMapCard.attributes">
                     <div class="details-row-header">{{attribute.label}}: </div>
                     <div class="details-row-content">{{getAttributeValue(attribute.columnType, featureCollection.features[0].properties[attribute.column]) }}</div>
                   </div>

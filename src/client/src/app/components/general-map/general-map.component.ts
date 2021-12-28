@@ -1811,10 +1811,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     })
 
     features.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
-
-
-
-    return features[0];
+    return [features[0]];
   }
 
   onDisplayFeatureInfo(evt): void {
@@ -1852,7 +1849,8 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
       let promises: any[] = [];
       promises.push(this.getFeatures('municipios_info', bbox));
       this.map.forEachLayerAtPixel(pixel, function (layer) {
-        if (layer.get('type') === 'layertype' && layer.get('descriptorLayer').typeLayer === 'vectorial' && layer.getVisible()) {
+        const layerType: DescriptorType = layer.get('descriptorLayer');
+        if (layer.get('type') === 'layertype' && layerType.typeLayer === 'vectorial' && layer.getVisible() && layerType.wfsMapCard.show) {
           promises.push(self.getFeatures(layer, bbox));
         }
       });
@@ -1862,23 +1860,19 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
           layersFeatures.forEach((featureCollection, index) => {
             if (index === 0) {
               if (featureCollection && featureCollection.features.length > 0) {
+                featureCollection.features = this.getFeatureToDisplay(this.popupRegion.coordinate, featureCollection.features);
                 this.popupRegion.geojson = featureCollection;
                 this.popupRegion.properties = featureCollection.features[0].properties;
                 const url = `${environment.PLATAFORMAS_API}/map/layerfromname?lang=${this.localizationService.currentLang()}&layertype=municipios_info`;
                 this.httpService.getData(url).subscribe((descriptionLayer: DescriptorType) => {
                   if (descriptionLayer) {
-                    this.popupRegion.attributes = descriptionLayer.displayMapCardAttributes;
+                    this.popupRegion.attributes = descriptionLayer.wfsMapCard.attributes;
                   }
                 })
               }
             } else {
               if (featureCollection && featureCollection.features.length > 0) {
-
-                console.log("bf: ", featureCollection.features)
-
-                featureCollection.features = this.getFeatureToDisplay(this.popupRegion.coordinate, featureCollection.features)
-
-                console.log("AFTER: ", featureCollection.features)
+                featureCollection.features = this.getFeatureToDisplay(this.popupRegion.coordinate, featureCollection.features);
                 featureCollection['expanded'] = true;
                 this.featureCollections.push(featureCollection);
               }

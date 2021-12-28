@@ -54,7 +54,7 @@
               </div>
               <div class="resumo-card">
                 <div class="resumo-card-title">Obs. </div>
-                <div class="resumo-card-content" [innerHTML]="'right_sidebar.resumo_card.obs_text' | translate"></div>
+                <div class="resumo-card-content obs" [innerHTML]="'right_sidebar.resumo_card.obs_text' | translate"></div>
               </div>
             </div>
           </div>
@@ -74,9 +74,11 @@
 
         </div>
         <div class="details">
-
-          <div class="details-inner" *ngIf="chartsArea1.length! > 0">
-            <p-tabView>
+          <div class="details-inner">
+            <div *ngIf="chartsArea1.length! <= 0" class="loader-container">
+              <div class="loader"></div>
+            </div>
+            <p-tabView  *ngIf="chartsArea1.length! > 0">
               <p-tabPanel header="{{chart.title}}" *ngFor="let chart of chartsArea1 ; let i = index" [selected]="i == 0"
                 [disabled]="!chart.show" [headerStyle]="{'font-size': 'small'}">
                 <div class="margin">
@@ -110,8 +112,11 @@
           <i [class]="expandGroups.area2 ? 'bx bxs-up-arrow-circle' :'bx bxs-down-arrow-circle'"></i>
         </div>
         <div class="details">
-          <div class="details-inner" *ngIf="chartsArea2.length! > 0">
-            <p-tabView>
+          <div class="details-inner" >
+            <div *ngIf="chartsArea2.length! <= 0" class="loader-container">
+              <div class="loader"></div>
+            </div>
+            <p-tabView *ngIf="chartsArea2.length! > 0">
               <p-tabPanel header="{{chart.title}}" *ngFor="let chart of chartsArea2 ; let i = index" [selected]="i == 0"
                 [disabled]="!chart.show" [headerStyle]="{'font-size': 'small'}">
                 <div class="margin">
@@ -143,8 +148,11 @@
           <i [class]="expandGroups.area3 ? 'bx bxs-up-arrow-circle' :'bx bxs-down-arrow-circle'"></i>
         </div>
         <div class="details">
-          <div class="details-inner" *ngIf="chartsArea3.length! > 0">
-            <p-tabView>
+          <div class="details-inner" >
+            <div *ngIf="chartsArea3.length! <= 0" class="loader-container">
+              <div class="loader"></div>
+            </div>
+            <p-tabView *ngIf="chartsArea3.length! > 0">
               <p-tabPanel header="{{chart.title}}" *ngFor="let chart of chartsArea3 ; let i = index" [selected]="i == 0"
                 [disabled]="!chart.show" [headerStyle]="{'font-size': 'small'}">
                 <div class="margin">
