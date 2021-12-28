@@ -21,6 +21,25 @@
                 "types": [
                     "assentamentos"
                 ]
+            },
+            {
+                "idLayer": "quilombolas_layer",
+                "labelLayer": "translate",
+                "visible": false,
+                "selectedType": "areas_quilombolas",
+                "types": [
+                    "areas_quilombolas"
+                ]
+            },
+            {
+                "idLayer": "ucs_layer",
+                "labelLayer": "translate",
+                "visible": false,
+                "selectedType": "pa_br_unidades_conservacao_PI",
+                "types": [
+                    "pa_br_unidades_conservacao_PI",
+                    "pa_br_unidades_conservacao_US"
+                ]
             }
         ]
     }

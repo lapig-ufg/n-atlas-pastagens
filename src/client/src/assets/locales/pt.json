@@ -245,6 +245,12 @@
           },
           "assentamentos_layer": {
             "labelLayer": "Assentamentos"
+          },
+          "quilombolas_layer": {
+            "labelLayer": "Comunidades Quilombolas"
+          },
+          "ucs_layer": {
+            "labelLayer": "Unidades de Conservação"
           }
         }
       },
@@ -278,14 +284,22 @@
           }
         }
       },
-      "validacao_general": {
-        "labelGroup": "Validações",
+      "campo_general": {
+        "labelGroup": "Visitas de Campo",
         "layers": {
           "pontos_campo": {
-            "labelLayer": "Em Campo"
+            "labelLayer": "Pontos"
+          }
+        }
+      },
+      "inspecao_visual_general": {
+        "labelGroup": "Campanhas de Inspeção Visual",
+        "layers": {
+          "mapbiomas_1985_2017": {
+            "labelLayer": "Mapbiomas col.3 (1985-2017)"
           },
-          "validacao_inspecao_visual": {
-            "labelLayer": "Inspeção Visual"
+          "mapbiomas_col6_2020": {
+            "labelLayer": "Mapbiomas col.6 (2020)"
           }
         }
       }
