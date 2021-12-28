@@ -21,6 +21,11 @@ export interface DescriptorMapCardAttributes {
   columnType: string;
 }
 
+export interface DescriptorMapCard {
+  show: string;
+  attributes: DescriptorMapCardAttributes;
+}
+
 export interface DescriptorDownload {
   csv: boolean;
   gpkg: boolean;
@@ -31,22 +36,23 @@ export interface DescriptorDownload {
 }
 
 export interface DescriptorType {
-  valueType: string;
-  type: string;
-  viewValueType: string;
-  typeLabel?: string;
-  filterLabel?: string;
-  regionFilter?: boolean;
-  filterHandler?: string;
-  filterSelected?: string;
-  layerLimits?: boolean;
   download: DescriptorDownload;
-  origin: DescriptorTypeOrigin;
-  opacity: number;
-  visible?: boolean;
-  displayMapCardAttributes: DescriptorMapCardAttributes;
+  filterHandler?: string;
+  filterLabel?: string;
+  filterSelected?: string;
   filters?: DescriptorFilter[];
+  layerLimits?: boolean;
   metadata?: DescriptorMetadata[];
+  opacity: number;
+  origin: DescriptorTypeOrigin;
+  regionFilter?: boolean;
+  type: string;
+  typeLabel?: string;
+  typeLayer: string;
+  valueType: string;
+  viewValueType: string;
+  visible?: boolean;
+  wfsMapCard: DescriptorMapCard;
 }
 
 export interface DescriptorBaseMap {
