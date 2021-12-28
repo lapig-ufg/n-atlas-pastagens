@@ -1,6 +1,7 @@
 const express = require('express'),
     load = require('express-load'),
     util = require('util'),
+    path = require('path'),
     compression = require('compression'),
     requestTimeout = require('express-timeout'),
     responseTime = require('response-time'),
@@ -34,7 +35,7 @@ app.database.client.init(function () {
     app.set('view engine', 'ejs');
 
     app.use(requestTimeout({
-        'timeout': 2000 * 60 * 30,
+        'timeout': 2000 * 60 * 60,
         'callback': function (err, options) {
             let response = options.res;
             if (err) {
