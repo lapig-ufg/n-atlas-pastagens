@@ -19,12 +19,17 @@ load('config.js', { 'verbose': false })
 app.database.client.init(function () {
     app.use(cookie);
 
-    app.get('/map', function(req, res) {
-        res.redirect('/');
-    });
-
     app.use(compression());
     app.use(express.static(app.config.clientDir));
+
+    app.get('*', function (request, response, next) {
+        if (!request.url.includes('api') && !request.url.includes('service')) {
+            response.sendFile(path.resolve(app.config.clientDir + '/index.html'));
+        } else {
+            next();
+        }
+    });
+
     app.set('views', __dirname + '/templates');
     app.set('view engine', 'ejs');
 
@@ -59,7 +64,7 @@ app.database.client.init(function () {
         console.log('Plataform Base Server @ [port %s] [pid %s]', app.config.port, process.pid.toString());
     });
 
-    [`exit`, `uncaughtException`,].forEach((event) => {
+    [`exit`, `uncaughtException`].forEach((event) => {
         if (event === 'uncaughtException') {
             process.on(event, (e) => { })
         } else {
