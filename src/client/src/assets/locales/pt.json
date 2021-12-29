@@ -223,9 +223,6 @@
           },
           "pecuaria_censitaria": {
             "labelLayer": "Pecuária Censitária - IBGE"
-          },
-          "pa_br_et_500_2013201_lapig": {
-            "labelLayer": "Chuva"
           }
         }
       },
