@@ -426,4 +426,9 @@
   background: lighten($primary, 10%) !important;
 }
 */
+  .resumo-container-mobile{
+    .resumo-card{
+      margin: 14px;
+    }
+  }
 }

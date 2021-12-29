@@ -1927,7 +1927,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
           } else {
             const container = document.getElementById('popup');
             // @ts-ignore
-            this.popupOverlay = new Overlay({ id: 'popup-info', element: container, autoPan: true, autoPanAnimation: { duration: 250, } });
+            this.popupOverlay = new Overlay({ id: 'popup-info', element: container, autoPan: false });
             this.popupOverlay.setPosition(evt.coordinate);
             this.map.addOverlay(this.popupOverlay);
           }
