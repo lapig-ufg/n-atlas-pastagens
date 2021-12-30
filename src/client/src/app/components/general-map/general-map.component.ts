@@ -749,7 +749,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
       }
 
       for (let url of this.urls) {
-        result.push(url + "?layers=" + layername + msfilter + "&mode=tile&tile={x}+{y}+{z}" + "&tilemode=gmap" + "&map.imagetype=png");
+        result.push(url + "?layers=" + layername + (layerType!.filterHandler == 'layername' ? "" : msfilter) + "&mode=tile&tile={x}+{y}+{z}" + "&tilemode=gmap" + "&map.imagetype=png");
       }
 
     }

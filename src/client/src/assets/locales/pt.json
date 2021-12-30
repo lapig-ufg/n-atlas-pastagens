@@ -223,6 +223,12 @@
           },
           "pecuaria_censitaria": {
             "labelLayer": "Pecuária Censitária - IBGE"
+          },
+          "floresta_plantada": {
+            "labelLayer": "Floresta Plantada - Mapbiomas"
+          },
+          "lavoura_mapbiomas": {
+            "labelLayer": "Lavouras"
           }
         }
       },
