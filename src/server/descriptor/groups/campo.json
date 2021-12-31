@@ -8,8 +8,9 @@
                 "idLayer": "pontos_campo",
                 "labelLayer": "translate",
                 "visible": false,
-                "selectedType": "pontos_campo_sem_parada",
+                "selectedType": "pontos_campo_parada",
                 "types": [
+                    "pontos_campo_parada",
                     "pontos_campo_sem_parada"
                 ]
             }

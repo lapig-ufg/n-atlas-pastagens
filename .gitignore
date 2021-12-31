@@ -42,3 +42,5 @@ package-lock.json
 node_modules/*
 /src/server/uploads/*
 /src/server/download_plataform/*
+src/server/controllers/gallery.js
+src/server/STORAGE

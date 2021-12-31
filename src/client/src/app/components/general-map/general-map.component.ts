@@ -56,6 +56,7 @@ import * as turfHelper from "@turf/helpers";
 import turfCentroid from "@turf/centroid";
 import { environment } from "../../../environments/environment";
 import { GoogleAnalyticsService } from "../services/google-analytics.service";
+import { GalleryService } from '../services/gallery.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -178,6 +179,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     private wmtsService: WmtsService,
     private httpService: HttpService,
     private mapService: MapService,
+    private galleryService: GalleryService,
     private areaService: AreaService,
     private messageService: MessageService,
     private primengConfig: PrimeNGConfig,
@@ -1872,8 +1874,62 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
               }
             } else {
               if (featureCollection && featureCollection.features.length > 0) {
+
                 featureCollection.features = this.getFeatureToDisplay(this.popupRegion.coordinate, featureCollection.features);
                 featureCollection['expanded'] = true;
+
+                if (featureCollection.layerType.hasOwnProperty('gallery')) {
+                  let params: string[] = [];
+                  params.push('id=' + featureCollection.features[0].properties[featureCollection.layerType.gallery.id_column])
+                  params.push('tablename=' + featureCollection.layerType.gallery.tableName)
+                  let textParam = params.join('&')
+
+                  this.galleryService.getGalleryListById(textParam).subscribe((files: any) => {
+
+                    let filesToDisplay = {}
+                    let arrKeys = Object.keys(files);
+
+                    arrKeys.forEach(key => {
+
+                      filesToDisplay[key] = [];
+
+                      if (files[key].length > 0) {
+                        files[key].forEach(element => {
+
+                          let params = {
+                            category: key,
+                            tablename: featureCollection.layerType.gallery.tableName,
+                            id: featureCollection.features[0].properties[featureCollection.layerType.gallery.id_column],
+                            filename: element
+                          };
+
+
+                          filesToDisplay[key].push('/service/gallery' + '/field/' + params.category + '/'
+                            + params.tablename + '/' + params.id + '/' + params.filename) // vetor com os endereços gerados pelo service abaixo. ALTERAR
+
+                          /* TO DO : Chamar o service abaixo para receber as fotos servidas pelo backend.
+                          pode colocar resposta do Service dentro do componente de imagem,este service já devolve a imagem. */
+
+                          this.galleryService.getFileForGallery(params).subscribe((file: any) => {
+                            // filesToDisplay[key].push(file) //ALTERAR
+                          }, error => {
+                            console.error(error)
+                          });
+
+                        });
+                      }
+
+                    })
+
+                    console.log("FINAL - ", filesToDisplay)
+
+                  }, error => {
+                    console.error(error)
+                  });
+                }
+
+
+
                 this.featureCollections.push(featureCollection);
               }
             }
@@ -1881,7 +1937,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
 
           if (this.featureCollections.length > 0) {
             this.featureCollections.forEach(featureJson => {
-              console.log(featureJson);
               const vectorSource = new VectorSource({
                 features: (new GeoJSON()).readFeatures(featureJson, {
                   dataProjection: 'EPSG:4326',

@@ -105,9 +105,7 @@ export class MapService {
     return this.httpClient.get<any>(this.apiURL + '/cdgeocmu', { params: MapService.PARAMS.set("key", term) })
       .pipe(map(response => response))
       .pipe(catchError(this.errorHandler));
-
   }
-
 
   errorHandler(error) {
     let errorMessage = '';
