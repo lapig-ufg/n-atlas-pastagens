@@ -11,8 +11,8 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ComponentsRoutingModule } from "./components/components-routing.module";
 import { environment } from '../environments/environment';
-import { HttpClient } from '@angular/common/http';
-
+import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NoCacheHeaders } from "./@core/interceptors/no-cache-headers.interceptor";
 
 /**
  * The http loader factory : Loads the files from define path.
@@ -50,7 +50,11 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    useClass: NoCacheHeaders,
+    multi: true
+  },],
   bootstrap: [AppComponent],
 })
 

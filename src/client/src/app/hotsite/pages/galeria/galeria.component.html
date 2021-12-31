@@ -1,0 +1,97 @@
+<app-site-base>
+  <!-- inner banner -->
+  <section class="inner-banner">
+    <div class="w3l-breadcrumb py-5">
+      <div class="container py-xl-5 py-md-4 mt-5">
+        <h4 class="inner-text-title font-weight-bold mb-sm-2">{{'hotsite.gallery.page_title' | translate}}</h4>
+        <ul class="breadcrumbs-custom-path">
+          <li><a href="/">Home</a></li>
+          <li class="active"><i class='bx bx-chevron-right'></i> {{'hotsite.base.header.menu.gallery' | translate}}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- //inner banner -->
+
+  <!-- single post -->
+  <section class="blog-post-main">
+    <div class="blog-content-inf py-5">
+      <div class="container py-md-5 py-4">
+        <div class="blog-posthny-info mx-auto" style="max-width:900px">
+          <div class="style-title position-relative">
+            <h3 class="title-style mb-sm-3 mb-2">{{'hotsite.gallery.title' | translate}}</h3>
+          </div>
+          <div class="single-post-content">
+            <p class="mb-4">
+              {{'hotsite.gallery.p1' | translate}}
+            </p>
+            <p class="mb-4">
+              {{'hotsite.gallery.p2' | translate}}
+            </p>
+          </div>
+        </div>
+        <div class="mx-auto" style="max-width:900px">
+          <h5 class="mb-1">Buscar Imagens</h5>
+          <p-multiSelect
+            style="'width: 100%'"
+            [options]="tags"
+            [(ngModel)]="selectedTag"
+            defaultLabel="Selecione um tag para realizar a busca das imagens"
+            optionLabel="name"
+            display="chip">
+          </p-multiSelect>
+          <div *ngIf="images.length > 0" class="mt-2 mb-2">
+<!--            <p-galleria [value]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5">-->
+<!--              <ng-template pTemplate="item" let-item>-->
+<!--                <img [src]="item.urls.regular" style="width: 100%; height: 600px; display: block;" />-->
+<!--              </ng-template>-->
+<!--              <ng-template pTemplate="thumbnail" let-item>-->
+<!--                <div class="p-grid p-nogutter p-justify-center">-->
+<!--                  <img [src]="item.urls.thumb" style="display: block; width: 60px; height: 60px" />-->
+<!--                </div>-->
+<!--              </ng-template>-->
+<!--              <ng-template pTemplate="caption" let-item>-->
+<!--                <h4 style="margin-bottom: .5rem; color: #ffffff;">{{item.id}}</h4>-->
+<!--                <p>{{item.description}}</p>-->
+<!--              </ng-template>-->
+<!--            </p-galleria>-->
+          </div>
+          <p-galleria
+            #galleria
+            [value]="images"
+            [(activeIndex)]="activeIndex"
+            [numVisible]="5"
+            [containerClass]="galleriaClass()"
+            [showThumbnails]="showThumbnails"
+            [showItemNavigators]="true"
+            [showItemNavigatorsOnHover]="true"
+          >
+            <ng-template pTemplate="item" let-item>
+              <img [src]="item.urls.regular" style="max-height: 500px; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+              <div class="p-grid p-nogutter p-justify-center">
+                <img [src]="item.urls.thumb" style="display: block; width: 60px; height: 60px" />
+              </div>
+            </ng-template>
+            <ng-template pTemplate="footer" let-item>
+              <div class="custom-galleria-footer">
+                <div>
+                  <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
+                  <span *ngIf="images"  class="title-container">
+                      <span>{{activeIndex + 1}}/{{images.length}}</span>
+                      <span class="title">{{images[activeIndex].id}}</span>
+                      <span>{{images[activeIndex].description}}</span>
+                  </span>
+                </div>
+                <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
+              </div>
+            </ng-template>
+          </p-galleria>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- //single post -->
+
+</app-site-base>
