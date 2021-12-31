@@ -72,6 +72,7 @@
                       <div *ngIf="layer.types.length > 1">
                         <span class="p-float-label">
                             <p-dropdown
+                              appendTo="body"
                               id="types-{{layer.selectedType}}"
                               *ngIf="layer.types.length > 1"
                               [options]="layer.types"
@@ -81,12 +82,20 @@
                               optionValue="valueType"
                             ></p-dropdown>
                             <label for="types-{{layer.selectedType}}">{{layer.selectedTypeObject!.typeLabel}}</label>
+                            <div ></div>
                         </span>
                       </div>
                       <span *ngIf="layer.selectedTypeObject!.filters" class="p-float-label">
-                        <p-dropdown id="type-filters-{{layer.selectedTypeObject!.filterSelected}}" *ngIf="layer.selectedTypeObject!.filters" [options]="layer.selectedTypeObject!.filters"
-                                    [(ngModel)]="layer.selectedTypeObject!.filterSelected" (onChange)="changeLayerVisibility(layer, true)"
-                                    optionLabel="viewValueFilter" optionValue="valueFilter"></p-dropdown>
+                        <p-dropdown
+                          appendTo="body"
+                          *ngIf="layer.selectedTypeObject!.filters"
+                          id="type-filters-{{layer.selectedTypeObject!.filterSelected}}"
+                          [options]="layer.selectedTypeObject!.filters"
+                          [(ngModel)]="layer.selectedTypeObject!.filterSelected"
+                          (onChange)="changeLayerVisibility(layer, true)"
+                          optionLabel="viewValueFilter"
+                          optionValue="valueFilter"
+                        ></p-dropdown>
                         <label for="type-filters-{{layer.selectedTypeObject!.filterSelected}}">{{layer.selectedTypeObject!.filterLabel}}</label>
                       </span>
                       <div class="layer-transparency">

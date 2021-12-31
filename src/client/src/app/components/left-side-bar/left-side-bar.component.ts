@@ -241,7 +241,7 @@ export class LeftSideBarComponent implements AfterViewInit {
     ];
 
     this.lang = this.localizationService.currentLang();
-    this.innerHeigth = window.innerHeight - 205;
+    this.innerHeigth = window.innerHeight - 188;
     this.cdRef.detectChanges();
   }
 
@@ -309,7 +309,7 @@ export class LeftSideBarComponent implements AfterViewInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.innerHeigth = window.innerHeight - 205;
+    this.innerHeigth = window.innerHeight - 180;
   }
 
   toggleMenu() {
