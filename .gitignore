@@ -44,3 +44,4 @@ node_modules/*
 /src/server/download_plataform/*
 src/server/controllers/gallery.js
 src/server/STORAGE
+src/server/plataforms_files/*

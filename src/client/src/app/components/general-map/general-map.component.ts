@@ -1910,11 +1910,11 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
                           /* TO DO : Chamar o service abaixo para receber as fotos servidas pelo backend.
                           pode colocar resposta do Service dentro do componente de imagem,este service já devolve a imagem. */
 
-                          this.galleryService.getFileForGallery(params).subscribe((file: any) => {
-                            // filesToDisplay[key].push(file) //ALTERAR
-                          }, error => {
-                            console.error(error)
-                          });
+                          // this.galleryService.getFileForGallery(params).subscribe((file: any) => {
+                          //   // filesToDisplay[key].push(file) //ALTERAR
+                          // }, error => {
+                          //   console.error(error)
+                          // });
 
                         });
                       }

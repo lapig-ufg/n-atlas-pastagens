@@ -10,7 +10,8 @@
                 "visible": false,
                 "selectedType": "lotacao_bovina_regions",
                 "types": [
-                    "lotacao_bovina_regions"
+                    "lotacao_bovina_regions",
+                    "n_kbcs_regions"
                 ]
             },
             {
