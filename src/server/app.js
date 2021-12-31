@@ -17,6 +17,7 @@ load('config.js', { 'verbose': false })
     .then('middleware')
     .into(app);
 
+
 app.database.client.init(function () {
     app.use(cookie);
 
@@ -59,7 +60,9 @@ app.database.client.init(function () {
         .then('utils')
         .into(app);
 
+
     app.database.client.init_general(function () { });
+
 
     const httpServer = http.listen(app.config.port, function () {
         console.log('Plataform Base Server @ [port %s] [pid %s]', app.config.port, process.pid.toString());
