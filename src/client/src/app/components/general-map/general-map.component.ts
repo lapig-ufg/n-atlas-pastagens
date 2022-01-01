@@ -1418,7 +1418,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
         this.source.clear()
         this.source.addFeature(features[0])
         let extent = features[0].getGeometry().getExtent();
-        map.getView().fit(extent, { duration: 1500 });
+        map.getView().fit(extent, { duration: 1000 });
       })
     }
   }
@@ -1459,14 +1459,26 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
       this.selectedAutoCompleteText.text = '';
     }
 
-    if (this.selectRegion.type == 'city')
-      this.msFilterRegion = "cd_geocmu ilike '" + this.selectRegion.value + "'"
-    else if (this.selectRegion.type == 'state')
+    if (this.selectRegion.type == 'city') {
+      this.msFilterRegion = "cd_geocmu = '" + this.selectRegion.value + "'"
+    }
+    else if (this.selectRegion.type == 'state') {
       this.msFilterRegion = "uf ilike '" + this.selectRegion.value + "'"
-    else if (this.selectRegion.type == 'biome')
-      this.msFilterRegion = "bioma ilike '" + this.selectRegion.value + "'"
+    }
+    else if (this.selectRegion.type == 'biome') {
+      this.msFilterRegion = "unaccent(bioma) ilike unaccent('" + this.selectRegion.value + "')"
+    }
     else if (this.selectRegion.type == 'fronteira') {
-      // this.msFilterRegion = "biome = '" + this.selectRegion.value + "'"
+
+      if (this.selectRegion.value.toUpperCase() == 'amz_legal'.toUpperCase()) {
+        this.msFilterRegion = "amaz_legal = 1"
+      }
+      else if (this.selectRegion.value.toUpperCase() == 'MATOPIBA'.toUpperCase()) {
+        this.msFilterRegion = "matopiba = 1"
+      }
+      else if (this.selectRegion.value.toUpperCase() == 'ARCODESMAT'.toUpperCase()) {
+        this.msFilterRegion = "arcodesmat = 1"
+      }
     } else
       this.msFilterRegion = ""
 
@@ -1526,7 +1538,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
   async clearAreaBeforeSearch() {
     await this.updateRegion(this.defaultRegion)
 
-    await timer(2000).pipe(take(1)).toPromise();
+    // await timer(2000).pipe(take(1)).toPromise();
   }
 
   async updateAreaOnMap(event) {

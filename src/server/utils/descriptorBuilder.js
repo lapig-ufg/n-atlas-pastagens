@@ -90,6 +90,7 @@ module.exports = function (app) {
             'agropecuaria',
             'campo',
             'inspecao_visual',
+            'infraestrutura',
             'imagens'
         ]
     }

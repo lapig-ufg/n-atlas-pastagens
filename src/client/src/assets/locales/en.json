@@ -253,6 +253,12 @@
           },
           "ucs_layer": {
             "labelLayer": "Conservation Units"
+          },
+          "areas_militares_br_layer": {
+            "labelLayer": "Military Areas"
+          },
+          "areas_publicas_nao_destinadas_br_layer": {
+            "labelLayer": "Non-Intended Public Areas"
           }
         }
       },
@@ -264,6 +270,9 @@
           },
           "planejamento_hidrico": {
             "labelLayer": "Water Planning"
+          },
+          "reserva_legal_br_layer": {
+            "labelLayer": "Legal Reserve"
           }
         }
       },
@@ -283,6 +292,17 @@
         "layers": {
           "biomassa": {
             "labelLayer": "Carbon Stocks (MgC.ha)"
+          }
+        }
+      },
+      "infraestrutura": {
+        "labelGroup": "Infrastructure",
+        "layers": {
+          "malha_viaria_layer": {
+            "labelLayer": "Road Network"
+          },
+          "armazens_layer": {
+            "labelLayer": "Warehouses"
           }
         }
       },

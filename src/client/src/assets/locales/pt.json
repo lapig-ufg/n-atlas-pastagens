@@ -241,7 +241,7 @@
         }
       },
       "areas_especiais": {
-        "labelGroup": "Áreas especiais",
+        "labelGroup": "Áreas Especiais",
         "layers": {
           "terras_indigenas_layer": {
             "labelLayer": "Terras Indígenas"
@@ -254,6 +254,12 @@
           },
           "ucs_layer": {
             "labelLayer": "Unidades de Conservação"
+          },
+          "areas_militares_br_layer": {
+            "labelLayer": "Áreas Militares"
+          },
+          "areas_publicas_nao_destinadas_br_layer": {
+            "labelLayer": "Áreas Públicas Não-Destinadas"
           }
         }
       },
@@ -265,6 +271,9 @@
           },
           "planejamento_hidrico": {
             "labelLayer": "Planejamento Hídrico"
+          },
+          "reserva_legal_br_layer": {
+            "labelLayer": "Reserva Legal"
           }
         }
       },
@@ -284,6 +293,17 @@
         "layers": {
           "biomassa": {
             "labelLayer": "Estoques de Carbono (MgC.ha)"
+          }
+        }
+      },
+      "infraestrutura": {
+        "labelGroup": "Infraestrutura",
+        "layers": {
+          "malha_viaria_layer": {
+            "labelLayer": "Malha Viária"
+          },
+          "armazens_layer": {
+            "labelLayer": "Armazéns"
           }
         }
       },
@@ -349,10 +369,10 @@
     "area1_card": {
       "pastureAndLotacaoBovina": {
         "title": "Pastagem",
-        "text": "De acordo com o LAPIG, a área de Pastagem (em hectares) e a Lotação Bovina (em UA) no #typeRegionTranslate# #textRegionTranslate# foi de:",
+        "text": "De acordo com o LAPIG, a área de Pastagem (em hectares) e o Rebanho Bovino (em UA) no #typeRegionTranslate# #textRegionTranslate# foi de:",
         "labelOfQuery": {
           "pasture": "Pastagem",
-          "lotacao_bovina_regions": "Lotação Bovina"
+          "lotacao_bovina_regions": "Rebanho Bovino"
         }
       },
       "pastureQuality": {
