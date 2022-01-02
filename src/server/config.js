@@ -48,6 +48,7 @@ module.exports = function (app) {
         config["fieldDir"] = env.APP_PRODUCAO + env.FIELD_DIR
         config["uploadDir"] = env.APP_PRODUCAO + env.UPLOAD_DIR
         config["downloadDir"] = env.APP_PRODUCAO + env.DOWNLOAD_DIR
+        config["hotsiteDir"] = env.APP_PRODUCAO + env.HOTSITE_DIR
     }
 
     return config;
