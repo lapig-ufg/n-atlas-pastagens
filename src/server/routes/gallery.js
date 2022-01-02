@@ -6,6 +6,6 @@ module.exports = function (app) {
     app.get('/service/gallery/field/', controllers.field);
     app.get('/service/gallery/field/:category/:tablename/:id/:filename', controllers.fieldData);
     app.get('/service/gallery/tags', dataInjector, controllers.tags);
-    app.get('/service/gallery/image', controllers.image);
+    app.get('/service/gallery/:type/:id/:filename', controllers.image);
     app.post('/service/gallery/images', dataInjector, controllers.images);
 }

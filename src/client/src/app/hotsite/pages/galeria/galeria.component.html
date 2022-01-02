@@ -64,11 +64,11 @@
               [showThumbnails]="showThumbnails"
             >
               <ng-template pTemplate="item" let-item>
-                <img [src]="'/service/gallery/image?id=' + item.id" [ngStyle]="{'width': !fullscreen ? '100%' : '77rem', 'height': !fullscreen ? '100%' : '54rem', 'display': !fullscreen ? 'block' : '' }"/>
+                <img [src]="'/service/gallery/image/' + item.id +'/' +  + item.id + '.jpg'" [ngStyle]="{'width': !fullscreen ? '100%' : '77rem', 'height': !fullscreen ? '100%' : '54rem', 'display': !fullscreen ? 'block' : '' }"/>
               </ng-template>
               <ng-template pTemplate="thumbnail" let-item>
                 <div class="p-grid p-nogutter p-justify-center">
-                  <img [src]="'/service/gallery/image?thumb=true&id=' + item.id"/>
+                  <img [src]="'/service/gallery/thumb/' + item.id +'/' +  + item.id + '.jpg'"/>
                 </div>
               </ng-template>
               <ng-template pTemplate="footer" let-item>
@@ -102,7 +102,7 @@
                     </div>
                   </div>
                   <div *ngIf="images.length > 0" class="img-btn">
-                    <a [href]="'/service/gallery/image?id=' + images[activeIndex].id"><i class='bx bxs-download'></i></a>
+                    <a [href]="'/service/gallery/image/' + images[activeIndex].id +'/' +  + images[activeIndex].id + '_' + images[activeIndex].tag_1.toLowerCase() + '.jpg'"><i class='bx bxs-download'></i></a>
                     <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
                   </div>
                 </div>
