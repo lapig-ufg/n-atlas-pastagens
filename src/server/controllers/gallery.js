@@ -96,8 +96,8 @@ module.exports = function (app) {
 
   Controller.image = function (request, response) {
     const { id, thumb } = request.query;
-    // const filePath = app.config.fieldDir + "hotsite/" + id + ".jpg";
-    const filePath = thumb ? process.env.GALLERY_PATH + "hotsite/thumb/" + id + ".jpg":  process.env.GALLERY_PATH + "hotsite/" + id + ".jpg" ;
+    const filePath = thumb ? app.config.fieldDir + "hotsite/thumb/" + id + ".jpg" : app.config.fieldDir + "hotsite/" + id + ".jpg" ;
+    // const filePath = thumb ? process.env.GALLERY_PATH + "hotsite/thumb/" + id + ".jpg":  process.env.GALLERY_PATH + "hotsite/" + id + ".jpg" ;
     if (fs.existsSync(filePath)) {
       const file = fs.readFileSync(filePath);
       response.send(file);
