@@ -547,7 +547,22 @@
       "page_title": "Galeria de imagens das Pastagens",
       "title": "Imagens das Pastagens Brasileiras",
       "p1": "O Atlas das Pastagens é uma plataforma, online e gratuita, desenvolvida e mantida pelo Laboratório de Processamento de Imagens e Geoprocessamento (Lapig/UFG), para tornar acessível os resultados das pesquisas desenvolvidas no âmbito das pastagens brasileiras.",
-      "p2": "A plataforma disponibiliza, atualmente, seis bases de dados: (1) mapeamento das áreas ocupadas por pastagens no Brasil; (2) mapeamento da qualidade dessas áreas; (3) mapeamento dos estoques de carbono das pastagens no bioma Cerrado; (4) informações do rebanho bovino brasileiro analisadas a partir dos dados da pesquisa pecuária municipal (IBGE); (5) séries temporais de classificação de uso e cobertura da terra por inspeção visual de dados dos satélites Landsat; (6) avaliação da condição das pastagens em campanhas de campo realizadas por equipes do laboratório."
+      "p2": "A plataforma disponibiliza, atualmente, seis bases de dados: (1) mapeamento das áreas ocupadas por pastagens no Brasil; (2) mapeamento da qualidade dessas áreas; (3) mapeamento dos estoques de carbono das pastagens no bioma Cerrado; (4) informações do rebanho bovino brasileiro analisadas a partir dos dados da pesquisa pecuária municipal (IBGE); (5) séries temporais de classificação de uso e cobertura da terra por inspeção visual de dados dos satélites Landsat; (6) avaliação da condição das pastagens em campanhas de campo realizadas por equipes do laboratório.",
+      "tags": {
+        "bioma": "Biomes",
+        "municipio": "Municipalities",
+        "tags": "Tags",
+        "uf": "States"
+      },
+      "img_info": {
+        "title": "Image Metadata",
+        "lat": "Latitude",
+        "lon": "Longitude",
+        "date": "Date",
+        "biome": "Biome",
+        "municipality": "Municipality",
+        "uf": "UF"
+      }
     },
     "methods": {
       "page_title": "Procedimentos Metodológicos",

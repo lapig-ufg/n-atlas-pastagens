@@ -1,42 +1,49 @@
 module.exports = function (app) {
-
-    var Internal = {}
-    var Query = {};
+    let Query = {};
 
     Query.defaultParams = {}
 
+    Query.tags = function (params) {
+        return [
+            {
+                source: 'lapig',
+                id: 'tags',
+                sql: 'select col, tag from galeria_tags where tag is not null',
+                mantain: true
+            }
+        ]
+    }
 
-    // Query.largest = function (params) {
+    Query.images = function (params) {
+        const filters = params['tags'];
+        let condition = 'where ';
 
-    // const colums = "id, cobertura, obs, data, periodo, horario, altura, homoge, invasoras, gado, qtd_cupins, forrageira, solo_exp";
-    // const sqlQuery = "SELECT ST_AsGeoJSON(geom) geojson," + colums + " FROM pontos_campo_parada" + condition;
+        if(Array.isArray(filters)){
+            filters.forEach((filter, index) => {
+                if(index === filters.length - 1){
+                    condition += filter.column + " ilike '%" +  filter.tag + "%'";
+                }else{
+                    condition += filter.column + " ilike '%" +  filter.tag + "%' AND ";
+                }
+                // if(index === filters.length - 1){
+                //     condition += filter.column + " = '" +  filter.tag + "'";
+                // }else{
+                //     condition += filter.column + " = '" +  filter.tag + "' AND ";
+                // }
+            })
+        } else {
+            condition += "tag_1 = 'Pastagem'";
+        }
 
-
-    //     var amount = params['amount'];
-    //     var msfilter = params['msfilter']
-
-    //     var condition = '';
-    //     if (msfilter) {
-    //         condition = ' WHERE ' + msfilter;
-    //     }
-
-    //     return [{
-    //         source: 'lapig',
-    //         id: 'pontos_campo_parada',
-    //         sql: "SELECT id, cobertura, obs, data, periodo, horario, altura, homoge, invasoras, gado, qtd_cupins, forrageira, solo_exp "
-    //             + " FROM pontos_campo_parada" + condition,
-    //         mantain: true
-    //     },
-    //     {
-    //         source: 'general',
-    //         id: 'teste',
-    //         sql: "SELECT * from regions_geom  LIMIT ${amount}",
-    //         mantain: true
-    //     }
-    //     ]
-    // }
-
-
+        return [
+            {
+                source: 'lapig',
+                id: 'images',
+                sql: "select *, to_char(data,'DD/MM/YYYY HH24:MI:SS') as data from galeria_atlas " + condition,
+                mantain: true
+            }
+        ]
+    }
 
     return Query;
 

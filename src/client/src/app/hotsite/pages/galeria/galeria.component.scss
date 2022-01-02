@@ -1,3 +1,5 @@
+@import "src/app/@core/styles/default_theme";
+
 :host ::ng-deep .p-multiselect {
   width: 100%;
 }
@@ -5,8 +7,26 @@
   background: black;
 }
 
-:host ::ng-deep .custom-galleria {
-  &.p-galleria {
+:host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon.pi-check:before {
+  top: 8px;
+  left: 2px;
+}
+
+:host ::ng-deep .p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
+  color: $primary;
+  background: rgba($primary, 0.20)
+}
+:host ::ng-deep .p-multiselect.p-multiselect-chip .p-multiselect-token {
+  color: $primary;
+  background: rgba($primary, 0.20)
+}
+
+
+:host ::ng-deep .p-galleria {
+    img{
+      max-width: 100%;
+      max-height: 100%;
+    }
     &.fullscreen {
       display: flex;
       flex-direction: column;
@@ -40,10 +60,6 @@
       color: #ffffff;
       padding: 10px;
 
-      div{
-        display: flex;
-        align-items: center;
-      }
 
       button {
         background-color: transparent;
@@ -73,4 +89,64 @@
       }
     }
   }
+
+:host ::ng-deep .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+  padding: 0.6rem 0.6rem;
+}
+.group-labels{
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.img-container{
+  font-size: 10px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 15px;
+  flex-wrap: wrap;
+
+  .img-tags{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    margin-right: 5px;
+    .img-info-item{
+      padding: 5px;
+      margin-left: 2px;
+      margin-right: 2px;
+      border: 0.5px solid white;
+      border-radius: 3px;
+    }
+  }
+
+  .img-location{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    .img-info-item{
+      padding: 5px;
+      margin-left: 2px;
+      margin-right: 2px;
+      border: 0.5px solid white;
+      border-radius: 3px;
+    }
+  }
+
+  .img-tags-title{
+    margin-right: 5px;
+  }
+}
+.img-btn{
+  display: flex;
+  align-items: center;
+  a{
+    font-size: 20px;
+    margin-top: 6px;
+  }
+}
+
+.title-container{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

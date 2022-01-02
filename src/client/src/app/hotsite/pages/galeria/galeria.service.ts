@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { map } from "rxjs/operators";
 
 
@@ -10,7 +10,13 @@ import { map } from "rxjs/operators";
 })
 
 export class GaleriaService {
-  private apiURL = 'https://api.unsplash.com/photos/?client_id=j6UwPsjDw0jX4PrSSSdcx-FoYf5jJ-Pk13_jMFc1lG4';
+  private apiURL = '/service/gallery';
+
+  static PARAMS = new HttpParams({
+    fromObject: {
+      format: "json"
+    }
+  });
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -20,8 +26,14 @@ export class GaleriaService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getImages(): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL, this.httpOptions)
+  getImages(tags): Observable<any> {
+    return this.httpClient.post<any>(this.apiURL + "/images", {tags: tags}, this.httpOptions)
+      .pipe(map(response => response))
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getTags(): Observable<any> {
+    return this.httpClient.get<any>(this.apiURL + '/tags', this.httpOptions)
       .pipe(map(response => response))
       .pipe(catchError(this.errorHandler));
   }

@@ -1,5 +1,5 @@
-import { NgModule} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {LOCALE_ID, NgModule} from '@angular/core';
+import {CommonModule, DatePipe, DecimalPipe} from '@angular/common';
 import { HotsiteRoutingModule } from './hotsite-routing.module';
 import { IndexComponent } from './pages/index/index.component';
 import { BaseComponent } from "./pages/base/base.component";
@@ -12,6 +12,8 @@ import { TranslateModule } from "@ngx-translate/core";
 import { MultiSelectModule } from "primeng/multiselect";
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
+import { GoogleAnalyticsService } from "../components/services/google-analytics.service";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -29,6 +31,12 @@ import { ButtonModule } from 'primeng/button';
     ArtigosComponent,
     MetodosComponent,
     GaleriaComponent
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    DatePipe,
+    DecimalPipe,
+    GoogleAnalyticsService,
   ]
 })
 export class HotsiteModule  {
