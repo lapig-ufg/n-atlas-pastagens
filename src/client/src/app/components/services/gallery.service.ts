@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { of } from "rxjs";
 import { map } from "rxjs/operators";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,11 @@ export class GalleryService {
     }),
   };
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+      if(!environment.production){
+        this.apiURL = environment.ATLAS_URL + this.apiURL;
+      }
+  }
 
   getGalleryListById(params: string): Observable<any> {
 

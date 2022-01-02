@@ -618,7 +618,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     this.basemapsAvaliable = [];
     this.limitsNames = [];
     this.selectedLayers = [];
-    const defaultLayers = environment.DEFAULT_LAYERS;
 
     for (let groups of this._descriptor.groups) {
       for (let layer of groups.layers) {
