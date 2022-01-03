@@ -320,6 +320,9 @@
           "mapbiomas_1985_2017": {
             "labelLayer": "Mapbiomas col.3 (1985-2017)"
           },
+          "mapbiomas_pontos_classes_raras_85k": {
+            "labelLayer": "Mapbiomas Rare Classes (2019)"
+          },
           "mapbiomas_col6_2020": {
             "labelLayer": "Mapbiomas col.6 (2020)"
           }

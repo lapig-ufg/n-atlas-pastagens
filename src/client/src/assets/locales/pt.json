@@ -323,6 +323,9 @@
           },
           "mapbiomas_col6_2020": {
             "labelLayer": "Mapbiomas col.6 (2020)"
+          },
+          "mapbiomas_pontos_classes_raras_85k": {
+            "labelLayer": "Mapbiomas Classes Raras (2019)"
           }
         }
       }
