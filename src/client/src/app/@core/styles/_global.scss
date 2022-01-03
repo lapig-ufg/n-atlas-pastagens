@@ -493,5 +493,12 @@ table tr{
   max-width: 100%;
 }
 
+.p-galleria{
+  .p-galleria-item-nav {
+    transition: unset;
+    background: rgba($primary, 0.40);
+  }
+}
+
 
 

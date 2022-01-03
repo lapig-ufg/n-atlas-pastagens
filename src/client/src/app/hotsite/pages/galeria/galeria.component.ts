@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { PrimeNGConfig } from "primeng/api";
 import { Galleria } from "primeng/galleria";
 import { GaleriaService } from "./galeria.service";
+import { LocalizationService } from "../../../@core/internationalization/localization.service";
+import {LangChangeEvent} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-galeria',
@@ -9,11 +11,10 @@ import { GaleriaService } from "./galeria.service";
   styleUrls: ['./galeria.component.scss']
 })
 export class GaleriaComponent implements OnInit {
-  tags: any[];
+  tagsGroup: TagsGroup[];
+  selectedTags: Tag[] = [];
 
-  selectedTag: string[] = [];
-
-  images: any[];
+  images: any[] = [];
 
   showThumbnails: boolean;
 
@@ -25,6 +26,8 @@ export class GaleriaComponent implements OnInit {
 
   displayBasic: boolean;
   displayCustom: boolean;
+
+  defaultTags: Tag[] = [{tag: "Pastagem", column: 'tag_1'}, {tag: "Degradada", column: 'tag_2'}];
 
   responsiveOptions: any[] = [
     {
@@ -41,30 +44,58 @@ export class GaleriaComponent implements OnInit {
     }
   ];
 
+  loading: boolean = false;
+
   @ViewChild('galleria') galleria: Galleria;
 
   constructor(
     private primengConfig: PrimeNGConfig,
-    private galeriaService: GaleriaService
+    private galeriaService: GaleriaService,
+    private localizationService: LocalizationService,
   ) {
-    this.tags = [
-      { name: "New York", code: "NY" },
-      { name: "Rome", code: "RM" },
-      { name: "London", code: "LDN" },
-      { name: "Istanbul", code: "IST" },
-      { name: "Paris", code: "PRS" }
-    ];
-    this.images = [];
     this.displayBasic = true;
   }
 
   ngOnInit() {
     this.primengConfig.ripple = true;
     this.bindDocumentListeners();
-    this.galeriaService.getImages().subscribe(result => {
-      this.images = result;
+    this.getTags();
+    this.localizationService.translateService.onLangChange.subscribe((langChangeEvent: LangChangeEvent) => {
+      this.tagsGroup = this.tagsGroup.map(group => {
+        group['label'] = this.localizationService.translate('hotsite.gallery.tags.' + group.value)
+        return group;
+      })
+    });
+    this.getImages();
+  }
+
+  getTags(){
+    this.galeriaService.getTags().subscribe(result => {
+      this.tagsGroup = result.map(group => {
+        group['label'] = this.localizationService.translate('hotsite.gallery.tags.' + group.value)
+        return group;
+      })
     })
   }
+
+  getImages(){
+    this.loading = true;
+    this.galeriaService.getImages(this.defaultTags).subscribe(result => {
+      this.images = result;
+      this.loading = false;
+    })
+  }
+
+  searchImages(tags){
+    this.loading = true;
+    const itens = tags.length > 0 ? tags : this.defaultTags;
+    this.galeriaService.getImages(itens).subscribe(result => {
+      this.images = result;
+      this.activeIndex = 0;
+      this.loading = false;
+    })
+  }
+
   onThumbnailButtonClick() {
     this.showThumbnails = !this.showThumbnails;
   }
@@ -146,4 +177,13 @@ export class GaleriaComponent implements OnInit {
     this.displayCustom = true;
   }
 
+}
+interface TagsGroup {
+  label: string,
+  value: string,
+  items: Tag[],
+}
+interface Tag {
+  tag: string,
+  column: string,
 }

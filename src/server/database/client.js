@@ -12,11 +12,12 @@ module.exports = function(app) {
 
     Internal.prepareQuery = function(sqlQuery, params) {
         Object.keys(params).forEach(function(name) {
-            sqlQuery = sqlQuery.replace("${" + name + "}%", "'" + params[name].toUpperCase() + "%'")
-            sqlQuery = sqlQuery.replace("$%{" + name + "}", "'%" + params[name] + "'")
-            sqlQuery = sqlQuery.replace("${" + name + "}", "'" + params[name] + "'")
+            if(typeof params[name] === 'string'){
+                sqlQuery = sqlQuery.replace("${" + name + "}%", "'" + params[name].toUpperCase() + "%'")
+                sqlQuery = sqlQuery.replace("$%{" + name + "}", "'%" + params[name] + "'")
+                sqlQuery = sqlQuery.replace("${" + name + "}", "'" + params[name] + "'")
+            }
         })
-
         return sqlQuery
     }
 

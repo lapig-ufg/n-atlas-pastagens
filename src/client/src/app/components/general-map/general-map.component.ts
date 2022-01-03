@@ -6,7 +6,7 @@ import {
   Input,
   Output,
   OnInit,
-  AfterContentChecked
+  AfterContentChecked, ElementRef, ViewChild
 } from '@angular/core';
 import TileLayer from "ol/layer/Tile";
 import Map from 'ol/Map';
@@ -20,8 +20,8 @@ import { saveAs } from 'file-saver';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Coordinate, createStringXY } from "ol/coordinate";
 import { toLonLat } from "ol/proj";
-import { MapEvent, Overlay } from "ol";
-import { BingMaps, TileWMS, XYZ } from "ol/source";
+import { Overlay } from "ol";
+import { BingMaps, XYZ } from "ol/source";
 import { Fill, Stroke, Style } from "ol/style";
 import { Geometry, LinearRing, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from 'ol/geom';
 import { Feature } from "ol";
@@ -31,8 +31,6 @@ import { GeoJSON } from "ol/format";
 import VectorLayer from "ol/layer/Vector";
 import CircleStyle from "ol/style/Circle";
 import Text from "ol/style/Text";
-import { timer } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { RulerAreaCtrl, RulerCtrl } from "../../@core/interactions/ruler";
 import { SelectItem, PrimeNGConfig, MessageService, Message } from 'primeng/api';
 import { LayerSwipe } from "../../@core/interfaces/swipe";
@@ -40,7 +38,6 @@ import { AreaService } from '../services/area.service';
 import Swipe from 'ol-ext/control/Swipe';
 import Graticule from 'ol-ext/control/Graticule';
 import Compass from 'ol-ext/control/Compass';
-import geojsonExtent from '@mapbox/geojson-extent';
 import { transformExtent, transform } from 'ol/proj';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -91,6 +88,8 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
   @Output() onSearchDrawnGeometry = new EventEmitter<number>();
   @Output() onSearchDrawnGeometryMobile = new EventEmitter<number>();
   @Output() onChangeFilterLayer = new EventEmitter<any>();
+
+  @ViewChild('video') video: ElementRef;
 
   public msgs: Message[];
   public env: any;
@@ -153,6 +152,23 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
   public defaultStyle: Style;
   public geoJsonStyles: any;
 
+  public displayGallery: boolean;
+  public gallery = [] as any;
+  public galleryResponsiveOptions: any[] = [
+    {
+      breakpoint: '1024px',
+      numVisible: 5
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 3
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1
+    }
+  ];
+
 
   private formataCoordenada: (coordinate: Coordinate) => string = createStringXY(4);
 
@@ -190,6 +206,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     this.showFormPoint = false;
     this.loadingDown = false;
     this.legendExpanded = true;
+    this.displayGallery = false;
 
     //IF para identificar quando o caso é mobile.
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
@@ -206,6 +223,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     this.swipeLayers = [];
     this.wmtsCapabilities = [];
     this.featureCollections = [];
+    this.gallery = [];
     this.popupRegion = {
       coordinate: [],
       attributes: {},
@@ -618,7 +636,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     this.basemapsAvaliable = [];
     this.limitsNames = [];
     this.selectedLayers = [];
-    const defaultLayers = environment.DEFAULT_LAYERS;
 
     for (let groups of this._descriptor.groups) {
       for (let layer of groups.layers) {
@@ -1043,7 +1060,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
         layer.download.loading = false;
       }).catch(error => {
         this.messageService.add({
-          life: 8000,
+          life: 2000,
           severity: 'error',
           summary: this.localizationService.translate('left_sidebar.layer.down_error_title'),
           detail: this.localizationService.translate('left_sidebar.layer.down_error_msg', { name: name + '.zip' })
@@ -1070,7 +1087,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
         layer.download.loading = false;
       }).catch(error => {
         this.messageService.add({
-          life: 8000,
+          life: 2000,
           severity: 'error',
           summary: this.localizationService.translate('left_sidebar.layer.down_error_title'),
           detail: this.localizationService.translate('left_sidebar.layer.down_error_msg', { name: name + '.csv' })
@@ -1096,7 +1113,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
         layer.download.loading = false;
       }).catch(error => {
         this.messageService.add({
-          life: 8000,
+          life: 2000,
           severity: 'error',
           summary: this.localizationService.translate('left_sidebar.layer.down_error_title'),
           detail: this.localizationService.translate('left_sidebar.layer.down_error_msg', { name: name + '.zip' })
@@ -1124,7 +1141,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
         layer.download.loading = false;
       }).catch(error => {
         this.messageService.add({
-          life: 8000,
+          life: 2000,
           severity: 'error',
           summary: this.localizationService.translate('left_sidebar.layer.down_error_title'),
           detail: this.localizationService.translate('left_sidebar.layer.down_error_msg', { name: name + '.zip' })
@@ -1146,7 +1163,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
         layer.download.loading = false;
       }).catch(error => {
         this.messageService.add({
-          life: 8000,
+          life: 2000,
           severity: 'error',
           summary: this.localizationService.translate('sld.msg_error_title'),
           detail: this.localizationService.translate('sld.msg_error', { name: name + '.zip' })
@@ -1499,7 +1516,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     });
   }
 
-  normalize(value): string {
+  normalize(value) {
     return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   }
 
@@ -1619,7 +1636,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
           this.onSearchDrawnGeometryMobile.emit(data.token);
           this.printRegionsIdentification(data.token);
           this.onCancel();
-          this.messageService.add({ life: 30000000, severity: 'success', summary: this.localizationService.translate('area.save_message_success.title', { token: data.token }), detail: this.localizationService.translate('area.save_message_success.msg') })
+          this.messageService.add({ life: 2000, severity: 'success', summary: this.localizationService.translate('area.save_message_success.title', { token: data.token }), detail: this.localizationService.translate('area.save_message_success.msg') })
         }, error => {
           this.messageService.add({ severity: 'error', summary: this.localizationService.translate('area.save_message_error.title'), detail: this.localizationService.translate('area.save_message_error.msg') });
         })
@@ -1630,7 +1647,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
           this.onSearchDrawnGeometry.emit(data.token);
           this.printRegionsIdentification(data.token);
           this.onCancel();
-          this.messageService.add({ life: 30000000, severity: 'success', summary: this.localizationService.translate('area.save_message_success.title', { token: data.token }), detail: this.localizationService.translate('area.save_message_success.msg') })
+          this.messageService.add({ life: 2000, severity: 'success', summary: this.localizationService.translate('area.save_message_success.title', { token: data.token }), detail: this.localizationService.translate('area.save_message_success.msg') })
         }, error => {
           this.messageService.add({ severity: 'error', summary: this.localizationService.translate('area.save_message_error.title'), detail: this.localizationService.translate('area.save_message_error.msg') });
         })
@@ -1828,6 +1845,8 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     return [features[0]];
   }
 
+
+
   onDisplayFeatureInfo(evt): void {
     if (!this.drawing) {
       const self = this;
@@ -1900,6 +1919,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
 
                     let filesToDisplay = {}
                     let arrKeys = Object.keys(files);
+                    arrKeys.sort();
 
                     arrKeys.forEach(key => {
 
@@ -1932,16 +1952,34 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
                       }
 
                     })
+                    let index = 0;
 
-                    console.log("FINAL - ", filesToDisplay)
-
+                    this.gallery = [];
+                    for (let [key, value] of Object.entries(filesToDisplay)) {
+                     // @ts-ignore
+                      if(value.length > 0){
+                       // @ts-ignore
+                        const items = value.map(url => {
+                          return {
+                            type: key === 'videos_drone' ? 'video': 'image',
+                            url: environment.production ? url : environment.ATLAS_URL + url}
+                        });
+                        this.gallery.push(
+                         {
+                           title: this.localizationService.translate('gallery.' + key),
+                           key: key,
+                           items: items,
+                           activeIndex: 0,
+                           show: true
+                         }
+                       );
+                       index++;
+                     }
+                    }
                   }, error => {
                     console.error(error)
                   });
                 }
-
-
-
                 this.featureCollections.push(featureCollection);
               }
             }
@@ -1990,7 +2028,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
           }
 
           if (this.isEmpty(this.popupRegion.geojson)) {
-            this.messageService.add({ life: 300000, severity: 'warn', summary: this.localizationService.translate('popup-info.warn_message'), detail: this.localizationService.translate('popup-info.has_not_info_message') });
+            this.messageService.add({ life: 2000, severity: 'warn', summary: this.localizationService.translate('popup-info.warn_message'), detail: this.localizationService.translate('popup-info.has_not_info_message') });
           } else {
             const container = document.getElementById('popup');
             // @ts-ignore
@@ -2076,4 +2114,12 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     return Object.keys(ob).length === 0;
   }
 
+  loadVideo(key){
+    if(key === 'videos_drone'){
+      const player = this.video.nativeElement;
+      if(player){
+        player.load();
+      }
+    }
+  }
 }

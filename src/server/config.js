@@ -14,6 +14,8 @@ module.exports = function (app) {
         "fieldDir": appRoot + env.PLATAFORMS_FOLDER_LOCALHOST + env.FIELD_DIR,
         "uploadDir": appRoot + env.PLATAFORMS_FOLDER_LOCALHOST + env.UPLOAD_DIR,
         "downloadDir": appRoot + env.PLATAFORMS_FOLDER_LOCALHOST + env.DOWNLOAD_DIR,
+        "hotsiteDir": env.HOTSITE_DIR,
+
         "pg_lapig": {
             "user": env.PG_USER,
             "host": env.PG_HOST,
@@ -46,6 +48,7 @@ module.exports = function (app) {
         config["fieldDir"] = env.APP_PRODUCAO + env.FIELD_DIR
         config["uploadDir"] = env.APP_PRODUCAO + env.UPLOAD_DIR
         config["downloadDir"] = env.APP_PRODUCAO + env.DOWNLOAD_DIR
+        config["hotsiteDir"] = env.APP_PRODUCAO + env.HOTSITE_DIR
     }
 
     return config;

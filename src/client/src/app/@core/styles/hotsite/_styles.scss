@@ -13947,6 +13947,17 @@ $primary_hotiste: #ffc845;
     z-index: 0;
   }
 
+  .gallery-banner{
+    background: url(../../../../assets/hotsite/images/galeria.png) no-repeat top;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    position: relative;
+    z-index: 0;
+  }
+
   .artigos-banner{
     background: url(../../../../assets/hotsite/images/artigos.jpg) no-repeat top;
     background-size: cover;

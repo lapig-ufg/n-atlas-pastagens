@@ -432,7 +432,6 @@ export class LeftSideBarComponent implements AfterViewInit {
   }
 
   showMetadata(layer: DescriptorLayer) {
-    console.log('showMetadata', layer)
     this.metadata = { header: { title: '', description: '' }, data: [] };
     const layerType = layer.types.find(type => {
       return type.valueType === layer.selectedType;
