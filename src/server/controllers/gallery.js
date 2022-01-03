@@ -102,7 +102,7 @@ module.exports = function (app) {
       response.send(file);
       response.end();
     } else {
-      response.status(400).send({ error: 'File not found'});
+      response.status(404).send({ error: 'File not found'});
       response.end();
     }
   }

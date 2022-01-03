@@ -235,6 +235,59 @@
                     <div class="details-row-header">{{attribute.label}}: </div>
                     <div class="details-row-content">{{getAttributeValue(attribute.columnType, featureCollection.features[0].properties[attribute.column]) }}</div>
                   </div>
+                  <div *ngIf="gallery.length! > 0" class="gallery-btn">
+                    <button
+                      (click)="displayGallery = !displayGallery"
+                      pButton
+                      pRipple
+                      type="button"
+                      label="{{'gallery.btn' | translate}}"
+                      class="p-button-raised p-button-text p-button-plain">
+                      <i class='bx bx-photo-album' ></i>
+                    </button>
+                  </div>
+                  <div>
+                    <p-dialog
+                      header="{{'gallery.dialog_title' | translate}}"
+                      [maximizable]="true"
+                      [draggable]="false"
+                      [resizable]="false"
+                      [appendTo]="'body'"
+                      [modal]="true"
+                      [style]="{width: '45vw'}"
+                      [(visible)]="displayGallery">
+                      <p-tabView  *ngIf="gallery.length! > 0">
+                        <p-tabPanel header="{{galeria.title}}" *ngFor="let galeria of gallery ; let i = index" [selected]="i == 0"
+                                    [disabled]="!galeria.show" [headerStyle]="{'font-size': 'small'}">
+                          <div *ngIf="galeria.items.length > 0">
+                            <p-galleria
+                              [value]="galeria.items"
+                              [(activeIndex)]="galeria.activeIndex"
+                              [responsiveOptions]="galleryResponsiveOptions"
+                              [showItemNavigators]="galeria.items.length > 1"
+                              [showThumbnails]="galeria.key !== 'videos_drone'"
+                              [containerStyle]="{'max-width': '100%'}"
+                              [numVisible]="5"
+                              (activeIndexChange)="loadVideo(galeria.key)"
+                            >
+                              <ng-template pTemplate="item" let-item>
+                                <img *ngIf="item.type === 'image'" [src]="item.url" style="width: 100%; height: 33rem;" />
+                                <video #video *ngIf="item.type === 'video'" controls style="width:90%; height: 33rem;">
+                                  <source [src]="item.url" type="video/mp4">
+                                  Your browser does not support the video tag.
+                                </video>
+                              </ng-template>
+                              <ng-template  pTemplate="thumbnail" let-item>
+                                <div *ngIf="item.type === 'image'" class="p-grid p-nogutter p-justify-center">
+                                  <img [src]="item.url" style="width: 60px; height: 60px;"  />
+                                </div>
+                              </ng-template>
+                            </p-galleria>
+                          </div>
+                        </p-tabPanel>
+                      </p-tabView>
+                    </p-dialog>
+                  </div>
                 </div>
               </div>
             </div>

@@ -88,6 +88,7 @@
                       <span *ngIf="layer.selectedTypeObject!.filters" class="p-float-label">
                         <p-dropdown
                           appendTo="body"
+                          appendTo="body"
                           *ngIf="layer.selectedTypeObject!.filters"
                           id="type-filters-{{layer.selectedTypeObject!.filterSelected}}"
                           [options]="layer.selectedTypeObject!.filters"
@@ -124,22 +125,6 @@
                     </div>
                   </div>
                 </div>
-                <p-dialog [maximizable]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false"
-                  [appendTo]="'body'" [modal]="true" header="{{metadata.header.title}} - {{metadata.header.description}}" [(visible)]="displayMetadata"
-                  [style]="{width: '50vw'}">
-                  <table>
-                    <tbody>
-                      <tr class="table-row" *ngFor="let data of metadata.data">
-                        <td class="title-row"><b>{{data.title}}</b></td>
-                        <td *ngIf="!isDetails(data.title); else linkDetails" class="content-row">{{data.description}}
-                        </td>
-                        <ng-template #linkDetails>
-                          <td class="content-row" [innerHTML]="data.description"></td>
-                        </ng-template>
-                      </tr>
-                    </tbody>
-                  </table>
-                </p-dialog>
               </div>
             </div>
           </div>
@@ -214,6 +199,22 @@
       </div>
     </div>
   </p-sidebar>
+  <p-dialog [maximizable]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false"
+            [appendTo]="'body'" [modal]="true" header="{{metadata.header.title}} - {{metadata.header.description}}" [(visible)]="displayMetadata"
+            [style]="{width: '50vw'}">
+    <table>
+      <tbody>
+      <tr class="table-row" *ngFor="let data of metadata.data">
+        <td class="title-row"><b>{{data.title}}</b></td>
+        <td *ngIf="!isDetails(data.title); else linkDetails" class="content-row">{{data.description}}
+        </td>
+        <ng-template #linkDetails>
+          <td class="content-row" [innerHTML]="data.description"></td>
+        </ng-template>
+      </tr>
+      </tbody>
+    </table>
+  </p-dialog>
 
 </section>
 

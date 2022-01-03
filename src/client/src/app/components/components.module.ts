@@ -50,6 +50,7 @@ import { RippleModule } from 'primeng/ripple';
 import { GoogleAnalyticsService } from "./services/google-analytics.service";
 import { MobileComponent } from './left-side-bar/mobile/mobile.component';
 import { RightSideBarMobileComponent } from './right-side-bar/mobile/right-side-bar-mobile.component';
+import { GalleriaModule } from "primeng/galleria";
 
 registerLocaleData(localePt);
 
@@ -101,7 +102,8 @@ registerLocaleData(localePt);
     DragDropModule,
     HttpClientModule,
     RippleModule,
-    TableModule
+    TableModule,
+    GalleriaModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

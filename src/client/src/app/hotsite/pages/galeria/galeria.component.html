@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="mx-auto" >
-          <h5 class="mb-1">Buscar Imagens</h5>
+          <h5 class="mb-1">{{'hotsite.gallery.search_images.title' | translate}}</h5>
           <p-multiSelect
             style="'width: 100%'"
             [options]="tagsGroup"
@@ -39,7 +39,7 @@
             (ngModelChange)="searchImages($event)"
             optionLabel="tag"
             [group]="true"
-            defaultLabel="Selecione um tag para realizar a busca das imagens"
+            defaultLabel="{{'hotsite.gallery.search_images.label' | translate}}"
             display="chip">
             <ng-template let-group pTemplate="group">
               <div class="p-d-flex p-ai-center group-labels">
