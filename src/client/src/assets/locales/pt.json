@@ -503,7 +503,7 @@
     },
     "home": {
       "banner": {
-        "text": "Uma plataforma, online e gratuita, desenvolvida e mantida pelo Lapig/UFG, para tornar acessível os resultados das pesquisas desenvolvidas no âmbito das pastagens brasileiras.",
+        "text": "O Atlas das Pastagens, público e gratuito, foi desenvolvido pelo Laboratório de Processamento de Imagens e Geoprocessamento da Universidade Federal de Goiás (Lapig/UFG), para tornar acessível os resultados e produtos, gerados no âmbito da iniciativa MapBiomas, referentes às pastagens brasileiras.",
         "btn": "Acesse a Plataforma"
       },
       "abstract": {
@@ -530,7 +530,8 @@
         "researcher_analyst": "Pesquisador e Analista Socioambiantal",
         "project_manager": "Gestora de Projetos",
         "infrastructure_analyst": "Analista de Infraestrutura",
-        "developer": "Desenvolvedor",
+        "development_analyst": "Analista de Desenvolvimento de Sistemas",
+        "database_analyst": "Analista de Banco de Dados e Desenvolvedor",
         "coordinator": "Coordenador"
       },
       "differential": {
@@ -544,7 +545,7 @@
     "about": {
       "page_title": "Atlas das Pastagens",
       "title": "Sobre",
-      "p1": "O Atlas das Pastagens é uma plataforma, online e gratuita, desenvolvida e mantida pelo Laboratório de Processamento de Imagens e Geoprocessamento (Lapig/UFG), para tornar acessível os resultados das pesquisas desenvolvidas no âmbito das pastagens brasileiras.",
+      "p1": "O Atlas das Pastagens, público e gratuito, foi desenvolvido pelo Laboratório de Processamento de Imagens e Geoprocessamento da Universidade Federal de Goiás (Lapig/UFG), para tornar acessível os resultados e produtos, gerados no âmbito da iniciativa MapBiomas, referentes às pastagens brasileiras.",
       "p2": "A plataforma disponibiliza, atualmente, seis bases de dados: (1) mapeamento das áreas ocupadas por pastagens no Brasil; (2) mapeamento da qualidade dessas áreas; (3) mapeamento dos estoques de carbono das pastagens no bioma Cerrado; (4) informações do rebanho bovino brasileiro analisadas a partir dos dados da pesquisa pecuária municipal (IBGE); (5) séries temporais de classificação de uso e cobertura da terra por inspeção visual de dados dos satélites Landsat; (6) avaliação da condição das pastagens em campanhas de campo realizadas por equipes do laboratório."
     },
     "gallery": {
@@ -655,7 +656,7 @@
     }
   },
   "gallery": {
-    "btn": "Visualizar Imagens",
+    "btn": "Visualizar Galeria",
     "dialog_title": "Galeria de Imagens e vídeos do ponto visitado",
     "fotos_camera": "Fotos de Câmara",
     "fotos_drone": "Fotos de Drone",

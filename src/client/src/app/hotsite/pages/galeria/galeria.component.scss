@@ -1,4 +1,5 @@
 @import "src/app/@core/styles/default_theme";
+@import "src/app/@core/styles/reponsive";
 
 :host ::ng-deep .p-multiselect {
   width: 100%;
@@ -152,3 +153,20 @@
   justify-content: space-around;
   align-items: center;
 }
+
+@include media('>=phone', '<=tablet') {
+  :host ::ng-deep .p-galleria {
+    .custom-galleria-footer {
+      justify-content: center;
+      flex-wrap: wrap;
+      .img-location{
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+      #thumbnail, .fullscreen-button{
+        display: none;
+      }
+    }
+  }
+}
+

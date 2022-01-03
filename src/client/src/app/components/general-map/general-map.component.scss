@@ -600,10 +600,14 @@
   .map-loading:after {
     left: 1.5em;
   }
+
   .gallery-btn{
     width: 100%;
     display: flex;
     justify-content: center;
-    margin: 5px
+    margin: 5px;
+  }
+  video{
+    border-radius: 10px;
   }
 }

@@ -39,6 +39,7 @@
             (ngModelChange)="searchImages($event)"
             optionLabel="tag"
             [group]="true"
+            [panelStyle]="{width: '100%'}"
             defaultLabel="{{'hotsite.gallery.search_images.label' | translate}}"
             display="chip">
             <ng-template let-group pTemplate="group">
@@ -74,7 +75,7 @@
               <ng-template pTemplate="footer" let-item>
                 <div class="custom-galleria-footer">
                   <span *ngIf="images.length > 0" class="title-container">
-                     <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
+                     <button id="thumbnail" type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
                       <span>{{activeIndex + 1}}/{{images.length}}</span>
                   </span>
                   <div *ngIf="images.length > 0 && images[activeIndex]" >

@@ -1,5 +1,6 @@
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 @import "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,700;1,900&display=swap";
+@import "src/app/@core/styles/reponsive";
 
 @charset "UTF-8";
 
@@ -15013,6 +15014,23 @@ $primary_hotiste: #ffc845;
     }
     a {
       font-weight: normal;
+    }
+  }
+
+  @include media('>=phone', '<=tablet') {
+    .abstract{
+      padding: 13px;
+    }
+    .lang{
+      padding: 5px;
+      font-size: 12px;
+    }
+    .footer-contact{
+      padding: 1rem;
+      margin: 15px;
+      a, div {
+        font-size: 12px;
+      }
     }
   }
 

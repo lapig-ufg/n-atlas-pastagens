@@ -497,6 +497,7 @@ table tr{
   .p-galleria-item-nav {
     transition: unset;
     background: rgba($primary, 0.40);
+    z-index: 1000;
   }
 }
 

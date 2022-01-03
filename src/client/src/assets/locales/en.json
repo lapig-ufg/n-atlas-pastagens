@@ -525,12 +525,13 @@
         }
       },
       "team": {
-        "title": "Equipe",
-        "researcher_analyst": "Pesquisador e Analista Socioambiantal",
-        "project_manager": "Gestora de Projetos",
-        "infrastructure_analyst": "Analista de Infraestrutura",
-        "developer": "Desenvolvedor",
-        "coordinator": "Coordenador"
+        "title": "Team",
+        "researcher_analyst": "Researcher and Social and Environmental Analyst",
+        "project_manager": "Project Manager",
+        "infrastructure_analyst": "Infrastructure Analyst",
+        "development_analyst": "Systems Development Analyst",
+        "database_analyst": "Database Analyst and Developer",
+        "coordinator": "Coordinator"
       },
       "differential": {
         "title": "Diferencial",
@@ -603,47 +604,47 @@
       "page_title": "Artigos Relacionados",
       "title": "Artigos",
       "authors": "Autores:",
-      "article01": {
+      "1": {
         "title": "Monitoring the brazilian pasturelands: A new mapping approach based on the landsat 8 spectral and temporal domains",
         "abstract": "Neste estudo, utilizamos todo o conjunto de imagens Landsat 8 disponíveis para o Brasil em 2015, a partir das quais foram derivadas dezenas de métricas sazonais, para produzir, por meio de critérios objetivos e estratégias de classificação automatizada, um novo mapa de pastagens para o país."
       },
-      "article02": {
+      "2": {
         "title": "Assessing the Spatial and Occupation Dynamics of the Brazilian Pasturelands Based on the Automated Classification of MODIS Images from 2000 to 2016",
         "abstract": "Este estudo mapeou, por meio de critérios objetivos e métodos de classificação automática (Random Forest) aplicados a imagens MODIS (Moderate Resolution Imaging Spectroradiometer), a totalidade das pastagens brasileiras entre 2000 e 2016."
       },
-      "article03": {
+      "3": {
         "title": "Assessing the pasturelands and livestock dynamics in Brazil, from 1985 to 2017: A novel approach based on high spatial resolution imagery and Google Earth Engine cloud computing",
         "abstract": "Este trabalho mapeou, anualmente e de forma inédita, a totalidade das pastagens brasileiras, de 1985 a 2017. Com uma precisão geral de cerca de 90%, os 33 mapas produzidos indicaram a área de pastagem variando de ~ 118 Mha ± 3,41% ( 1985) para ~ 178 Mha ± 2,53% (2017), com essa expansão ocorrendo principalmente na região norte do país e em menor medida no centro-oeste."
       },
-      "article04": {
+      "4": {
         "title": "Biophysical Properties of Cultivated Pastures in the Brazilian Savanna Biome: An Analysis in the Spatial-Temporal Domains Based on Ground and Satellite Data",
         "abstract": "O objetivo principal deste estudo foi a avaliação regional das propriedades biofísicas das pastagens, por meio da escala de dados verdadeiros das estações chuvosa e seca (biomassa total, biomassa verde e% de cobertura verde) por meio do uso combinado de alta (Landsat-TM ) e imagens de índice de vegetação de resolução espacial moderada (MODIS)."
       },
-      "article05": {
+      "5": {
         "title": "Livestock intensification potential in Brazil based on agricultural census and satellite data analysis",
         "abstract": "O objetivo deste trabalho foi avaliar o potencial de intensificação da pecuária no Brasil. As taxas de lotação de gado de corte foram estimadas de acordo com dados do censo agropecuário da pecuária dos municípios brasileiros. A capacidade de suporte da pastagem foi obtida pela combinação de imagens de espectrorradiômetro de imagem de resolução moderada (Modis) de produtividade primária bruta e dados de demanda de matéria seca por unidade animal (UA)."
       },
-      "article06": {
+      "6": {
         "title": "MODIS estimates of pasture productivity in the Cerrado based on ground and Landsat-8 data extrapolations",
         "abstract": "Neste estudo, combinamos dados de campo e de satélite para avaliar as características biofísicas e os padrões de produtividade das pastagens do Cerrado. De outubro de 2013 a setembro de 2014, foram coletados dados de campo de biomassa total e verde e porcentagem de cobertura verde (% GC) em duas áreas de estudo localizadas no município de Uberlândia, Estado de Minas Gerais."
       },
-      "article07": {
+      "7": {
         "title": "Caracterização biofísica e potencial à intensificação sustentável da pecuária brasileira em pastagens",
         "abstract": "Este trabalho teve por objetivo avaliar o vigor e o potencial de intensificação das pastagens brasileiras. Para obter o vigor das pastagens, gerou-se um Índice de Vigor do Pasto (PVI), por meio da integração dos coeficientes α (intercepto) e β (slope), obtidos da regressão linear do índice de vegetação (NDVI) ao longo do tempo (2000 a 2017)."
       },
-      "article08": {
+      "8": {
         "title": "Pastagens degradadas, uma herança dos imóveis rurais desapropriados para os assentamentos rurais do Cerrado goiano",
         "abstract": "O presente artigo está pautado em dois objetivos: I) verificar a predominância de pastagens degradadas nos imóveis rurais desapropriados por meio da política de reforma agrária no estado de Goiás; e II) avaliar o potencial dos dados satelitários quanto a determinação das condições produtivas da terra."
       },
-      "article09": {
+      "9": {
         "title": "Land-use dynamics in a Brazilian agricultural frontier region, 1985-2017",
         "abstract": "Neste estudo, aplicamos técnicas de amostragem estatística a dados de sensoriamento remoto (imagens Landsat de 1985 a 2017) para recuperar informações sobre a dinâmica do uso da terra em uma das regiões de fronteira agrícola mais proeminentes do mundo."
       },
-      "article10": {
+      "10": {
         "title": "The livestock in Goiás seen through the GIS Window",
         "abstract": "Este trabalho visa, por meio de um cenário sobre a dinâmica da pecuária goiana, a partir de uma espacialização dos dados pecuários produzidos pelo IBGE de 1974 a 2017, apresentar o potencial de um SIG para estudar padrões em um determinado recorte temporal e espacial. Neste contexto, o SIG apresenta-se como uma ferramenta eficiente por proporcionar um conhecimento ágil sobre o espaço."
       },
-      "article11": {
+      "11": {
         "title": "Tecnologia e degradação de pastagens na pecuária no Cerrado brasileiro",
         "abstract": "Esta pesquisa tem por objetivo analisar a relação entre nível tecnológico de produção de bovinos e de degradação de pastagens na Bacia Hidrográfica do Rio Vermelho, em Goiás - Brasil."
       }
@@ -654,7 +655,7 @@
     }
   },
   "gallery": {
-    "btn": "View Images",
+    "btn": "View Gallery",
     "dialog_title": "Gallery of Images and Videos of the visited points",
     "fotos_camera": "Camara Photos",
     "fotos_drone": "Drone Photos",

@@ -226,7 +226,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     this.gallery = [];
     this.popupRegion = {
       coordinate: [],
-      attributes: {},
+      attributes: [],
       properties: {},
       geojson: {}
     };
@@ -1854,20 +1854,20 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
       this.featureCollections = [];
       this.popupRegion = {
         coordinate: [],
-        attributes: {},
+        attributes: [],
         properties: {},
         geojson: {}
       };
       this.map.getLayers().forEach(layer => {
         if (layer) {
           if (layer.get('key') === 'popup-vector') {
+            console.log(layer)
             this.map.removeLayer(layer);
           }
         }
       });
 
       this.popupRegion.coordinate = transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
-      // const bbox = transformExtent(geojsonExtent({ type: 'Point', coordinates: evt.coordinate }), 'EPSG:3857', 'EPSG:4326');
       const bufferedPoint = buffer({ type: 'Point', coordinates: this.popupRegion.coordinate }, 20, {
         units: 'kilometers'
       });
@@ -1938,16 +1938,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
 
                           filesToDisplay[key].push('/service/gallery' + '/field/' + params.category + '/'
                             + params.tablename + '/' + params.id + '/' + params.filename) // vetor com os endereços gerados pelo service abaixo. ALTERAR
-
-                          /* TO DO : Chamar o service abaixo para receber as fotos servidas pelo backend.
-                          pode colocar resposta do Service dentro do componente de imagem,este service já devolve a imagem. */
-
-                          // this.galleryService.getFileForGallery(params).subscribe((file: any) => {
-                          //   // filesToDisplay[key].push(file) //ALTERAR
-                          // }, error => {
-                          //   console.error(error)
-                          // });
-
                         });
                       }
 
@@ -2027,15 +2017,21 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
             this.map.addLayer(vectorLayer);
           }
 
-          if (this.isEmpty(this.popupRegion.geojson)) {
-            this.messageService.add({ life: 2000, severity: 'warn', summary: this.localizationService.translate('popup-info.warn_message'), detail: this.localizationService.translate('popup-info.has_not_info_message') });
-          } else {
-            const container = document.getElementById('popup');
-            // @ts-ignore
-            this.popupOverlay = new Overlay({ id: 'popup-info', element: container, autoPan: false });
-            this.popupOverlay.setPosition(evt.coordinate);
-            this.map.addOverlay(this.popupOverlay);
-          }
+          // if (this.isEmpty(this.popupRegion.geojson)) {
+          //   this.messageService.add({ life: 2000, severity: 'warn', summary: this.localizationService.translate('popup-info.warn_message'), detail: this.localizationService.translate('popup-info.has_not_info_message') });
+          // } else {
+          //   const container = document.getElementById('popup');
+          //   // @ts-ignore
+          //   this.popupOverlay = new Overlay({ id: 'popup-info', element: container, autoPan: false });
+          //   this.popupOverlay.setPosition(evt.coordinate);
+          //   this.map.addOverlay(this.popupOverlay);
+          // }
+
+          const container = document.getElementById('popup');
+          // @ts-ignore
+          this.popupOverlay = new Overlay({ id: 'popup-info', element: container, autoPan: false });
+          this.popupOverlay.setPosition(evt.coordinate);
+          this.map.addOverlay(this.popupOverlay);
 
           this.loadingMap = false;
         }
@@ -2054,7 +2050,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     closer.blur();
     this.popupRegion = {
       coordinate: [],
-      attributes: {},
+      attributes: [],
       properties: {},
       geojson: {}
     };
