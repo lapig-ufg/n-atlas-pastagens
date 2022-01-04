@@ -60,7 +60,7 @@
             <div class="details">
               <div class="details-inner">
                 <div *ngFor="let layer of group.layers; let i = index" class="layer-card">
-                  <div class="layer-card-header">
+                  <div pTooltip="{{layer.labelLayer}}" class="layer-card-header">
                     <p-inputSwitch (onChange)="changeLayerVisibility(layer)" [id]=layer.idLayer
                       (ngModelChange)="layer.visible = !layer.visible" [(ngModel)]="layer.visible"></p-inputSwitch>
                     <h5>{{layer.labelLayer}}</h5>

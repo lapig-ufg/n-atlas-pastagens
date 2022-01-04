@@ -534,7 +534,10 @@
 
       h5 {
         margin-left: 6px;
-        width: 100%;
+        text-overflow: ellipsis;
+        width: 195px;
+        white-space: nowrap;
+        overflow: hidden;
       }
 
       i {

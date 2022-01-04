@@ -15022,14 +15022,7 @@ $primary_hotiste: #ffc845;
     color: white;
     border: 1px solid $primary;
     outline: unset !important;
-    &:focus {
-      border: 1px solid $primary;
-      outline: unset !important;
-    }
-    &:active {
-      border: 1px solid $primary;
-      outline: unset !important;
-    }
+    font-size: 1.5rem;
   }
 
   @include media('>=phone', '<=tablet') {
