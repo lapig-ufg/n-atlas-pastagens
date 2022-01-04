@@ -56,7 +56,11 @@ registerLocaleData(localePt);
 
 
 @NgModule({
-  declarations: [...routedComponents, AreaComponent, MobileComponent, RightSideBarMobileComponent],
+  declarations: [...routedComponents,
+    AreaComponent,
+    MobileComponent,
+    RightSideBarMobileComponent,
+  ],
   imports: [
     MatButtonToggleModule,
     SelectButtonModule,

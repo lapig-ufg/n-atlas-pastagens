@@ -13,6 +13,7 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
 import { GoogleAnalyticsService } from "../components/services/google-analytics.service";
+import {FilterPipe} from "../@core/pipes";
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { GoogleAnalyticsService } from "../components/services/google-analytics.
     TranslateModule,
     MultiSelectModule,
     GalleriaModule,
-    ButtonModule
+    ButtonModule,
   ],
   declarations: [
     IndexComponent,
@@ -30,7 +31,8 @@ import { GoogleAnalyticsService } from "../components/services/google-analytics.
     SobreComponent,
     ArtigosComponent,
     MetodosComponent,
-    GaleriaComponent
+    GaleriaComponent,
+    FilterPipe
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

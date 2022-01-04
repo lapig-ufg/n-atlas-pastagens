@@ -5,7 +5,7 @@ import {LocalizationService} from "../../../@core/internationalization/localizat
 @Component({
   selector: 'app-site-base',
   templateUrl: './base.component.html',
-  styleUrls: ['./base.component.css']
+  styleUrls: ['./base.component.scss']
 })
 export class BaseComponent implements  AfterViewInit {
 

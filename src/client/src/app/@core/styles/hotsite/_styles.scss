@@ -15017,6 +15017,21 @@ $primary_hotiste: #ffc845;
     }
   }
 
+  .form-control {
+    transition: ease-in-out, width .35s ease-in-out;
+    color: white;
+    border: 1px solid $primary;
+    outline: unset !important;
+    &:focus {
+      border: 1px solid $primary;
+      outline: unset !important;
+    }
+    &:active {
+      border: 1px solid $primary;
+      outline: unset !important;
+    }
+  }
+
   @include media('>=phone', '<=tablet') {
     .abstract{
       padding: 13px;
