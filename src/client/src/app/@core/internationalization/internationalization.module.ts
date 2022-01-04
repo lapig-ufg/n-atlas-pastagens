@@ -28,6 +28,7 @@ export class InternationalizationModule {
     };
   }
 }
+
 /**
  * Initialize the localization service.
  * @param {LocalizationService} service

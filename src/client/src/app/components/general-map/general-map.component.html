@@ -2,6 +2,7 @@
   <div [class]="classes">
     <ol-map [lat]="-16.6958288" [lon]="-49.4443537" [zoom]="4.6" [width]="'100%'" [height]="'100vh'" [loading]="loadingMap"
       (onReady)="setMap($event)">
+
       <ol-control class="mobileHide" control="FullScreen" [options]="{ source:'main'}">
       </ol-control>
       <ol-control control="ScaleLine" [options]="options">
@@ -15,7 +16,9 @@
       <ol-layer *ngFor="let layer of layers" [layer]="layer"></ol-layer>
 
       <ol-map-marker *ngIf="!showFormPoint && lat && lon" [lat]="lat" [lon]="lon"
-        [text]="'Lat: ' + lat + '\nLon: ' + lon"></ol-map-marker>
+        [text]="'Lat: ' + lat + '\nLon: ' + lon">
+      </ol-map-marker>
+
       <div *ngIf="showFormPoint" class="search-point">
         <div class="search-point-container">
           <span class="p-float-label">
@@ -79,11 +82,9 @@
       </div>
       <div class="controls">
         <div class="controls-container">
-
           <i class="mobileHide" pRipple [pTooltip]="'controls.swipe' | translate"
             [class]="mapControls.swipe ? 'fg-flip-h control-active' : 'fg-flip-h'"
             (click)="onSwipe()"></i>
-
           <i pRipple [pTooltip]="'controls.point' | translate"
             [class]="mapControls.point ? 'fg-location-poi-o control-active' : 'fg-location-poi-o'"
             (click)="onPoint()"></i>
@@ -177,7 +178,6 @@
                 <i *ngIf="selectedAutoCompleteText?.text" [pTooltip]="'controls.details.clear' | translate"
                   class='close bx bx-x-circle' (click)="updateRegion(defaultRegion)"></i>
               </span>
-
             </div>
           </div>
           <div *ngIf="(mapControls.drawArea || this.mapControls.point) && features.length > 0"
@@ -202,7 +202,7 @@
                   <i class='bx bx-save'></i>
                   <span>{{'controls.draw_area.save' | translate}}</span>
                 </div>
-                <div pRipple class="btn-action btn-cancel"  (click)="onCancel()">
+                <div pRipple class="btn-action btn-cancel" (click)="onCancel()">
                   <i class='bx bx-trash'></i>
                   <span>{{'controls.draw_area.cancel' | translate}}</span>
                 </div>
@@ -212,7 +212,7 @@
         </div>
       </div>
       <div *ngIf="loadingMap" class="map-loading"></div>
-      <div [hidden]="popupRegion.coordinate.length == 0 && loadingMap"  id="popup" class="ol-popup">
+      <div [hidden]="popupRegion.coordinate.length == 0 && loadingMap" #wfsCard id="popup" class="ol-popup">
         <div class="popup-header">
           <h5>{{'popup-info.title' | translate | uppercase}}</h5>
           <i id="popup-closer" [pTooltip]="localizationService.translate('popup-info.close')" (click)="closePopup()" class="bx bx-x bx-lg"></i>

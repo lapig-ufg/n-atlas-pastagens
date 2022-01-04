@@ -49,6 +49,7 @@ import { DecimalPipe } from "@angular/common";
 import * as moment from 'moment';
 import buffer from "@turf/buffer";
 import turfDistance from "@turf/distance";
+import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import * as turfHelper from "@turf/helpers";
 import turfCentroid from "@turf/centroid";
 import { environment } from "../../../environments/environment";
@@ -90,6 +91,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
   @Output() onChangeFilterLayer = new EventEmitter<any>();
 
   @ViewChild('video') video: ElementRef;
+  @ViewChild('wfsCard') wfsCard: ElementRef;
 
   public msgs: Message[];
   public env: any;
@@ -168,7 +170,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
       numVisible: 1
     }
   ];
-
 
   private formataCoordenada: (coordinate: Coordinate) => string = createStringXY(4);
 
@@ -579,6 +580,8 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
 
   ngAfterContentChecked(): void {
     this.cdRef.detectChanges();
+    // this.wfsCard.nativeElement.style.visibility = 'hidden';
+    // this.wfsCard.nativeElement.style.zIndex = 0;
   }
 
   changeVisibilityBasemap(ev) {
@@ -683,7 +686,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     this.createLayers();
   }
 
-
   private createVectorLayer(features, strokeColor, width) {
     return new VectorLayer({
       source: new VectorSource({ features }),
@@ -704,7 +706,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     });
   }
 
-
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.innerHeigth = window.innerHeight;
@@ -712,7 +713,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
       this.map.updateSize()
     });
   }
-
 
   setMap(map) {
     this.map = map;
@@ -971,9 +971,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     this.onChangeFilterLayer.emit(this.selectedLayers.map(obj => obj.get('descriptorLayer')))
   }
 
-
-
-
   handleLayersLegend(layerType: DescriptorType) {
     if (layerType.visible) {
       let layerExist = false;
@@ -1000,7 +997,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
       item.setZIndex(index + 1);
     });
   }
-
 
   onChangeTransparency(ev) {
     let { layer, opacity } = ev;
@@ -1121,7 +1117,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
         layer.download.loading = false;
       });
   }
-
 
   downloadRaster(layer, format) {
     layer.download.loading = true;
@@ -1625,9 +1620,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     this.features.splice(index, 1);
   }
 
-
   onSave() {
-
     //IF para identificar quando o caso é mobile.
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
       let drawData = { geometry: this.getGeoJsonFromFeature(), app_origin: 'app-base' }
@@ -1653,7 +1646,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
         })
     }
   }
-
 
   printRegionsIdentification(token) {
     let dd = {
@@ -1830,22 +1822,22 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
   }
 
   getFeatureToDisplay(pointClick, features) {
-
     features.forEach(feat => {
       if (feat.geometry.type == "Point") {
         feat['distance'] = turfDistance(turfHelper.point(pointClick), turfHelper.point(feat.geometry.coordinates))
       }
       else {
-        feat['distance'] = turfDistance(turfHelper.point(pointClick), turfCentroid(turfHelper.polygon(feat.geometry.coordinates)))
+        if(booleanPointInPolygon(turfHelper.point(pointClick), turfHelper.polygon(feat.geometry.coordinates))){
+          feat['distance'] = 0
+        }else {
+          feat['distance'] = turfDistance(turfHelper.point(pointClick), turfCentroid(turfHelper.polygon(feat.geometry.coordinates)));
+        }
       }
-
     })
 
     features.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
     return [features[0]];
   }
-
-
 
   onDisplayFeatureInfo(evt): void {
     if (!this.drawing) {
@@ -1858,10 +1850,12 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
         properties: {},
         geojson: {}
       };
+
+      this.wfsCard.nativeElement.style.visibility = 'hidden';
+
       this.map.getLayers().forEach(layer => {
         if (layer) {
           if (layer.get('key') === 'popup-vector') {
-            console.log(layer)
             this.map.removeLayer(layer);
           }
         }
@@ -1871,15 +1865,18 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
       const bufferedPoint = buffer({ type: 'Point', coordinates: this.popupRegion.coordinate }, 20, {
         units: 'kilometers'
       });
+
       const bufferSource = new VectorSource({
         features: (new GeoJSON()).readFeatures(bufferedPoint, {
           dataProjection: 'EPSG:4326',
           featureProjection: 'EPSG:3857'
         })
       });
+
       const bbox = transformExtent(bufferSource.getExtent(), 'EPSG:3857', 'EPSG:4326');
       const pixel: Pixel = this.map.getEventPixel(evt.originalEvent);
       let promises: any[] = [];
+
       promises.push(this.getFeatures('municipios_info', bbox));
       this.map.forEachLayerAtPixel(pixel, function (layer) {
         const layerType: DescriptorType = layer.get('descriptorLayer');
@@ -1905,7 +1902,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
               }
             } else {
               if (featureCollection && featureCollection.features.length > 0) {
-
                 featureCollection.features = this.getFeatureToDisplay(this.popupRegion.coordinate, featureCollection.features);
                 featureCollection['expanded'] = true;
 
@@ -1934,7 +1930,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
                             id: featureCollection.features[0].properties[featureCollection.layerType.gallery.id_column],
                             filename: element
                           };
-
 
                           filesToDisplay[key].push('/service/gallery' + '/field/' + params.category + '/'
                             + params.tablename + '/' + params.id + '/' + params.filename) // vetor com os endereços gerados pelo service abaixo. ALTERAR
@@ -1973,7 +1968,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
                 this.featureCollections.push(featureCollection);
               }
             }
-          })
+          });
 
           if (this.featureCollections.length > 0) {
             this.featureCollections.forEach(featureJson => {
@@ -1997,7 +1992,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
             })
           }
 
-          if (this.popupRegion.geojson.hasOwnProperty('features') && this.featureCollections.length <= 0) {
+          if(this.popupRegion.geojson.hasOwnProperty('features') && this.featureCollections.length <= 0){
             const vectorSource = new VectorSource({
               features: (new GeoJSON()).readFeatures(this.popupRegion.geojson, {
                 dataProjection: 'EPSG:4326',
@@ -2017,16 +2012,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
             this.map.addLayer(vectorLayer);
           }
 
-          // if (this.isEmpty(this.popupRegion.geojson)) {
-          //   this.messageService.add({ life: 2000, severity: 'warn', summary: this.localizationService.translate('popup-info.warn_message'), detail: this.localizationService.translate('popup-info.has_not_info_message') });
-          // } else {
-          //   const container = document.getElementById('popup');
-          //   // @ts-ignore
-          //   this.popupOverlay = new Overlay({ id: 'popup-info', element: container, autoPan: false });
-          //   this.popupOverlay.setPosition(evt.coordinate);
-          //   this.map.addOverlay(this.popupOverlay);
-          // }
-
+          this.wfsCard.nativeElement.style.visibility = 'visible'
           const container = document.getElementById('popup');
           // @ts-ignore
           this.popupOverlay = new Overlay({ id: 'popup-info', element: container, autoPan: false });

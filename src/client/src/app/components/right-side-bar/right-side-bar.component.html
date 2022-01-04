@@ -20,12 +20,9 @@
             <div class="group-label">{{'right_sidebar.cards_titles.resumoTitle' | translate}}</div>
           </span>
           <i [class]="expandGroups.resumo ? 'bx bxs-up-arrow-circle' :'bx bxs-down-arrow-circle'"></i>
-
         </div>
         <div class="details">
-
           <div class="details-inner" *ngIf="infoResumo">
-
             <div class="resumo-container">
               <div class="resumo-card">
                 <div class="resumo-card-title">{{'right_sidebar.region_types.'+selectRegion.type | translate}}</div>
@@ -61,8 +58,6 @@
         </div>
       </div>
     </div>
-
-
     <div *ngIf="cardsToDisplay.area1">
       <div [class]="expandGroups.area1 ? 'group-card group-card-active' :'group-card'">
         <div (click)="expandGroups.area1 = !expandGroups.area1" class="abstract">
@@ -71,7 +66,6 @@
             <div class="group-label">{{'right_sidebar.cards_titles.area1Title' | translate}}</div>
           </span>
           <i [class]="expandGroups.area1 ? 'bx bxs-up-arrow-circle' :'bx bxs-down-arrow-circle'"></i>
-
         </div>
         <div class="details">
           <div class="details-inner">
@@ -96,12 +90,9 @@
               </p-tabPanel>
             </p-tabView>
           </div>
-
         </div>
       </div>
     </div>
-
-
     <div *ngIf="cardsToDisplay.area2">
       <div [class]="expandGroups.area2 ? 'group-card group-card-active' :'group-card'">
         <div (click)="expandGroups.area2 = !expandGroups.area2" class="abstract">
@@ -173,7 +164,6 @@
         </div>
       </div>
     </div>
-
     <div *ngIf="cardsToDisplay.rankingTable">
       <div [class]="expandGroups.rankingTable ? 'group-card group-card-active' :'group-card'">
         <div (click)="expandGroups.rankingTable = !expandGroups.rankingTable" class="abstract">
@@ -189,14 +179,12 @@
               <p-tabView>
                 <p-tabPanel header="{{table.title}}" *ngFor="let table of tableRankings ; let i = index"
                   [selected]="i == 0" [disabled]="!table.show" [headerStyle]="{'font-size': 'small'}">
-
                   <div *ngIf="table.show">
                     <p-table #dt [columns]="table.exportCols" styleClass="p-datatable-sm" [value]="table.data"
                       [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
                       [autoLayout]="true"
                       currentPageReportTemplate="{{'right_sidebar.area_table_card_auxiliar.showing' | translate}} {first} {{'right_sidebar.area_table_card_auxiliar.to' | translate}} {last} {{'right_sidebar.area_table_card_auxiliar.of' | translate}} {totalRecords} {{'right_sidebar.area_table_card_auxiliar.entries' | translate}}"
                       [rowsPerPageOptions]="[10,25,50]">
-
                       <!-- <ng-template pTemplate="caption">
                         <div class="p-d-flex">
                           <button type="button" pButton pRipple icon="pi-file-o" (click)="dt.exportCSV()" class="p-mr-2"
@@ -210,7 +198,6 @@
                             pTooltip="Selection Only" tooltipPosition="bottom"></button>
                         </div>
                       </ng-template> -->
-
                       <ng-template pTemplate="header" let-columns>
                         <tr>
                           <th *ngFor="let col of columns">
@@ -218,7 +205,6 @@
                           </th>
                         </tr>
                       </ng-template>
-
                       <ng-template pTemplate="body" let-rowData let-columns="columns">
                         <tr [pSelectableRow]="rowData">
                           <!-- [pTooltip]="Aproximar" [tooltipPosition]="bottom" [life]="1500" -->
@@ -227,7 +213,6 @@
                           </td>
                         </tr>
                       </ng-template>
-
                       <ng-template pTemplate="paginatorleft">
                         <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
                       </ng-template>
@@ -235,7 +220,6 @@
                         <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
                       </ng-template>
                     </p-table>
-
                   </div>
                 </p-tabPanel>
               </p-tabView>
@@ -249,12 +233,10 @@
 
 <p-dialog [maximizable]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [modal]="true"
   [header]="objectFullScreenChart.title" [(visible)]="objectFullScreenChart.fullScreen" [style]="{width: '50vw'}">
-
   <p *ngIf="objectFullScreenChart.text">
     {{ objectFullScreenChart.text }}
   </p>
-
   <p-chart *ngIf="objectFullScreenChart.type" [type]="objectFullScreenChart.type" [data]="objectFullScreenChart.data"
-    [options]="objectFullScreenChart.options"></p-chart>
-
+    [options]="objectFullScreenChart.options">
+  </p-chart>
 </p-dialog>

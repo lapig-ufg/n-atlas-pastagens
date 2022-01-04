@@ -10,7 +10,6 @@ import { map } from "rxjs/operators";
 })
 export class AreaService {
 
-
   private apiURL = '/service/upload';
 
   static PARAMS = new HttpParams({
