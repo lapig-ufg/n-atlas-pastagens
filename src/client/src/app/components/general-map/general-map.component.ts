@@ -77,7 +77,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     }
   }
 
-  @Input() openMenu = true as boolean;
+  @Input()  openMenu = true as boolean;
   @Output() onHide = new EventEmitter<any>();
   @Output() onMapReadyLeftSideBar = new EventEmitter<any>();
   @Output() onSelectLayerSwipe = new EventEmitter<string>();
@@ -190,7 +190,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
   public isMobile: boolean;
 
   constructor(
-    public localizationService: LocalizationService,
+    public  localizationService: LocalizationService,
     private downloadService: DownloadService,
     private decimalPipe: DecimalPipe,
     private cdRef: ChangeDetectorRef,
@@ -641,6 +641,20 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     this.basemapsAvaliable = [];
     this.limitsNames = [];
     this.selectedLayers = [];
+    let defaultLayer = '';
+    this._descriptor.groups.forEach(group => {
+      group.layers.forEach(layer => {
+        if(layer.visible){
+          defaultLayer = layer.selectedType;
+        }
+      });
+    })
+
+    this.map.getLayers().forEach(layer => {
+      if (layer.get('type') === 'layertype' && defaultLayer !== layer.get('key')) {
+        layer.setVisible(false)
+      }
+    });
 
     for (let groups of this._descriptor.groups) {
       for (let layer of groups.layers) {
@@ -659,7 +673,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     for (let basemap of this._descriptor.basemaps) {
       basemap.selectedTypeObject = basemap.types.find(type => type.valueType === basemap.selectedType);
       basemap.selectedTypeObject!.visible = basemap.visible;
-
       for (let types of basemap.types) {
 
         const baseMapAvaliable = this.bmaps.find(b => {
@@ -903,6 +916,10 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     })
   }
 
+  updateObjectMapLayers(){
+
+  }
+
   changeLayerVisibility(ev) {
 
     let { layer, updateSource } = ev;
@@ -912,6 +929,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     if (updateSource) {
       this.updateSourceLayer(layerType);
     } else {
+
       if (layerType.type === 'layertype') {
         let layerDescriptor;
         this._descriptor.groups.forEach(group => {
@@ -931,6 +949,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
             this.handleLayersLegend(type);
           }
         });
+
         this.OlLayers[layerType.valueType].setVisible(layerType.visible);
 
         this.handleLayersLegend(layerType);
@@ -1557,8 +1576,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
 
   async clearAreaBeforeSearch() {
     await this.updateRegion(this.defaultRegion)
-
-    // await timer(2000).pipe(take(1)).toPromise();
   }
 
   async updateAreaOnMap(event) {

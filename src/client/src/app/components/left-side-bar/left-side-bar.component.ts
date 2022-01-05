@@ -12,7 +12,6 @@ import {
 
 import { LocalizationService } from "../../@core/internationalization/localization.service";
 import {
-  Legend,
   Menu,
   Descriptor,
   DescriptorType,
@@ -175,7 +174,6 @@ export class LeftSideBarComponent implements AfterViewInit {
 
     this.expendGroup = false;
     this.expendGroup2 = false;
-
   }
 
   ngAfterViewInit(): void {
@@ -322,11 +320,13 @@ export class LeftSideBarComponent implements AfterViewInit {
 
   handleLang(lng) {
     this.lang = lng;
+    localStorage.setItem('lang', this.lang);
     this.localizationService.useLanguage(this.lang).then(r => {
       this.layersTitle = this.localizationService.translate('menu.' + this.currentMenu.key);
       this.onChangeLng.emit()
       this.updateCharts.emit()
     });
+    window.location.reload();
   }
 
   onSideBarShow() {
@@ -345,7 +345,6 @@ export class LeftSideBarComponent implements AfterViewInit {
 
   hideSidebar() {
     this.currentMenu.show = false;
-    console.log(this.currentMenu);
     setTimeout(() => {
       this.map.updateSize()
     });
@@ -521,6 +520,7 @@ export class LeftSideBarComponent implements AfterViewInit {
     });
     this.limits = limits;
   }
+
   readStyleProperty(name: string): string {
     let bodyStyles = window.getComputedStyle(document.body);
     return bodyStyles.getPropertyValue('--' + name).trim();
