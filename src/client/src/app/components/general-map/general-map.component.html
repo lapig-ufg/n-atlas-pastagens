@@ -52,7 +52,7 @@
                 <div  class="abstract">
                   <span>
                     <i tooltipPosition="left" pTooltip="{{'legend.move' | translate}}" class='bx bx-move'></i>
-                    <div class="legend-label">
+                    <div class="legend-label" tooltipPosition="left" pTooltip="{{layer.get('key') === 'planet' ? localizationService.translate('planet') : layer.get('label')}}">
                       {{ layer.get('key') === 'planet' ? localizationService.translate('planet') : layer.get('label') }}
                     </div>
                     <div class="legend-tools">
@@ -65,13 +65,13 @@
                   <div *ngIf="layer.get('descriptorLayer').filterHandler === 'layername'; else noFilters" class="details-inner">
                     <img
                       src="{{env.OWS}}/ows?EXCEPTIONS=application%2Fvnd.ogc.se_xml&TRANSPARENT=TRUE&VERSION=1.1.1&SERVICE=WMS&REQUEST=GetLegendGraphic&layer={{layer.get('descriptorLayer').filterSelected}}&format=image%2Fpng"
-                      alt="">
+                      alt="{{layer.get('key')}}">
                   </div>
                   <ng-template #noFilters>
                     <div class="details-inner">
                       <img
                         src="{{env.OWS}}/ows?EXCEPTIONS=application%2Fvnd.ogc.se_xml&TRANSPARENT=TRUE&VERSION=1.1.1&SERVICE=WMS&REQUEST=GetLegendGraphic&layer={{layer.get('key')}}&format=image%2Fpng"
-                        alt="">
+                        alt="{{layer.get('key')}}">
                     </div>
                   </ng-template>
                 </div>
@@ -106,7 +106,7 @@
       <div *ngIf="controlOptions" class="controls-details">
         <div class="controls-details-header">
           <h5>{{'controls.details.title' | translate}}</h5>
-          <i (click)="controlOptions = !controlOptions" class='bx bx-x-circle'></i>
+          <i (click)="closeDetailsWindow()" class='bx bx-x-circle'></i>
         </div>
         <div class="controls-details-body">
           <div *ngIf="mapControls.swipe" class="controls-details-card">
@@ -254,7 +254,7 @@
                       [resizable]="false"
                       [appendTo]="'body'"
                       [modal]="true"
-                      [style]="{width: '45vw'}"
+                      [style]="{width: isMobile ? '98vw' : '45vw'}"
                       [(visible)]="displayGallery">
                       <p-tabView  *ngIf="gallery.length! > 0">
                         <p-tabPanel header="{{galeria.title}}" *ngFor="let galeria of gallery ; let i = index" [selected]="i == 0"

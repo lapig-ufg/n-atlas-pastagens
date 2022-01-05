@@ -4,9 +4,6 @@
     <div class="layer-merge" align="center">
       <div class="layer-card-header">
         <div class="chart-region divReportButton">
-          <!--          <button class="reportButton" (click)="openDashboard()" mat-icon-button>-->
-          <!--            <mat-icon>text_snippet</mat-icon>-->
-          <!--          </button>-->
           <h5 class="chart-region inline"> {{selectRegion.text}}</h5>
         </div>
       </div>
@@ -40,7 +37,7 @@
               <div class="resumo-card">
                 <div class="resumo-card-title">{{'right_sidebar.resumo_card.pasture_quality_title' | translate}}</div>
                 <div class="resumo-card-content">
-                  <div class="resumo-card-content" *ngFor="let cl of infoResumo.pasture_quality">
+                  <div class="resumo-card-content" *ngFor="let cl of infoResumo.pasture_quality" [style]="'border-radius: 5px; margin: 5px; background: ' + cl.color">
                     <div class="resumo-card-title-content">{{cl.classe}}</div>
                     <div class="resumo-card-content">{{cl.value | number:'1.2-3'}} ha ({{cl.percentAreaPasture}}
                       {{'right_sidebar.resumo_card.complement_text_pasture_quality' | translate}} e
@@ -128,7 +125,6 @@
         </div>
       </div>
     </div>
-
     <div *ngIf="cardsToDisplay.area3">
       <div [class]="expandGroups.area3 ? 'group-card group-card-active' :'group-card'">
         <div (click)="expandGroups.area3 = !expandGroups.area3" class="abstract">

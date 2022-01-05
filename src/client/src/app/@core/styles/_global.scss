@@ -291,12 +291,8 @@ table tr{
 .ol-popup {
   visibility: hidden;
   position: absolute;
-  bottom: 12px;
-  left: -50px;
-  ////min-width: 420px;
   color: black;
   background: rgba(22, 38, 35, 0.6);
-  transition: all 0.5s ease;
   border-radius: 5px;
   box-shadow: 0 11px 15px -7px rgb(0 0 0 / 20%), 0 24px 38px 3px rgb(0 0 0 / 14%), 0 9px 46px 8px rgb(0 0 0 / 12%);
 

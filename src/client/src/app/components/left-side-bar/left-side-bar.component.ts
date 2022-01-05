@@ -241,7 +241,7 @@ export class LeftSideBarComponent implements AfterViewInit {
     ];
 
     this.lang = this.localizationService.currentLang();
-    this.innerHeigth = window.innerHeight - 188;
+    this.innerHeigth = window.innerHeight - 180;
     this.cdRef.detectChanges();
   }
 
@@ -344,6 +344,8 @@ export class LeftSideBarComponent implements AfterViewInit {
   }
 
   hideSidebar() {
+    this.currentMenu.show = false;
+    console.log(this.currentMenu);
     setTimeout(() => {
       this.map.updateSize()
     });

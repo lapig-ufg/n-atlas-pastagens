@@ -39,9 +39,15 @@
       </ul>
     </div>
   </div>
-  <p-sidebar [appendTo]="leftSidebar" [modal]="false" [transitionOptions]="'2ms cubic-bezier(0, 0, 0.2, 1)'"
-    [(visible)]="layersSideBar" (onShow)="onSideBarShow()" (onHide)="hideSidebar()"
-    (visibleChange)="onSideBarToggle.emit(layersSideBar)">
+  <p-sidebar
+    [appendTo]="leftSidebar"
+    [modal]="false"
+    [transitionOptions]="'2ms cubic-bezier(0, 0, 0.2, 1)'"
+    [(visible)]="layersSideBar"
+    (onShow)="onSideBarShow()"
+    (onHide)="hideSidebar()"
+    (visibleChange)="onSideBarToggle.emit(layersSideBar)"
+  >
     <h4 *ngIf="currentMenu?.key !== 'statistics'" class="title">{{ layersTitle }}</h4>
     <div *ngIf="currentMenu?.key !== 'statistics'" class="content"
       [style]="{width: '100%', height: innerHeigth + 'px'}">

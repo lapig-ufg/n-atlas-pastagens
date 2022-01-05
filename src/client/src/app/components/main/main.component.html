@@ -27,25 +27,25 @@
     (onChangeRegion)="leftSideBarMobile.updateRegion($event)"
     (onBasemapsReady)="leftSideBar.setBasemaps($event)"
     (onMapReadyLeftSideBar)="leftSideBar.setMap($event)"
-    (onMapReadyRightSideBar)="rightSideBar.setMap($event)"
-    (onSelectLayerSwipe)="leftSideBar.setLayerVisible($event)"
-    (onSearchDrawnGeometry)="leftSideBar.setTokenGeometryToSearch($event)"
-    (onChangeFilterLayer)="rightSideBar.receiveFilterLayer($event)"
+    (onSelectLayerSwipe)="leftSideBarMobile.setLayerVisible($event)"
     (onLimitsReady)="leftSideBarMobile.setLimits($event)"
     (onBasemapsReady)="leftSideBarMobile.setBasemaps($event)"
     (onMapReadyLeftSideBar)="leftSideBarMobile.setMap($event)"
+    (onSelectLayerSwipe)="leftSideBar.setLayerVisible($event)"
+    (onMapReadyRightSideBar)="rightSideBar.setMap($event)"
+    (onSearchDrawnGeometry)="leftSideBar.setTokenGeometryToSearch($event)"
+    (onChangeFilterLayer)="rightSideBar.receiveFilterLayer($event)"
     (onSearchDrawnGeometryMobile)="leftSideBarMobile.setTokenGeometryToSearch($event)"
-    (onSelectLayerSwipe)="leftSideBarMobile.setLayerVisible($event)"
-  >
+    (onCloseDetailsWindow)="leftSideBar.showFilter = $event">
   </app-general-map>
 
   <app-right-side-bar
     #rightSideBar
     [descriptor]="descriptor"
     [displayOptions]="leftSideBar.displayStatistics"
-    (onSideBarToggle)="generalMap.onRightSideBarOpen($event)">
+    (onSideBarToggle)="generalMap.onRightSideBarOpen($event)"
+    (onSideBarToggle)="leftSideBar.displayStatistics = $event">
   </app-right-side-bar>
-
 
   <left-side-bar-mobile
     #leftSideBarMobile

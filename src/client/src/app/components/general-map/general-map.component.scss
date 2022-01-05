@@ -490,6 +490,10 @@
       font-size: 12px;
       margin-left: 2px;
       text-align: center;
+      text-overflow: ellipsis;
+      width: 195px;
+      white-space: nowrap;
+      overflow: hidden;
     }
 
     i {

@@ -89,6 +89,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
   @Output() onSearchDrawnGeometry = new EventEmitter<number>();
   @Output() onSearchDrawnGeometryMobile = new EventEmitter<number>();
   @Output() onChangeFilterLayer = new EventEmitter<any>();
+  @Output() onCloseDetailsWindow = new EventEmitter<boolean>();
 
   @ViewChild('video') video: ElementRef;
   @ViewChild('wfsCard') wfsCard: ElementRef;
@@ -186,6 +187,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
 
   public valueSwipe: any;
   public legendExpanded: boolean;
+  public isMobile: boolean;
 
   constructor(
     public localizationService: LocalizationService,
@@ -202,7 +204,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     private primengConfig: PrimeNGConfig,
     private googleAnalyticsService: GoogleAnalyticsService,
   ) {
-
     this.env = environment;
     this.showFormPoint = false;
     this.loadingDown = false;
@@ -212,6 +213,9 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     //IF para identificar quando o caso é mobile.
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
       this.legendExpanded = false;
+      this.isMobile = true;
+    } else{
+      this.isMobile = false;
     }
 
     this.controlOptions = false;
@@ -709,6 +713,12 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.innerHeigth = window.innerHeight;
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+      this.legendExpanded = false;
+      this.isMobile = true;
+    } else{
+      this.isMobile = false;
+    }
     setTimeout(() => {
       this.map.updateSize()
     });
@@ -1707,7 +1717,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     }
 
     // @ts-ignore
-    dd.content.push({ image: this.localizationService.translate('area.token.logo'), width: 200, alignment: 'center' });
+    dd.content.push({ image: this.localizationService.translate('area.token.logo'), width: 90, alignment: 'center' });
     // @ts-ignore
     dd.content.push({ text: this.localizationService.translate('area.token.description'), alignment: 'center', margin: [10, 10, 20, 0] });
     // @ts-ignore
@@ -2013,7 +2023,10 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
             this.map.addLayer(vectorLayer);
           }
 
-          this.wfsCard.nativeElement.style.visibility = 'visible'
+          this.wfsCard.nativeElement.style.visibility = 'visible';
+          this.wfsCard.nativeElement.style.bottom = '12px';
+          this.wfsCard.nativeElement.style.left = '-50px';
+
           const container = document.getElementById('popup');
           // @ts-ignore
           this.popupOverlay = new Overlay({ id: 'popup-info', element: container, autoPan: false });
@@ -2104,5 +2117,10 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
         player.load();
       }
     }
+  }
+
+  closeDetailsWindow(){
+    this.controlOptions = !this.controlOptions;
+    this.onCloseDetailsWindow.emit(this.controlOptions);
   }
 }
