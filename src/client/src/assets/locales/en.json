@@ -303,6 +303,9 @@
           },
           "armazens_layer": {
             "labelLayer": "Warehouses"
+          },
+          "frigorificos_layer": {
+            "labelLayer": "Meatpacking Companies"
           }
         }
       },

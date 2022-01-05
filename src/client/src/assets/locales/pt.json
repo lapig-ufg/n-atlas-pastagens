@@ -304,6 +304,9 @@
           },
           "armazens_layer": {
             "labelLayer": "Armazéns"
+          },
+          "frigorificos_layer": {
+            "labelLayer": "Frigoríficos"
           }
         }
       },
