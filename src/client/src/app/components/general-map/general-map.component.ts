@@ -584,8 +584,6 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
 
   ngAfterContentChecked(): void {
     this.cdRef.detectChanges();
-    // this.wfsCard.nativeElement.style.visibility = 'hidden';
-    // this.wfsCard.nativeElement.style.zIndex = 0;
   }
 
   changeVisibilityBasemap(ev) {
