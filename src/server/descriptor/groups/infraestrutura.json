@@ -22,6 +22,15 @@
                 "types": [
                     "armazens_conab_br"
                 ]
+            },
+            {
+                "idLayer": "frigorificos_layer",
+                "labelLayer": "translate",
+                "visible": false,
+                "selectedType": "limites_frigorificos_2021",
+                "types": [
+                    "limites_frigorificos_2021"
+                ]
             }
         ]
     }
