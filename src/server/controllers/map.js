@@ -1,4 +1,3 @@
-const languageJson = require('../assets/lang/language.json');
 const got = require('got');
 const DescriptorBuilder = require('../utils/descriptorBuilder');
 

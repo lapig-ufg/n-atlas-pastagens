@@ -75,7 +75,7 @@ app.database.client.init(function () {
 
 
     const httpServer = http.listen(app.config.port, function () {
-        console.log('Plataform Base Server @ [port %s] [pid %s]', app.config.port, process.pid.toString());
+        console.log('%s Server @ [port %s] [pid %s]', app.config.appName, app.config.port, process.pid.toString());
     });
 
     [`exit`, `uncaughtException`].forEach((event) => {

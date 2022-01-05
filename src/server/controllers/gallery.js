@@ -16,7 +16,7 @@ module.exports = function (app) {
     }
   };
 
-  Internal.normalize =  function (string) {
+  Internal.normalize = function (string) {
     const normalized = string.replace(/\s/g, '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     return normalized;
   }
@@ -36,7 +36,6 @@ module.exports = function (app) {
 
   Controller.fieldData = function (request, response) {
 
-    // console.log(request)
 
     const { id, category, filename, tablename } = request.params;
 
@@ -61,12 +60,12 @@ module.exports = function (app) {
   Controller.tags = function (request, response) {
     const tags = request.queryResult['tags'];
     let formattedTags = [];
-    if(Array.isArray(tags)){
-      const groupedTags = tags.reduce((r, a) =>{
-        if (a.col.includes('tag_')){
+    if (Array.isArray(tags)) {
+      const groupedTags = tags.reduce((r, a) => {
+        if (a.col.includes('tag_')) {
           r['tags'] = r['tags'] || [];
           r['tags'].push(a);
-        } else{
+        } else {
           r[a.col] = r[a.col] || [];
           r[a.col].push(a);
         }
@@ -77,18 +76,18 @@ module.exports = function (app) {
         formattedTags.push({
           label: key,
           value: key,
-          items: value.map(tag => {return {tag: tag.tag, column: tag.col}})
+          items: value.map(tag => { return { tag: tag.tag, column: tag.col } })
         })
       }
 
       let itemTags = formattedTags[2];
-      itemTags.items.sort((a,b) => Internal.normalize(a.tag) - Internal.normalize(b.tag));
+      itemTags.items.sort((a, b) => Internal.normalize(a.tag) - Internal.normalize(b.tag));
       formattedTags.splice(2, 1);
       formattedTags.unshift(itemTags)
 
       response.send(formattedTags)
       response.end();
-    } else{
+    } else {
       response.status(400).json({ msg: 'Error on search tags' })
       response.end();
     }
@@ -96,24 +95,24 @@ module.exports = function (app) {
 
   Controller.image = function (request, response) {
     const { id, type, filename } = request.params;
-    const filePath = type === 'thumb'  ? app.config.hotsiteDir + "thumb/" + id + ".jpg" : app.config.hotsiteDir + id + ".jpg" ;
+    const filePath = type === 'thumb' ? app.config.hotsiteDir + "thumb/" + id + ".jpg" : app.config.hotsiteDir + id + ".jpg";
     if (fs.existsSync(filePath)) {
       const file = fs.readFileSync(filePath);
       response.send(file);
       response.end();
     } else {
-      response.status(404).send({ error: 'File not found'});
+      response.status(404).send({ error: 'File not found' });
       response.end();
     }
   }
 
   Controller.images = function (request, response) {
     const images = request.queryResult['images'];
-    if(Array.isArray(images)){
+    if (Array.isArray(images)) {
       response.send(images)
       response.end();
-    } else{
-      response.status(400).send({ error: 'Error on search images'  });
+    } else {
+      response.status(400).send({ error: 'Error on search images' });
       response.end();
     }
   }

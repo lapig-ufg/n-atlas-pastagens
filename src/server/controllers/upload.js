@@ -3,14 +3,14 @@ const unzipper = require("unzipper"),
     path = require('path'),
     ogr2ogr = require("ogr2ogr");
 
-var configJS = require('../config.js')()
+var config = require('../config.js')()
 const gjv = require("geojson-validation");
 var epsg = require('epsg');
 const repro = require("reproject")
 const moment = require("moment");
 
 const { Pool, Client } = require('pg')
-const pool = new Pool(configJS['pg_general'])
+const pool = new Pool(config['pg_general'])
 
 module.exports = function (app) {
     const config = app.config;
@@ -319,7 +319,7 @@ module.exports = function (app) {
         }
     };
 
-    Uploader.initialanalysis = function (request, response) {
+    Uploader.areainfo = function (request, response) {
 
         try {
 
@@ -942,13 +942,11 @@ module.exports = function (app) {
     Uploader.getAnalysis = function (request, response) {
         try {
 
-            queryResult = request.queryResult
+            queryResult = request.queryResult['return_analysis']
             let res = false
             if (queryResult.length > 0) {
-                res = JSON.parse(Buffer(queryResult[0].analysis, 'base64'));
+                res = JSON.parse(Buffer.from(queryResult[0].analysis, 'base64'));
             }
-
-            console.log(res)
 
             response.status(200).send(res);
             response.end()

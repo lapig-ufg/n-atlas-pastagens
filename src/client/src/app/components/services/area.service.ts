@@ -26,6 +26,20 @@ export class AreaService {
 
   constructor(private httpClient: HttpClient) { }
 
+  analysisAreaInfo(params): Observable<any> {
+
+    return this.httpClient.get<any>(this.apiURL + '/areainfo?' + params, this.httpOptions)
+      .pipe(map(response => response))
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getSavedAnalysis(params): Observable<any> {
+
+    return this.httpClient.get<any>(this.apiURL + '/getanalysis?' + params, this.httpOptions)
+      .pipe(map(response => response))
+      .pipe(catchError(this.errorHandler));
+  }
+
   getGeoJsonByToken(params): Observable<any> {
 
     return this.httpClient.get<any>(this.apiURL + '/findgeojsonbytoken?' + params, this.httpOptions)
@@ -43,6 +57,11 @@ export class AreaService {
       );
   }
 
+  saveAnalysisOnDB(dados): Observable<any> {
+    return this.httpClient.post<any>(this.apiURL + '/saveanalysis', JSON.stringify(dados, null, 2), this.httpOptions)
+      .pipe(map(response => JSON.parse(response.data)))
+      .pipe(catchError(this.errorHandler));
+  }
 
   errorHandler(error) {
     let errorMessage = '';

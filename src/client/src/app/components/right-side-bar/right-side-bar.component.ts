@@ -41,7 +41,6 @@ export class RightSideBarComponent implements OnInit {
 
   @Input() set mobile(value: boolean) {
     this._mobile = value;
-    console.log(value);
   }
 
   @ViewChildren('chartU') chartU: QueryList<UIChart>;
@@ -286,7 +285,7 @@ export class RightSideBarComponent implements OnInit {
 
       this.infoResumo = tempResumo;
     }, error => {
-      console.log(error)
+      console.error(error)
     })
 
   }
@@ -306,7 +305,7 @@ export class RightSideBarComponent implements OnInit {
 
       this.chartsArea1 = tempChartsArea1;
     }, error => {
-      console.log(error)
+      console.error(error)
     });
 
   }
@@ -330,7 +329,7 @@ export class RightSideBarComponent implements OnInit {
 
       this.chartsArea2 = tempChartsArea2;
     }, error => {
-      console.log(error)
+      console.error(error)
     })
 
   }
@@ -349,7 +348,7 @@ export class RightSideBarComponent implements OnInit {
 
       this.chartsArea3 = tempChartsArea3;
     }, error => {
-      console.log(error)
+      console.error(error)
     });
   }
 
@@ -380,7 +379,7 @@ export class RightSideBarComponent implements OnInit {
 
       this.tableRankings = tempTables;
     }, error => {
-      console.log(error)
+      console.error(error)
     });
 
   }

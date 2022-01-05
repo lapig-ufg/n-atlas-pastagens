@@ -70,9 +70,20 @@ export class AreaComponent implements OnInit {
     heavyAnalysisLoading: false
   };
 
+  // Variável para controlar as promisses de cada análise realizada. Para o plataform-base tem apenas o areainfo.
+  // Nas demais deve-se criar o controle para cada análise.
+  public isPromiseFinished = {
+    areainfo: false,
+    // desmatperyear: false,
+    // car: false,
+    // terraclass: false,
+    // focos: false,
+    // queimadas: false
+  };
+
   selectedIndexUpload: number;
 
-  constructor(private http: HttpClient, private areaService: AreaService, private googleAnalyticsService: GoogleAnalyticsService,) {
+  constructor(private areaService: AreaService, private googleAnalyticsService: GoogleAnalyticsService) {
     this.httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
@@ -184,11 +195,6 @@ export class AreaComponent implements OnInit {
       let extent = this.layerFromUpload.layer.getSource().getExtent();
       map.getView().fit(extent, { duration: 1800 });
 
-      //   let prodes = this.layersNames.find(element => element.id === 'desmatamento_prodes');
-      //   prodes.selectedType = 'bi_ce_prodes_desmatamento_100_fip';
-      //   this.changeVisibility(prodes, undefined);
-      //   this.infodataPastagemcity = null;
-
     } else {
       map.removeLayer(this.layerFromUpload.layer);
     }
@@ -199,56 +205,63 @@ export class AreaComponent implements OnInit {
     console.log("TO DO")
   }
 
-  async analyzeUploadShape(fromConsulta = false) {
+  analyzeUploadShape(fromConsulta = false) {
+
+    this.isPromiseFinished = {
+      areainfo: false
+    };
+
     let params: string[] = [];
-    let self = this;
-    let urlParams = '';
-    let urlParamsHeavyAnalysis = '';
 
     if (fromConsulta) {
-      this.layerFromConsulta.analyzedAreaLoading = true;
       params.push('token=' + this.layerFromConsulta.token)
+      this.googleAnalyticsService.eventEmitter("Analyze-Consulta-Upload-Layer", "Upload", this.layerFromConsulta.token);
+    }
+    else {
+      params.push('token=' + this.layerFromUpload.token)
+      this.googleAnalyticsService.eventEmitter("Analyze-Upload-Layer", "Upload", this.layerFromUpload.token);
+    }
+
+    this.doAnalysisAreaInfo(fromConsulta, params) //Trigger Analysis AreaInfo
+
+  }
+
+  async doAnalysisAreaInfo(fromConsulta, params) {
+    let self = this;
+
+    if (fromConsulta) {
+      this.layerFromConsulta.analyzedAreaLoading = true; // criar um loading para cada análise, para controlar a abertura do card.
       this.layerFromConsulta.error = false;
-      urlParams = '/service/upload/initialanalysis?' + params.join('&');
 
       try {
-        let result = await this.http.get(urlParams, this.httpOptions).toPromise()
+
+        let result = await this.areaService.analysisAreaInfo(params.join('&')).toPromise()
         this.layerFromConsulta.analyzedArea = result;
         this.layerFromConsulta.analyzedAreaLoading = false;
+
+        this.checkIfAllPromiseAreDone(fromConsulta, 'areainfo')
 
       } catch (err) {
         self.layerFromConsulta.analyzedAreaLoading = false;
         self.layerFromConsulta.error = true;
       }
 
-      // this.layerFromConsulta.heavyAnalysisLoading = true;
-      // urlParamsHeavyAnalysis = '/service/upload/analysisarea?' + params.join('&');
-      // let resultHeavyAnalysis = await this.http.get(urlParamsHeavyAnalysis).toPromise();
-      // this.layerFromConsulta.heavyAnalysis = resultHeavyAnalysis;
-      // this.layerFromConsulta.heavyAnalysisLoading = false;
-
-      this.googleAnalyticsService.eventEmitter("Analyze-Consulta-Upload-Layer", "Upload", this.layerFromConsulta.token);
     } else {
       this.layerFromUpload.analyzedAreaLoading = true;
-      params.push('token=' + this.layerFromUpload.token)
+
       this.layerFromUpload.error = false;
-      urlParams = '/service/upload/initialanalysis?' + params.join('&');
 
       try {
-        let result = await this.http.get(urlParams, this.httpOptions).toPromise()
+        let result = await this.areaService.analysisAreaInfo(params.join('&')).toPromise()
         this.layerFromUpload.analyzedArea = result;
         this.layerFromUpload.analyzedAreaLoading = false;
+
+        this.checkIfAllPromiseAreDone(fromConsulta, 'areainfo')
       } catch (err) {
         self.layerFromUpload.analyzedAreaLoading = false;
         self.layerFromUpload.error = true;
       }
-      // this.layerFromUpload.heavyAnalysisLoading = true;
-      // urlParamsHeavyAnalysis = '/service/upload/analysisarea?' + params.join('&');
-      // let resultHeavyAnalysis = await this.http.get(urlParamsHeavyAnalysis).toPromise();
-      // this.layerFromUpload.heavyAnalysis = resultHeavyAnalysis
-      // this.layerFromUpload.heavyAnalysisLoading = false;
 
-      this.googleAnalyticsService.eventEmitter("Analyze-Upload-Layer", "Upload", this.layerFromUpload.token);
     }
 
   }
@@ -341,6 +354,78 @@ export class AreaComponent implements OnInit {
     }
 
     return states;
+  }
+
+  checkIfAllPromiseAreDone(fromConsulta, source) {
+    let self = this;
+    let done = true;
+
+    this.isPromiseFinished[source] = true;
+
+    // this.delay(1000).then(any => {
+    //your task after delay.
+    for (const [key, val] of Object.entries(this.isPromiseFinished)) {
+      // use key and val
+      if (val == false) {
+        done = false;
+      }
+    }
+
+    if (done) {
+      if (fromConsulta) {
+
+        let dados = {
+          token: this.layerFromConsulta.token,
+          analysis: this.layerFromConsulta.analyzedArea
+        }
+
+        this.saveCompleteAnalysis(dados)
+      }
+      else {
+        let dados = {
+          token: this.layerFromUpload.token,
+          analysis: this.layerFromUpload.analyzedArea
+        }
+        this.saveCompleteAnalysis(dados)
+      }
+    }
+    // });
+  }
+
+  private saveCompleteAnalysis(dados) {
+    try {
+      this.areaService.saveAnalysisOnDB(dados).subscribe(result => {
+      }, (err) => {
+        console.error('Não foi possível cadastrar cadastrar a requisição do relatório')
+      });
+    } catch (err) {
+      console.error('Não foi possível cadastrar cadastrar a requisição do relatório')
+    }
+  }
+
+  async decideConsultaShape() {
+    let self = this;
+    this.layerFromConsulta.error = false;
+
+    let params: string[] = []
+    params.push('token=' + this.layerFromConsulta.token)
+
+
+    try {
+      let result = await this.areaService.getSavedAnalysis(params.join('&')).toPromise()
+
+      if (typeof result === 'object' && result !== null) {
+        this.layerFromConsulta.analyzedArea = result;
+      }
+      else {
+        this.analyzeUploadShape(true);
+      }
+
+    } catch (err) {
+      self.layerFromConsulta.analyzedAreaLoading = false;
+      self.layerFromConsulta.error = true;
+    }
+
   }
 
   async printAnalyzedAreaReport(fromConsulta = false) {

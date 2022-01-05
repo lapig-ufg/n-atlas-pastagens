@@ -5,7 +5,7 @@ module.exports = function (app) {
 	var dataInjector = app.middleware.dataInjector
 
 	app.post('/service/upload/spatial-file', filesAccepted, uploader.getGeoJson);
-	app.get('/service/upload/initialanalysis', dataInjector, uploader.initialanalysis);
+	app.get('/service/upload/areainfo', dataInjector, uploader.areainfo);
 	app.get('/service/upload/analysisarea', dataInjector, uploader.analysisarea);
 	app.get('/service/upload/findgeojsonbytoken', dataInjector, uploader.findGeoJsonByToken);
 	app.get('/service/upload/queimadas', dataInjector, uploader.queimadas);

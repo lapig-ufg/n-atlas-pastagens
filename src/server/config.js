@@ -6,6 +6,7 @@ module.exports = function (app) {
     const appProducao = env.APP_PRODUCAO;
 
     let config = {
+        "appName": "Plataform Base",
         "appRoot": appRoot,
         "clientDir": appRoot + env.CLIENT_DIR,
         "langDir": appRoot + env.LANG_DIR,
@@ -14,8 +15,7 @@ module.exports = function (app) {
         "fieldDir": appRoot + env.PLATAFORMS_FOLDER_LOCALHOST + env.FIELD_DIR,
         "uploadDir": appRoot + env.PLATAFORMS_FOLDER_LOCALHOST + env.UPLOAD_DIR,
         "downloadDir": appRoot + env.PLATAFORMS_FOLDER_LOCALHOST + env.DOWNLOAD_DIR,
-        "hotsiteDir": env.HOTSITE_DIR,
-
+        "hotsiteDir": env.HOTSITE_DIR, //folders to HotSite Gallery
         "pg_lapig": {
             "user": env.PG_USER,
             "host": env.PG_HOST,

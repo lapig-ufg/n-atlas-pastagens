@@ -1623,7 +1623,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
   onSave() {
     //IF para identificar quando o caso é mobile.
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-      let drawData = { geometry: this.getGeoJsonFromFeature(), app_origin: 'app-base' }
+      let drawData = { geometry: this.getGeoJsonFromFeature(), app_origin: environment.APP_NAME }
       this.areaService.saveDrawedGeometry(drawData)
         .subscribe(data => {
           this.onSearchDrawnGeometryMobile.emit(data.token);
@@ -1634,7 +1634,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
           this.messageService.add({ severity: 'error', summary: this.localizationService.translate('area.save_message_error.title'), detail: this.localizationService.translate('area.save_message_error.msg') });
         })
     } else {
-      let drawData = { geometry: this.getGeoJsonFromFeature(), app_origin: 'app-base' }
+      let drawData = { geometry: this.getGeoJsonFromFeature(), app_origin: environment.APP_NAME }
       this.areaService.saveDrawedGeometry(drawData)
         .subscribe(data => {
           this.onSearchDrawnGeometry.emit(data.token);
@@ -1815,7 +1815,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
         }
         resolve(features);
       }, error => {
-        console.log(error)
+        console.error(error)
         resolve(false)
       })
     })
@@ -1827,9 +1827,9 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
         feat['distance'] = turfDistance(turfHelper.point(pointClick), turfHelper.point(feat.geometry.coordinates))
       }
       else {
-        if(booleanPointInPolygon(turfHelper.point(pointClick), turfHelper.polygon(feat.geometry.coordinates))){
+        if (booleanPointInPolygon(turfHelper.point(pointClick), turfHelper.polygon(feat.geometry.coordinates))) {
           feat['distance'] = 0
-        }else {
+        } else {
           feat['distance'] = turfDistance(turfHelper.point(pointClick), turfCentroid(turfHelper.polygon(feat.geometry.coordinates)));
         }
       }
@@ -1893,7 +1893,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
                 featureCollection.features = this.getFeatureToDisplay(this.popupRegion.coordinate, featureCollection.features);
                 this.popupRegion.geojson = featureCollection;
                 this.popupRegion.properties = featureCollection.features[0].properties;
-                const url = `${environment.PLATAFORMAS_API}/map/layerfromname?lang=${this.localizationService.currentLang()}&layertype=municipios_info`;
+                const url = `${environment.OWS_API}/map/layerfromname?lang=${this.localizationService.currentLang()}&layertype=municipios_info`;
                 this.httpService.getData(url).subscribe((descriptionLayer: DescriptorType) => {
                   if (descriptionLayer) {
                     this.popupRegion.attributes = descriptionLayer.wfsMapCard.attributes;
@@ -1941,25 +1941,26 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
 
                     this.gallery = [];
                     for (let [key, value] of Object.entries(filesToDisplay)) {
-                     // @ts-ignore
-                      if(value.length > 0){
-                       // @ts-ignore
+                      // @ts-ignore
+                      if (value.length > 0) {
+                        // @ts-ignore
                         const items = value.map(url => {
                           return {
-                            type: key === 'videos_drone' ? 'video': 'image',
-                            url: environment.production ? url : environment.ATLAS_URL + url}
+                            type: key === 'videos_drone' ? 'video' : 'image',
+                            url: environment.production ? url : environment.APP_URL + url
+                          }
                         });
                         this.gallery.push(
-                         {
-                           title: this.localizationService.translate('gallery.' + key),
-                           key: key,
-                           items: items,
-                           activeIndex: 0,
-                           show: true
-                         }
-                       );
-                       index++;
-                     }
+                          {
+                            title: this.localizationService.translate('gallery.' + key),
+                            key: key,
+                            items: items,
+                            activeIndex: 0,
+                            show: true
+                          }
+                        );
+                        index++;
+                      }
                     }
                   }, error => {
                     console.error(error)
@@ -1992,7 +1993,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
             })
           }
 
-          if(this.popupRegion.geojson.hasOwnProperty('features') && this.featureCollections.length <= 0){
+          if (this.popupRegion.geojson.hasOwnProperty('features') && this.featureCollections.length <= 0) {
             const vectorSource = new VectorSource({
               features: (new GeoJSON()).readFeatures(this.popupRegion.geojson, {
                 dataProjection: 'EPSG:4326',
@@ -2096,10 +2097,10 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     return Object.keys(ob).length === 0;
   }
 
-  loadVideo(key){
-    if(key === 'videos_drone'){
+  loadVideo(key) {
+    if (key === 'videos_drone') {
       const player = this.video.nativeElement;
-      if(player){
+      if (player) {
         player.load();
       }
     }

@@ -5,14 +5,14 @@ import {
 } from '@angular/core';
 
 
-import {MessageService} from "primeng/api";
+import { MessageService } from "primeng/api";
 
 
 @Component({
   selector: 'left-side-bar-mobile',
   templateUrl: './mobile.component.html',
   styleUrls: ['./mobile.component.scss'],
-  providers: [ MessageService ]
+  providers: [MessageService]
 })
 
 export class MobileComponent extends LeftSideBarComponent implements AfterViewInit {
@@ -30,7 +30,7 @@ export class MobileComponent extends LeftSideBarComponent implements AfterViewIn
     this.innerHeigthMobile = window.innerHeight - 250;
   }
 
-  setTokenGeometryToSearch(token: number){
+  setTokenGeometryToSearch(token: number) {
     this.token = token;
     this.handleMenuMobile({
       index: 2,
@@ -38,7 +38,6 @@ export class MobileComponent extends LeftSideBarComponent implements AfterViewIn
       icon: 'fg-polygon-hole-pt',
       show: true
     }, true)
-    console.log("estou no mobile")
   }
 
 
@@ -51,20 +50,19 @@ export class MobileComponent extends LeftSideBarComponent implements AfterViewIn
     this.currentMenu = menu;
     this.layersTitle = this.localizationService.translate('menu.' + menu.key);
 
-     // this.menu[menu.index].show = true;
-     // this.layersSideBar = true;
-     this.layersSideBarMobile = true;
-     //this.onMenuSelected.emit({show: this.layersSideBarMobile, key: menu.key});
+    // this.menu[menu.index].show = true;
+    // this.layersSideBar = true;
+    this.layersSideBarMobile = true;
+    //this.onMenuSelected.emit({show: this.layersSideBarMobile, key: menu.key});
 
-     if (menu.key == 'statistics'){
+    if (menu.key == 'statistics') {
       this.displayStatisticsMobile = !this.displayStatisticsMobile;
       this.onNavBarToggle.emit(this.layersSideBarMobile);
-      console.log("left-mobile ok");
       // let shand = document.getElementsByClassName('s-hand') as HTMLCollectionOf<HTMLElement>;
       //   if (shand.length != 0) {
       //     shand[0].style.transform = "display:block;";
       //   }
-     }
+    }
 
 
   }
@@ -81,8 +79,8 @@ export class MobileComponent extends LeftSideBarComponent implements AfterViewIn
     this.renderer.insertBefore(this.el.nativeElement.querySelector(".p-sidebar-header"), div, this.el.nativeElement.querySelector(".p-sidebar-close"))
   }
 
-  updateRegion(region){
-   this.region = region;
+  updateRegion(region) {
+    this.region = region;
   }
 
 }

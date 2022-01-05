@@ -373,16 +373,12 @@ export class LeftSideBarComponent implements AfterViewInit {
       this.layersSideBarMobile = true;
       if (menu.key == 'statistics') {
         this.onNavBarToggle.emit(this.layersSideBarMobile);
-        console.log("left-mobile ok");
-
       }
       // this.onMenuSelected.emit({show: this.layersSideBarMobile, key: menu.key});
 
     } else {
       if (menu.key == 'statistics') {
         this.onNavBarToggle.emit(this.layersSideBarMobile);
-        console.log("left-mobile ok");
-
       } else {
         this.layersSideBar = true;
         this.onMenuSelected.emit({ show: this.layersSideBar, key: menu.key })

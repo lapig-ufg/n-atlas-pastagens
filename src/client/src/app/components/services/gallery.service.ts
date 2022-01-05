@@ -26,9 +26,9 @@ export class GalleryService {
   };
 
   constructor(private httpClient: HttpClient) {
-      if(!environment.production){
-        this.apiURL = environment.ATLAS_URL + this.apiURL;
-      }
+    if (!environment.production) {
+      this.apiURL = environment.APP_URL + this.apiURL;
+    }
   }
 
   getGalleryListById(params: string): Observable<any> {
