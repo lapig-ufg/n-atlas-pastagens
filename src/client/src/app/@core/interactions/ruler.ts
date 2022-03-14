@@ -12,7 +12,7 @@ abstract class RulerControl {
 
     private measureTooltipElement: Element;
 
-    private measureTooltip: Overlay;
+    private measureTooltip: Overlay;K
 
     protected decimalPipe: DecimalPipe;
 
