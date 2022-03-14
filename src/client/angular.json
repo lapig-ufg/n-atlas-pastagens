@@ -30,7 +30,10 @@
               "geotiff/src/geotiffimage.js",
               "geotiff",
               "@mapbox/geojson-extent",
-              "pdfmake/build/pdfmake"
+              "pdfmake/build/pdfmake",
+              "xml-utils/find-tags-by-name.js",
+              "pbf",
+              "lru-cache"
             ],
             "outputPath": "dist/client",
             "index": "src/index.html",

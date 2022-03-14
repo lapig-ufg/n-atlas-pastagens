@@ -6,6 +6,7 @@ import {Geometry, LineString, Polygon} from 'ol/geom';
 import {unByKey} from 'ol/Observable';
 import { Ruler } from "../interfaces";
 import { DecimalPipe } from '@angular/common';
+import {calculateGeodesicArea, formatGeodesicArea} from "./calculateArea";
 
 abstract class RulerControl {
 
@@ -53,7 +54,8 @@ abstract class RulerControl {
             // set sketch
             this.sketch = drawEvent.feature;
 
-            listener = this.sketch.getGeometry().on('change', evt => {
+            // @ts-ignore
+          listener = this.sketch.getGeometry().on('change', evt => {
                 const geom: Geometry = evt.target;
                 const output: string = this.format(geom);
 
@@ -95,10 +97,13 @@ abstract class RulerControl {
             // unset tooltip so that a new one can be created
             // @ts-ignore
             this.measureTooltipElement = null;
+            // @ts-ignore
             this.sketch.overlay = this.measureTooltip;
+            // @ts-ignore
             this.sketch.ruler = true;
 
             // unset sketch
+            // @ts-ignore
             this.sketch = null;
 
             unByKey(listener);
@@ -156,20 +161,20 @@ export class RulerCtrl extends RulerControl {
 }
 
 export function calculaArea(area: number): string {
-    let output: string;
-    const decimalPipe: DecimalPipe = new DecimalPipe('pt-BR');
+    // let output: string;
+    // const decimalPipe: DecimalPipe = new DecimalPipe('pt-BR');
+    //
+    // if (area > 100000) {
+    //     output = decimalPipe.transform( Math.round((area / 100000) * 100) / 100, '1.2-2')  + ' ' + 'km<sup>2</sup>';
+    // } else if (area >= 10) {
+    //     output = decimalPipe.transform( Math.round((area / 10) * 100) / 100, '1.2-2')  + ' ' + 'm<sup>2</sup>';
+    // } else {
+    //     output = decimalPipe.transform( Math.round(area * 100000) / 100, '1.2-2') + ' ' + 'cm<sup>2</sup>';
+    // }
+    //
+    // output += ' ou ' + decimalPipe.transform( Math.round((area / 100000) * 10000) / 100, '1.2-2') + ' ' + 'ha';
 
-    if (area > 100000) {
-        output = decimalPipe.transform( Math.round((area / 100000) * 100) / 100, '1.2-2')  + ' ' + 'km<sup>2</sup>';
-    } else if (area >= 10) {
-        output = decimalPipe.transform( Math.round((area / 10) * 100) / 100, '1.2-2')  + ' ' + 'm<sup>2</sup>';
-    } else {
-        output = decimalPipe.transform( Math.round(area * 100000) / 100, '1.2-2') + ' ' + 'cm<sup>2</sup>';
-    }
-
-    output += ' ou ' + decimalPipe.transform( Math.round((area / 100000) * 10000) / 100, '1.2-2') + ' ' + 'ha';
-
-    return output;
+    return formatGeodesicArea(area);
 }
 
 export class RulerAreaCtrl extends RulerControl {
@@ -178,9 +183,14 @@ export class RulerAreaCtrl extends RulerControl {
     }
 
     protected format(geometry: Geometry): string {
-        const area = getArea(geometry, {
-            projection: this.component.getMap().getView().getProjection()
-        });
-        return calculaArea(area);
+        // const area = getArea(geometry, {
+        //     projection: this.component.getMap().getView().getProjection()
+        // });
+
+      console.log(geometry)
+      // @ts-ignore
+      const area = calculateGeodesicArea(geometry)
+
+      return calculaArea(area);
     }
 }
