@@ -1,7 +1,7 @@
 import { Feature, Overlay } from 'ol';
 import { Draw } from 'ol/interaction';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
-import { getArea, getLength } from 'ol/sphere';
+import { getLength } from 'ol/sphere';
 import { Geometry, LineString, Polygon } from 'ol/geom';
 import { unByKey } from 'ol/Observable';
 import { Ruler } from "../interfaces";
@@ -126,13 +126,8 @@ abstract class RulerControl {
 
         this.measureTooltipElement = document.createElement('div');
         this.measureTooltipElement.className = 'ol-tooltip';
-
         // @ts-ignore
-        this.measureTooltip = new Overlay({
-            element: this.measureTooltipElement,
-            offset: [0, -15],
-            positioning: 'bottom-center',
-        });
+      this.measureTooltip = new Overlay({ element: this.measureTooltipElement, offset: [0, -15], positioning: 'bottom-center',});
 
         this.component.addOverlay(this.measureTooltip);
     }
