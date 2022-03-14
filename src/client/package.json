@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npx ng serve -- --open --host 0.0.0.0 --proxy-config proxy.conf.json",
+    "start": "ng serve -- --open --host 0.0.0.0 --proxy-config proxy.conf.json",
+    "start-client": "ng serve -- --open --host 0.0.0.0 --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -31,8 +32,11 @@
     "@turf/helpers": "^6.5.0",
     "@types/ol": "^6.5.3",
     "chart.js": "^3.6.0",
+    "export-to-csv": "^0.2.1",
     "file-saver": "^2.0.5",
     "font-gis": "^1.0.4",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.23",
     "geographiclib": "^1.52.0",
     "lodash-es": "^4.17.21",
     "moment": "^2.29.1",

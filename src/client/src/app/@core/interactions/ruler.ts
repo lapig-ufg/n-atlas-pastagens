@@ -1,9 +1,9 @@
-import {Feature, Overlay} from 'ol';
-import {Draw} from 'ol/interaction';
-import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
-import {getArea, getLength} from 'ol/sphere';
-import {Geometry, LineString, Polygon} from 'ol/geom';
-import {unByKey} from 'ol/Observable';
+import { Feature, Overlay } from 'ol';
+import { Draw } from 'ol/interaction';
+import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
+import { getArea, getLength } from 'ol/sphere';
+import { Geometry, LineString, Polygon } from 'ol/geom';
+import { unByKey } from 'ol/Observable';
 import { Ruler } from "../interfaces";
 import { DecimalPipe } from '@angular/common';
 import {calculateGeodesicArea, formatGeodesicArea} from "./calculateArea";
@@ -20,7 +20,7 @@ abstract class RulerControl {
     private sketch: Feature;
 
     protected constructor(protected component: Ruler, private type: string) {
-      this.decimalPipe = new DecimalPipe('pt-BR');
+        this.decimalPipe = new DecimalPipe('pt-BR');
     }
 
     getDraw(): Draw {
@@ -28,22 +28,22 @@ abstract class RulerControl {
             source: this.component.getSource(),
             type: this.type,
             style: new Style({
-              fill: new Fill({
-                color: 'rgba(255, 255, 255, 0.2)',
-              }),
-              stroke: new Stroke({
-                color: '#ffcc33',
-                width: 2,
-              }),
-              image: new CircleStyle({
-                radius: 7,
-                stroke: new Stroke({
-                  color: '#ffcc33',
-                }),
                 fill: new Fill({
-                  color: '#ffcc33',
+                    color: 'rgba(255, 255, 255, 0.2)',
                 }),
-              })
+                stroke: new Stroke({
+                    color: '#ffcc33',
+                    width: 2,
+                }),
+                image: new CircleStyle({
+                    radius: 7,
+                    stroke: new Stroke({
+                        color: '#ffcc33',
+                    }),
+                    fill: new Fill({
+                        color: '#ffcc33',
+                    }),
+                })
             }),
         });
 
@@ -86,7 +86,7 @@ abstract class RulerControl {
                 image: new CircleStyle({
                     radius: 7,
                     stroke: new Stroke({
-                      color: '#ffcc33',
+                        color: '#ffcc33',
                     }),
                     fill: new Fill({
                         color: '#ffcc33',
@@ -121,17 +121,18 @@ abstract class RulerControl {
     private createMeasureTooltip(): void {
         if (this.measureTooltipElement) {
             // @ts-ignore
-          this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement);
+            this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement);
         }
 
         this.measureTooltipElement = document.createElement('div');
         this.measureTooltipElement.className = 'ol-tooltip';
 
-      // @ts-ignore
-      this.measureTooltip = new Overlay({element: this.measureTooltipElement,
-        offset: [0, -15],
-        positioning: 'bottom-center',
-      });
+        // @ts-ignore
+        this.measureTooltip = new Overlay({
+            element: this.measureTooltipElement,
+            offset: [0, -15],
+            positioning: 'bottom-center',
+        });
 
         this.component.addOverlay(this.measureTooltip);
     }
@@ -149,11 +150,11 @@ export class RulerCtrl extends RulerControl {
         let output: string;
 
         if (length > 1000) {
-            output = this.decimalPipe.transform(Math.round((length / 1000) * 100) / 100, '1.2-2')  + ' ' + 'km';
+            output = this.decimalPipe.transform(Math.round((length / 1000) * 100) / 100, '1.2-2') + ' ' + 'km';
         } else if (length >= 1) {
-            output = this.decimalPipe.transform(Math.round(length * 100) / 100, '1.2-2')  + ' ' + 'm';
+            output = this.decimalPipe.transform(Math.round(length * 100) / 100, '1.2-2') + ' ' + 'm';
         } else {
-            output = this.decimalPipe.transform( Math.round(length * 10000) / 100, '1.2-2') + ' ' + 'cm';
+            output = this.decimalPipe.transform(Math.round(length * 10000) / 100, '1.2-2') + ' ' + 'cm';
         }
 
         return output;
