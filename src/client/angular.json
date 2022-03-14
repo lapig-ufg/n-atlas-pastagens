@@ -24,6 +24,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
+              "xml-utils/find-tags-by-name.js",
               "geotiff",
               "@mapbox/geojson-extent",
               "pdfmake/build/pdfmake",

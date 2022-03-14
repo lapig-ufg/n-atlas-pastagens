@@ -1,5 +1,5 @@
 declare const require: any;
-const GeographicLib = require('geographiclib');
+  const GeographicLib = require('geographiclib');
 import {Polygon} from 'ol/geom';
 import { DecimalPipe } from '@angular/common';
 
