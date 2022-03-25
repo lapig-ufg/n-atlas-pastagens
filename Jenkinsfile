@@ -102,7 +102,7 @@
             sh "docker rmi $registryprod/$application_name:latest"
         }
 
-        stage('Pull imagem on DEV') {
+        stage('Pull imagem on PROD') {
             
                     def urlImage = "http://$SERVER_PROD/images/create?fromImage=$registryprod/$application_name:latest";
                     def response = httpRequest url:"${urlImage}", httpMode:'POST', acceptType: 'APPLICATION_JSON', validResponseCodes:"200"
@@ -111,7 +111,7 @@
                     println pretty_json
             } 
 
-        stage('Deploy container on DEV') {
+        stage('Deploy container on PROD') {
                 
                         configFileProvider([configFile(fileId: "$File_Json_Id_APP_BASE_PROD", targetLocation: 'container-plataformbase-deploy-prod.json')]) {
 
@@ -125,7 +125,7 @@
                         }
     
             }            
-        stage('Start container on DEV') {
+        stage('Start container on PROD') {
 
                         final String url = "http://$SERVER_PROD/containers/$application_name/start"
                         final String response = sh(script: "curl -v -X POST -s $url", returnStdout: true).trim()
