@@ -6,7 +6,7 @@ ENV BRANCH="main"
 
 LABEL maintainer="Renato Gomes <renatogomessilverio@gmail.com>"
 
-RUN cd /APP && git clone -b ${BRANCH} ${URL_TO_APPLICATION_GITHUB} && \
+RUN rm -rfv /APP/plataform-base && cd /APP && git clone -b ${BRANCH} ${URL_TO_APPLICATION_GITHUB} && \
     cd /APP/plataform-base/src/server && npm install
     
 ADD ./src/client/dist/client /APP/plataform-base/src/client/dist/client
