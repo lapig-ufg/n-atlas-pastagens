@@ -3,7 +3,7 @@
     load "$JENKINS_HOME/.envvars"
     def exists=fileExists "src/server/package-lock.json"
     def exists2=fileExists "src/client/package-lock.json"
-    def application_name= "plataform-base"
+    def application_name= "app_base"
 
         stage('Checkout') {
             git branch: 'develop',
@@ -86,7 +86,7 @@
                 }
         }
         stage('Building Image') {
-            dockerImage = docker.build registryhomol + "/$application_name:$BUILD_NUMBER"
+            dockerImage = docker.build registryprod + "/$application_name:$BUILD_NUMBER"
         }
         stage('Push Image to Registry') {
             
@@ -98,13 +98,13 @@
                 
             }
         stage('Removing image Locally') {
-            sh "docker rmi $registryhomol/$application_name:$BUILD_NUMBER"
-            sh "docker rmi $registryhomol/$application_name:latest"
+            sh "docker rmi $registryprod/$application_name:$BUILD_NUMBER"
+            sh "docker rmi $registryprod/$application_name:latest"
         }
 
         stage('Pull imagem on DEV') {
             
-                    def urlImage = "http://$SERVER_HOMOL/images/create?fromImage=$registryhomol/$application_name:latest";
+                    def urlImage = "http://$SERVER_PROD/images/create?fromImage=$registryprod/$application_name:latest";
                     def response = httpRequest url:"${urlImage}", httpMode:'POST', acceptType: 'APPLICATION_JSON', validResponseCodes:"200"
                     println("Status: " + response.status)
                     def pretty_json = writeJSON( returnText: true, json: response.content)
@@ -113,21 +113,21 @@
 
         stage('Deploy container on DEV') {
                 
-                        configFileProvider([configFile(fileId: "$File_Json_Id", targetLocation: 'container.json')]) {
+                        configFileProvider([configFile(fileId: "$File_Json_Id", targetLocation: 'container-plataformbase.json')]) {
 
-                            def url = "http://$SERVER_HOMOL/containers/$application_name?force=true"
+                            def url = "http://$SERVER_PROD/containers/$application_name?force=true"
                             def response = sh(script: "curl -v -X DELETE $url", returnStdout: true).trim()
                             echo response
 
-                            url = "http://$SERVER_HOMOL/containers/create?name=$application_name"
-                            response = sh(script: "curl -v -X POST -H 'Content-Type: application/json' -d @container.json -s $url", returnStdout: true).trim()
+                            url = "http://$SERVER_PROD/containers/create?name=$application_name"
+                            response = sh(script: "curl -v -X POST -H 'Content-Type: application/json' -d @container-plataformbase.json -s $url", returnStdout: true).trim()
                             echo response
                         }
     
             }            
         stage('Start container on DEV') {
 
-                        final String url = "http://$SERVER_HOMOL/containers/$application_name/start"
+                        final String url = "http://$SERVER_PROD/containers/$application_name/start"
                         final String response = sh(script: "curl -v -X POST -s $url", returnStdout: true).trim()
                         echo response                    
                     
