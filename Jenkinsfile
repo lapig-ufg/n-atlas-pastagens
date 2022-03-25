@@ -6,11 +6,11 @@
     def application_name= "app_base"
 
         stage('Checkout') {
-            git branch: 'develop',
+            git branch: 'main',
             url: 'https://github.com/lapig-ufg/plataform-base.git'
         }
         stage('Validate') {
-            sh 'git pull origin develop'
+            sh 'git pull origin main'
 
         }
         stage('SonarQube analysis') {
