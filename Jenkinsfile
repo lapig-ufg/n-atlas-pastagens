@@ -113,7 +113,7 @@
 
         stage('Deploy container on DEV') {
                 
-                        configFileProvider([configFile(fileId: "$File_Json_Id", targetLocation: 'container-plataformbase-deploy-prod.json')]) {
+                        configFileProvider([configFile(fileId: "$File_Json_Id_APP_BASE_PROD", targetLocation: 'container-plataformbase-deploy-prod.json')]) {
 
                             def url = "http://$SERVER_PROD/containers/$application_name?force=true"
                             def response = sh(script: "curl -v -X DELETE $url", returnStdout: true).trim()
