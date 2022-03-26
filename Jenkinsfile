@@ -102,15 +102,12 @@
             sh "docker rmi $registryprod/$application_name:latest"
         }
 
-        stage('Pull imagem on PROD') {
+        stage ('Pull imagem on PROD') {
+        sshagent(credentials : ['PROD']) {
+            sh "$SERVER_PROD_SSH 'docker pull $registryPROD/$application_name:latest'"
+                }
             
-                    def urlImage = "http://$SERVER_PROD/images/create?fromImage=$registryprod/$application_name:latest";
-                    def response = httpRequest url:"${urlImage}", httpMode:'POST', acceptType: 'APPLICATION_JSON', validResponseCodes:"200"
-                    println("Status: " + response.status)
-                    def pretty_json = writeJSON( returnText: true, json: response.content)
-                    println pretty_json
-            } 
-
+        }
         stage('Deploy container on PROD') {
                 
                         configFileProvider([configFile(fileId: "$File_Json_Id_APP_BASE_PROD", targetLocation: 'container-plataformbase-deploy-prod.json')]) {
