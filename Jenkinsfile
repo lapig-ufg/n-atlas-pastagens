@@ -103,7 +103,7 @@
         }
 
         stage ('Pull imagem on PROD') {
-        sshagent(credentials : ['PROD']) {
+        sshagent(credentials : ['KEY_FULL']) {
             sh "$SERVER_PROD_SSH 'docker pull $registryPROD/$application_name:latest'"
                 }
             
