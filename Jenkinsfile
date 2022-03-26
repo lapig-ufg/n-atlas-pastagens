@@ -102,12 +102,13 @@
             sh "docker rmi $registryhomol/$application_name:latest"
         }
 
-        stage ('Pull imagem on PROD') {
-        sshagent(credentials : ['PROD']) {
-            sh "$SERVER_PROD_SSH 'docker pull $registryPROD/$application_name:latest'"
+        stage ('Pull imagem on DEV') {
+        sshagent(credentials : ['DEV']) {
+            sh "$SERVER_HOMOL_SSH 'docker pull $registryhomol/$application_name:latest'"
                 }
             
         }
+
         stage('Deploy container on DEV') {
                 
                         configFileProvider([configFile(fileId: "$File_Json_Id_APP_BASE_PROD", targetLocation: 'container-plataformbase-deploy-homol.json')]) {
